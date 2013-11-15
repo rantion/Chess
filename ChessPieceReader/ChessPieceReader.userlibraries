@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="java" />
+  <library name="junit-4.10">
+    <archive path="/Users/Rachel/Downloads/junit-4.10.jar" />
+  </library>
+</eclipse-userlibraries>
+
