@@ -16,8 +16,10 @@ public class DirectiveMatcher {
             castlePiece, castleColor, castlePosition, secondCastlePosition;
     private HashMap <String, String> pieces = new HashMap<String, String>();
     private HashMap <String, String> colors = new HashMap<String, String>();
+    private Board board;
 
-    public DirectiveMatcher(String pieceDirective){
+    public DirectiveMatcher(String pieceDirective, Board board){
+        this.board = board;
         populateColorHashMap();
         populatePieceHashMap();
         this.pieceDirective = pieceDirective.toUpperCase();
@@ -30,6 +32,7 @@ public class DirectiveMatcher {
         }
     }
 
+
     public void getPiecePieces(){
 //       String firstCheck =
         String regexBitch = ("(?<whole>(?<piece>[K|Q|R|P|N|B])(?<color>[L|D])(?<boardPosition>[A-H][1-8]{1})(?<secondBoardPosition>(\\ [A-H][1-8]{1}))?(?<capture>[\\*]?)(\\ (?<castlePiece>[K|Q|R|P|N|B])(?<castleColor>[L|D])(?<castlePosition>[A-H][1-8]{1})(?<castleSecondPosition>(\\ [A-H][1-8]{1})?))?$)");
@@ -37,10 +40,9 @@ public class DirectiveMatcher {
             Pattern regex = Pattern.compile(regexBitch);
             Matcher regexMatcher = regex.matcher(pieceDirective);
 
-            for(int i = 0; regexMatcher.find();i++)
-            {
+            while(regexMatcher.find()){
                 String whole =regexMatcher.group("whole");
-                System.out.println("Whole: "+whole);
+                System.out.println("Directive: "+whole);
                 piece = regexMatcher.group("piece");
                 color = regexMatcher.group("color");
                 boardPosition = regexMatcher.group("boardPosition");
@@ -51,9 +53,8 @@ public class DirectiveMatcher {
                 castlePosition = regexMatcher.group("castlePosition");
                 secondCastlePosition = regexMatcher.group("castleSecondPosition");
             }
-
         }
-        catch (Exception e){
+        catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -91,27 +92,47 @@ public class DirectiveMatcher {
     }
 
     public void printPlacePiece(){
-        System.out.println("Place "+getColor(color)+ " "+getPieceTitle(piece)+" on "+boardPosition);
+//        System.out.println("Place "+getColor(color)+ " "+getPieceTitle(piece)+" on "+boardPosition);
+
+        board.changeInput(boardPosition,checkIfLightPiece(color,piece));
+
     }
 
     public void printMovePiece(){
         if(capture == null)  {
-            System.out.println("Move "+getColor(color)+ " "+getPieceTitle(piece)+" from "+boardPosition+" to "+secondBoardPosition);
+//            System.out.println("Move "+getColor(color)+ " "+getPieceTitle(piece)+" from "+boardPosition+" to "+secondBoardPosition);
+
         }
         else if (capture!=null){
-            System.out.println(getColor(color)+ " "+getPieceTitle(piece)+" moves from "+boardPosition+" to"
-                    +secondBoardPosition+" and captures piece on" + secondBoardPosition);
+//            System.out.println(getColor(color)+ " "+getPieceTitle(piece)+" moves from "+boardPosition+" to"
+//                    +secondBoardPosition+" and captures piece on" + secondBoardPosition);
         }
+        board.changeInput(boardPosition, checkIfLightPiece(color,piece));
     }
 
     public void printCastlePiece(){
         if(color.equals(castleColor)) {
-            System.out.println(getColor(color)+ " "+getPieceTitle(piece)+ " on "+boardPosition
-                    +" castles with "+getColor(castleColor)+ " "+ getPieceTitle(castlePiece) +" on "+secondBoardPosition);
+//            System.out.println(getColor(color)+ " "+getPieceTitle(piece)+ " on "+boardPosition
+//                    +" castles with "+getColor(castleColor)+ " "+ getPieceTitle(castlePiece) +" on "+secondBoardPosition);
+            if(color == "L"){
+                piece.toLowerCase();
+            }
+            if(castleColor =="L"){
+                castlePiece.toLowerCase();
+            }
+            board.changeInput(secondBoardPosition,checkIfLightPiece(color,piece));
+            board.changeInput(boardPosition,checkIfLightPiece(castleColor,castlePiece));
         }
         else{
             notValid();
         }
+    }
+
+    public String checkIfLightPiece(String color, String piece){
+        if(color.equals("L")){
+           piece = piece.toLowerCase();
+        }
+        return piece;
     }
 
     public void populatePieceHashMap(){

@@ -1,23 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4642e6f2-d77a-4446-bdff-d2185d276b28" name="Default" comment="" />
+    <list default="true" id="4642e6f2-d77a-4446-bdff-d2185d276b28" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/company/Board.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/company/DirectiveMatcher.java" afterPath="$PROJECT_DIR$/src/com/company/DirectiveMatcher.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/company/Main.java" afterPath="$PROJECT_DIR$/src/com/company/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/company/ReadFile.java" afterPath="$PROJECT_DIR$/src/com/company/ReadFile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="ChessPieceReader.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Main.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384399280273" ignored="false" />
+    <file path="/Main.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384532068082" ignored="false" />
     <file path="/InputChecker.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384311528629" ignored="false" />
     <file path="$PROJECT_DIR$/src/com/company/InputChecker.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384311550613" ignored="false" />
-    <file path="/DirectiveMatcher.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384399967358" ignored="false" />
+    <file path="/DirectiveMatcher.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384532725802" ignored="false" />
     <file path="$PROJECT_DIR$/../antion_midterm/src/com/company/ContactInfo.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384357548803" ignored="false" />
     <file path="/ContactInfo.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384357520716" ignored="false" />
     <file path="$PROJECT_DIR$/../antion_midterm/src/com/company/Main.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384357388834" ignored="false" />
     <file path="$PROJECT_DIR$/../antion_midterm/src/com/company/JFrameEx.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384357336155" ignored="false" />
-    <file path="/ReadFile.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384378155257" ignored="false" />
+    <file path="/ReadFile.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384531999075" ignored="false" />
     <file path="/fragment.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384479398184" ignored="false" />
     <file path="$PROJECT_DIR$/../antion_mvc/src/com/company/Game.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384398271691" ignored="false" />
     <file path="/Game.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384398256163" ignored="false" />
     <file path="$PROJECT_DIR$/../antion_mvc/src/com/company/Controller.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384398271691" ignored="false" />
     <file path="/Controller.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384397982386" ignored="false" />
+    <file path="/Dummy.txt" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384488260423" ignored="false" />
+    <file path="/Board.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384488939316" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +47,7 @@
   </component>
   <component name="DebuggerManager">
     <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -74,7 +84,6 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -87,16 +96,7 @@
       <file leaf-file-name="Main.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="0" selection-start="505" selection-end="505" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Matcher.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home/src.zip!/java/util/regex/Matcher.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="523" column="0" selection-start="18639" selection-end="18639" vertical-scroll-proportion="0.0">
+            <state line="18" column="8" selection-start="669" selection-end="669" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -105,21 +105,30 @@
       <file leaf-file-name="DirectiveMatcher.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/DirectiveMatcher.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="58" column="64" selection-start="2340" selection-end="2340" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#526#542#0" expanded="true" />
-                <element signature="e#603#619#0" expanded="true" />
-              </folding>
+            <state line="123" column="87" selection-start="4493" selection-end="4493" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ReadFile.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ReadFile.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/ReadFile.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="0" selection-start="593" selection-end="593" vertical-scroll-proportion="0.5298507">
+            <state line="19" column="54" selection-start="404" selection-end="404" vertical-scroll-proportion="0.0">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Board.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/company/Board.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="33" column="24" selection-start="789" selection-end="789" vertical-scroll-proportion="0.42045453">
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#308#324#0" expanded="true" />
+                <element signature="e#381#389#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -131,6 +140,14 @@
       <setting name="OPEN_NEW_TAB" value="false" />
     </FindUsagesManager>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitLogSettings">
+    <option name="myDateState">
+      <MyDateState />
+    </option>
+  </component>
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
@@ -138,6 +155,7 @@
         <option value="$PROJECT_DIR$/src/com/company/ReadFile.java" />
         <option value="$PROJECT_DIR$/src/com/company/Main.java" />
         <option value="$PROJECT_DIR$/src/com/company/DirectiveMatcher.java" />
+        <option value="$PROJECT_DIR$/src/com/company/Board.java" />
       </list>
     </option>
   </component>
@@ -147,7 +165,7 @@
     <option name="width" value="1420" />
     <option name="height" value="818" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
     <OptionsSetting value="true" id="Remove" />
     <OptionsSetting value="true" id="Checkout" />
@@ -173,6 +191,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -211,21 +231,24 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="options.splitter.main.proportions" value="0.3" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="recentsLimit" value="5" />
+    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="FullScreen" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="dynamic.classpath" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="Regex">
     <option name="pos1" value="218" />
@@ -330,8 +353,8 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2496361" sideWeight="0.6704871" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295129" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13245997" sideWeight="0.6704871" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3295129" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Regex" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -405,6 +428,52 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/com/company/ReadFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="0" selection-start="593" selection-end="593" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/Board.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="45" selection-start="863" selection-end="863" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#308#324#0" expanded="true" />
+            <element signature="e#381#389#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="0" selection-start="505" selection-end="505" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home/src.zip!/java/util/regex/Matcher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="523" column="0" selection-start="18639" selection-end="18639" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/DirectiveMatcher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="58" column="64" selection-start="2340" selection-end="2340" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/ReadFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="0" selection-start="593" selection-end="593" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="12" column="5" selection-start="289" selection-end="503" vertical-scroll-proportion="0.0">
@@ -415,11 +484,7 @@
     <entry file="file://$PROJECT_DIR$/src/com/company/DirectiveMatcher.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="66" column="53" selection-start="2564" selection-end="2564" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#526#542#0" expanded="true" />
-            <element signature="e#603#619#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -432,47 +497,50 @@
     </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home/src.zip!/java/io/FileInputStream.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="145" column="0" selection-start="4823" selection-end="4823" vertical-scroll-proportion="0.3318182">
-          <folding />
-        </state>
+        <state line="145" column="0" selection-start="4823" selection-end="4823" vertical-scroll-proportion="0.3318182" />
       </provider>
     </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home/src.zip!/java/io/FileReader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="0" selection-start="1831" selection-end="1831" vertical-scroll-proportion="1.6363636">
-          <folding />
-        </state>
+        <state line="71" column="0" selection-start="1831" selection-end="1831" vertical-scroll-proportion="1.6363636" />
       </provider>
     </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home/src.zip!/java/util/regex/Matcher.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="523" column="0" selection-start="18639" selection-end="18639" vertical-scroll-proportion="0.0">
+        <state line="523" column="0" selection-start="18639" selection-end="18639" vertical-scroll-proportion="0.6818182">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="0" selection-start="505" selection-end="505" vertical-scroll-proportion="0.0">
+        <state line="18" column="8" selection-start="669" selection-end="669" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/ReadFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="54" selection-start="404" selection-end="404" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/DirectiveMatcher.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="64" selection-start="2340" selection-end="2340" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#526#542#0" expanded="true" />
-            <element signature="e#603#619#0" expanded="true" />
-          </folding>
+        <state line="123" column="87" selection-start="4493" selection-end="4493" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/ReadFile.java">
+    <entry file="file://$PROJECT_DIR$/src/com/company/Board.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="0" selection-start="593" selection-end="593" vertical-scroll-proportion="0.5298507">
-          <folding />
+        <state line="33" column="24" selection-start="789" selection-end="789" vertical-scroll-proportion="0.42045453">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#308#324#0" expanded="true" />
+            <element signature="e#381#389#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
