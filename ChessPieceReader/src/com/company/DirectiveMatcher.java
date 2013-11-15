@@ -35,14 +35,14 @@ public class DirectiveMatcher {
 
     public void getPiecePieces(){
 //       String firstCheck =
-        String regexBitch = ("(?<whole>(?<piece>[K|Q|R|P|N|B])(?<color>[L|D])(?<boardPosition>[A-H][1-8]{1})(?<secondBoardPosition>(\\ [A-H][1-8]{1}))?(?<capture>[\\*]?)(\\ (?<castlePiece>[K|Q|R|P|N|B])(?<castleColor>[L|D])(?<castlePosition>[A-H][1-8]{1})(?<castleSecondPosition>(\\ [A-H][1-8]{1})?))?$)");
+        String regexBitch = ("(?<whole>(?<piece>[K|Q|R|P|N|B])(?<color>[L|D])(?<boardPosition>[A-H][1-8]{1})(\\ (?<secondBoardPosition>[A-H][1-8]{1}))?(?<capture>[\\*]?)(\\ (?<castlePiece>[K|Q|R|P|N|B])(?<castleColor>[L|D])(?<castlePosition>[A-H][1-8]{1})(?<castleSecondPosition>(\\ [A-H][1-8]{1})?))?$)");
         try{
             Pattern regex = Pattern.compile(regexBitch);
             Matcher regexMatcher = regex.matcher(pieceDirective);
 
             while(regexMatcher.find()){
                 String whole =regexMatcher.group("whole");
-                System.out.println("Directive: "+whole);
+//                System.out.println("Directive: "+whole);
                 piece = regexMatcher.group("piece");
                 color = regexMatcher.group("color");
                 boardPosition = regexMatcher.group("boardPosition");
@@ -114,14 +114,8 @@ public class DirectiveMatcher {
         if(color.equals(castleColor)) {
 //            System.out.println(getColor(color)+ " "+getPieceTitle(piece)+ " on "+boardPosition
 //                    +" castles with "+getColor(castleColor)+ " "+ getPieceTitle(castlePiece) +" on "+secondBoardPosition);
-            if(color == "L"){
-                piece.toLowerCase();
-            }
-            if(castleColor =="L"){
-                castlePiece.toLowerCase();
-            }
-            board.changeInput(secondBoardPosition,checkIfLightPiece(color,piece));
             board.changeInput(boardPosition,checkIfLightPiece(castleColor,castlePiece));
+            board.changeInput(secondBoardPosition,checkIfLightPiece(color,piece));
         }
         else{
             notValid();
