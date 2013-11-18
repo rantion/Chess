@@ -29,7 +29,7 @@ public class ReadFile {
 
             String line;
             while ((line = reader.readLine()) != null) {
-                DirectiveMatcher directiveMatcher = new DirectiveMatcher(line, board);
+                MoveValidator moveValidator = new MoveValidator(line, board);
             }
             reader.close();
 

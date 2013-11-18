@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ChessPieceReader:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ChessPieceReader_jar</output-path>
+    <root id="archive" name="ChessPieceReader.jar">
+      <element id="module-output" name="ChessPieceReader" />
+    </root>
+  </artifact>
+</component>
