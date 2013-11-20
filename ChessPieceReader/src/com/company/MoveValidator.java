@@ -13,10 +13,11 @@ import java.util.regex.Pattern;
 public class MoveValidator {
     private String pieceDirective, piece, color, boardPosition, secondBoardPosition,capture,
             castlePiece, castleColor, castlePosition, secondCastlePosition;
+    private Game game = new Game();
     private Board board;
 
-    public MoveValidator(String pieceDirective, Board board){
-        this.board = board;
+    public MoveValidator(String pieceDirective){
+        board = game.getBoard();
         this.pieceDirective = pieceDirective.toUpperCase();
         try{
             getCommandPieces();

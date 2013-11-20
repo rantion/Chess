@@ -16,6 +16,7 @@ public class Board {
     private final int WIDTH = 8;
     private final int HEIGHT = 8;
 
+
     public Board(){
         makeBoard();
     }
@@ -29,6 +30,18 @@ public class Board {
         }
     }
 
+    public void setUpBoard(){
+
+    }
+
+    private void setUpDark(){
+
+    }
+
+    private void setUpLight(){
+
+    }
+
 
     public void printBoard(){
         for(int i = 0; i< board.length; i++){
@@ -40,13 +53,13 @@ public class Board {
         }
     }
 
-    public void placePiece (String key, String input){
+    public void placePiece (String location, String input){
            char A = 'A';
            char int1 = '1';
            int indexLetterReference = (int)A;
            int indexNumberReference = (int)int1;
 
-           char[] keys =key.toCharArray();
+           char[] keys =location.toCharArray();
            int index1 = convertLetter(keys[1]-indexNumberReference)-2;
                 //-2 because although a8 is a valid square on the chessboard, the array is 0-7
            int index2 = keys[0]-indexLetterReference;
@@ -54,16 +67,9 @@ public class Board {
 
     }
 
-    public int convertLetter(int key2){
-        // 9 is used to convert the letter into the correct index
-        // input (desired)output
-        //  1         8
-        //  2         7
-        //  3         6
-        // 1+8 = 9
-        // 1+2 = 9
-        //3 + x = 9;
-           return 9-key2;
+    private int convertLetter(int key2){
+
+           return (WIDTH+1)-key2;
 
     }
 

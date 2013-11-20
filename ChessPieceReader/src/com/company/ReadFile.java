@@ -14,12 +14,12 @@ import java.io.IOException;
  */
 public class ReadFile {
 
-    public ReadFile(String filePath, Board board){
-        readInFile(filePath, board);
+    public ReadFile(String filePath){
+        readInFile(filePath);
 
     }
 
-    public void readInFile(String filePath, Board board){
+    public void readInFile(String filePath){
 
         BufferedReader reader = null;
 
@@ -29,7 +29,7 @@ public class ReadFile {
 
             String line;
             while ((line = reader.readLine()) != null) {
-                MoveValidator moveValidator = new MoveValidator(line, board);
+                MoveValidator moveValidator = new MoveValidator(line);
             }
             reader.close();
 
