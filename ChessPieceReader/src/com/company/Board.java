@@ -1,8 +1,6 @@
 package com.company;
 
 
-import com.sun.xml.internal.messaging.saaj.util.FinalArrayList;
-
 /**
  * Created with IntelliJ IDEA.
  * User: Rachel
@@ -12,9 +10,13 @@ import com.sun.xml.internal.messaging.saaj.util.FinalArrayList;
  */
 public class Board {
 
-    private String board [][];
+    private Square board [][];
     private final int WIDTH = 8;
     private final int HEIGHT = 8;
+    private final char A ='A';
+    private final char int1 ='1';
+    private final int indexLetterReference = (int)A;
+    private final int indexNumberReference = (int)int1;
 
 
     public Board(){
@@ -22,48 +24,58 @@ public class Board {
     }
 
     public void makeBoard(){
-        board = new String [WIDTH][HEIGHT];
+        board = new Square[WIDTH][HEIGHT];
         for(int i = 0; i< board.length; i++){
             for(int j = 0; j< board[i].length; j++){
-                board[i][j]="-";
+                board[i][j]= new Square("-");
             }
         }
     }
-
-    public void setUpBoard(){
-
-    }
-
-    private void setUpDark(){
-
-    }
-
-    private void setUpLight(){
-
-    }
-
 
     public void printBoard(){
         for(int i = 0; i< board.length; i++){
             String line = "";
             for(int j = 0; j< board.length; j++){
-                line += (board[i][j]+" ");
+                line += (board[i][j].getContent()+" ");
             }
             System.out.println(line);
         }
     }
 
-    public void placePiece (String location, String input){
-           char A = 'A';
-           char int1 = '1';
-           int indexLetterReference = (int)A;
-           int indexNumberReference = (int)int1;
 
+    public void removePiece(String location){
+        char[] keys =location.toCharArray();
+        int index1 = convertLetter(keys[1]-indexNumberReference)-2;
+        int index2 = keys[0]-indexLetterReference;
+        board[index1][index2].setContent("-");
+    }
+
+    public boolean checkIfSquareEmpty(String location){
+        System.out.println("Location: "+location);
+        System.out.println("Inside checkIfSquareEmpty: ");
+        boolean empty = false;
+        char[] keys =location.toCharArray();
+        int index1 = convertLetter(keys[1]-indexNumberReference)-2;
+        int index2 = keys[0]-indexLetterReference;
+
+        if(board[index1][index2].getContent() != "-")  {
+            System.out.println("There is already a piece there.");
+            empty = false;
+        }
+        else {
+            empty = true;
+        }
+        return empty;
+
+    }
+
+    public void placePiece (String location, String input){
            char[] keys =location.toCharArray();
            int index1 = convertLetter(keys[1]-indexNumberReference)-2;
                 //-2 because although a8 is a valid square on the chessboard, the array is 0-7
            int index2 = keys[0]-indexLetterReference;
-           board[index1][index2] = input;
+            board[index1][index2].setContent(input);
+
 
     }
 

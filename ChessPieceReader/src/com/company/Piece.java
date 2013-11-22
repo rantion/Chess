@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.ArrayList;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Rachel
@@ -15,17 +17,34 @@ public class Piece {
     private final int rightBoundry = 72; //ascii value of H
     private final int bottomBoundry = 49; //ascii value of 1
     private final int topBoundry = 56; //ascii value of 8
+    private final int widthHeight = 8;
+    private int maxUpDown, maxUpDown1, maxLeftRight, maxLeftRight1;
+    public String color, piece;
+    public ArrayList<String> validMoves = new ArrayList();
+    Board board;
 
 
 
-
-    public Piece(){
-
+    public Piece(Board board,String color){
+        this.board = board;
+        this.color = color;
 
     }
 
-    public void move(String newLocation){
-        System.out.println("This move was valid and worked good sir!");
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void move(String oldLocation,String newLocation, String piece){
+        if(board.checkIfSquareEmpty(newLocation)){
+            board.removePiece(oldLocation);
+            System.out.println("This move was valid and worked good sir!");
+            board.placePiece(newLocation,piece);  }
+
     }
 
     public void checkMove(String firstLocation, String secondLocation){
@@ -42,7 +61,7 @@ public class Piece {
         splitStartingSquare(startingSquare);
         letterIndex = letterIndex +numOfTimes;
         newLocation();
-       return newLocation();
+        return newLocation();
     }
 
     public String moveHorizontallyLeft(String startingSquare, int numOfTimes){
@@ -52,7 +71,7 @@ public class Piece {
 //        if(!checkIfInBounds()){
 //            notInBounds();
 //        }
-       return newLocation();
+        return newLocation();
     }
 
     public String moveVerticallyUp(String startingSquare, int numOfTimes){
@@ -62,7 +81,7 @@ public class Piece {
 //        if(!checkIfInBounds()){
 //            notInBounds();
 //        }
-       return newLocation();
+        return newLocation();
     }
 
     public String moveVerticallyDown(String startingSquare, int numOfTimes){
@@ -72,7 +91,7 @@ public class Piece {
 //        if(!checkIfInBounds()){
 //            notInBounds();
 //        }
-       return newLocation();
+        return newLocation();
     }
 
     public String moveDiagonalUpperLeft(String startingSquare, int numOfTimes){
@@ -114,6 +133,126 @@ public class Piece {
 
     // </editor-fold>
 
+
+    public void checkDiagonalUpperLeft(String startingSquare){
+        System.out.println("Inside checkDiagonalUpperLeft");
+        splitStartingSquare(startingSquare);
+        setMaxes();
+
+            boolean keepChecking = true;
+            for(int i = 1; i< getMaxSquare(maxLeftRight1,maxUpDown)&& keepChecking;i++){
+                if(!board.checkIfSquareEmpty(moveDiagonalUpperLeft(startingSquare,i))){
+                    System.out.println("this is empty");
+                    keepChecking = false;
+                }
+                else{
+                    System.out.println(moveDiagonalUpperLeft(startingSquare, i));
+                    validMoves.add(moveDiagonalUpperLeft(startingSquare,i));
+                }
+            }
+    }
+
+    public void checkDiagonalUpperRight(String startingSquare){
+        System.out.println("Inside checkDiagonalUpperRight");
+        splitStartingSquare(startingSquare);
+        setMaxes();
+
+        boolean keepChecking = true;
+        for(int i = 1; i<getMaxSquare(maxLeftRight1,maxUpDown1) && keepChecking;i++){
+            if(!board.checkIfSquareEmpty(moveDiagonalUpperRight(startingSquare, i))){
+                System.out.println("this is empty");
+                keepChecking = false;
+            }
+            else{
+                System.out.println(moveDiagonalUpperRight(startingSquare, i));
+                validMoves.add(moveDiagonalUpperRight(startingSquare, i));
+            }
+        }
+    }
+
+    public void checkDiagonalLowerLeft(String startingSquare){
+        System.out.println("Inside checkDiagonalLowerLeft");
+        splitStartingSquare(startingSquare);
+        setMaxes();
+
+
+        boolean keepChecking = true;
+        for(int i = 1; i<getMaxSquare(maxLeftRight1,maxUpDown1) && keepChecking;i++){
+            if(!board.checkIfSquareEmpty(moveDiagonalLowerLeft(startingSquare, i))){
+                System.out.println("this is empty");
+                keepChecking = false;
+            }
+            else{
+                System.out.println(moveDiagonalLowerLeft(startingSquare, i));
+                validMoves.add(moveDiagonalLowerLeft(startingSquare, i));
+            }
+        }
+    }
+
+    public void checkDiagonalLowerRight(String startingSquare){
+        System.out.println("Inside checkDiagonalLowerRight");
+        splitStartingSquare(startingSquare);
+        setMaxes();
+
+
+        boolean keepChecking = true;
+        for(int i = 1; i<getMaxSquare(maxLeftRight,maxUpDown1) && keepChecking;i++){
+            if(!board.checkIfSquareEmpty(moveDiagonalLowerRight(startingSquare, i))){
+                System.out.println("this is empty");
+                keepChecking = false;
+            }
+            else{
+                System.out.println(moveDiagonalLowerRight(startingSquare, i));
+                validMoves.add(moveDiagonalLowerRight(startingSquare, i));
+            }
+        }
+    }
+
+
+    private int getMaxSquare (int leftRight, int upDown){
+        int maxSquare = 0;
+
+        System.out.println("LeftRight: "+leftRight);
+        System.out.println("UpDown: "+upDown);
+
+        if(leftRight==0){
+//            System.out.println("Inside if MaxLeftRight = 0");
+            maxSquare = upDown;
+        }
+        else if(upDown==0){
+//            System.out.println("\nInside if UpDown = 0");
+            maxSquare = leftRight;
+        }
+        else if(leftRight<upDown){
+//            System.out.println("Inside if RightLeft less than MaxUpDown");
+            maxSquare = leftRight;
+        }
+        else if(leftRight>upDown){
+//            System.out.println("Inside if UPDown less than MaxRightLeft");
+            maxSquare = upDown;
+        }
+        else if(leftRight == upDown){
+            maxSquare = upDown;
+        }
+        else{
+            System.out.println("Something bad has occured :/");
+        }
+        System.out.println("Max Square in getMaxSquare method: " +maxSquare);
+       return maxSquare;
+    }
+
+    private void setMaxes(){
+      maxLeftRight = (rightBoundry - letterIndex);
+      maxLeftRight1 = widthHeight-(maxLeftRight);
+      maxUpDown = (bottomBoundry - numberIndex)*-1;
+      maxUpDown1 = widthHeight-(maxUpDown);
+        System.out.println("maxLeftRight: "+maxLeftRight);
+        System.out.println("maxLeftRight1: "+maxLeftRight1);
+        System.out.println("maxUpDown: "+maxUpDown);
+        System.out.println("maxUpDown1: "+maxUpDown1);
+    }
+
+
     // <editor-fold desc="Methods Used by Move Methods">
 
     private void splitStartingSquare(String startingSquare){
@@ -127,11 +266,10 @@ public class Piece {
     }
 
     public void checkIfInBounds(String location){
-       splitStartingSquare(location);
+        splitStartingSquare(location);
         if(letterIndex>=leftBoundry && letterIndex<=rightBoundry && numberIndex<=topBoundry && numberIndex>=bottomBoundry){
-                       newLocation();
+            newLocation();
         }
-
     }
 
     private String newLocation(){

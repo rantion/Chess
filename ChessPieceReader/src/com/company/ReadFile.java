@@ -29,7 +29,9 @@ public class ReadFile {
 
             String line;
             while ((line = reader.readLine()) != null) {
+                if(line!=null){
                 MoveValidator moveValidator = new MoveValidator(line);
+                }
             }
             reader.close();
 

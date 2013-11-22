@@ -9,7 +9,7 @@ package com.company;
  */
 public class Rook extends Piece{
 
-    public Rook(){
-
+    public Rook(Board board, String color){
+      super(board, color);
     }
 }

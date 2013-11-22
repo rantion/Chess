@@ -9,7 +9,8 @@ package com.company;
  */
 public class Bishop extends Piece {
 
-    public Bishop(){
+    public Bishop(Board board, String color){
+        super(board, color);
 
     }
 }

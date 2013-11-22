@@ -9,26 +9,42 @@ package com.company;
  */
 public class Queen extends Piece {
 
-    public Queen(){
+    public Queen(Board board, String color){
+        super(board, color);
+        piece = "Q";
 
     }
 
     public void checkMove(String firstLocation, String secondLocation){
-        boolean validMove = (moveDiagonalLowerLeft(firstLocation,1).equals(secondLocation)||
-                moveDiagonalUpperLeft(firstLocation,1).equals(secondLocation) ||
-                moveDiagonalLowerRight(firstLocation,1).equals(secondLocation)||
-                moveDiagonalUpperRight(firstLocation,1).equals(secondLocation)||
-                moveHorizontallyLeft(firstLocation,1).equals(secondLocation)||
-                moveHorizontallyRight(firstLocation,1).equals(secondLocation)||
-                moveVerticallyUp(firstLocation,1).equals(secondLocation)||
-                moveVerticallyDown(firstLocation,1).equals(secondLocation));
+        System.out.println("Inside CheckMove");
+       boolean validMove = false;
+        checkDiagonalUpperLeft(firstLocation);
+        checkDiagonalUpperRight(firstLocation);
+        checkDiagonalLowerLeft(firstLocation);
+        checkDiagonalLowerRight(firstLocation);
+        System.out.println("ValidMoves: "+validMoves);
+        for(String location:validMoves){
+            if(location.equals(secondLocation)){
+               validMove = true;
+            }
+        }
 
         if(!validMove) {
             notValid();
         }
         else {
             checkIfInBounds(secondLocation);
-            move(secondLocation);
+            if(color.equals("L")){
+                piece = piece.toLowerCase();
+            }
+            move(firstLocation,secondLocation,piece);
         }
     }
+
+
+
+
+
+
+
 }

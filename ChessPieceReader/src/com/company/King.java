@@ -9,10 +9,15 @@ package com.company;
  */
 public class King extends Piece {
 
-    public King(){
+    private Board board;
+
+    public King(Board board, String color){
+       super(board, color);
+        piece = "K";
     }
 
     public void checkMove(String firstLocation, String secondLocation){
+        try{
         boolean validMove = (moveDiagonalLowerLeft(firstLocation,1).equals(secondLocation)||
                 moveDiagonalUpperLeft(firstLocation,1).equals(secondLocation) ||
                 moveDiagonalLowerRight(firstLocation,1).equals(secondLocation)||
@@ -27,12 +32,15 @@ public class King extends Piece {
        }
         else {
            checkIfInBounds(secondLocation);
-           move(secondLocation);
+           if(color.equals("L")) {
+               piece = piece.toLowerCase();
+           }
+           move(firstLocation,secondLocation,piece);
        }
-
-
-
-
+        }
+        catch (Exception e){
+            System.out.println("Please enter two valid squares");
+        }
     }
 
 
