@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.ArrayList;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Rachel
@@ -17,31 +19,29 @@ public class King extends Piece {
     }
 
     public void checkMove(String firstLocation, String secondLocation){
-        try{
-        boolean validMove = (moveDiagonalLowerLeft(firstLocation,1).equals(secondLocation)||
-                moveDiagonalUpperLeft(firstLocation,1).equals(secondLocation) ||
-                moveDiagonalLowerRight(firstLocation,1).equals(secondLocation)||
-                moveDiagonalUpperRight(firstLocation,1).equals(secondLocation)||
-                moveHorizontallyLeft(firstLocation,1).equals(secondLocation)||
-                moveHorizontallyRight(firstLocation,1).equals(secondLocation)||
-                moveVerticallyUp(firstLocation,1).equals(secondLocation)||
-                moveVerticallyDown(firstLocation,1).equals(secondLocation));
 
-       if(!validMove) {
-           notValid();
-       }
-        else {
-           checkIfInBounds(secondLocation);
-           if(color.equals("L")) {
-               piece = piece.toLowerCase();
-           }
-           move(firstLocation,secondLocation,piece);
-       }
+        boolean validMove = false;
+         checkKing(firstLocation);
+
+            System.out.println("ValidMoves: "+validMoves);
+            for(String location:validMoves){
+                if(location.equals(secondLocation)){
+                    validMove = true;
+                }
+            }
+
+            if(!validMove) {
+                notValid();
+            }
+            else {
+                checkIfInBounds(secondLocation);
+                if(color.equals("L")){
+                    piece = piece.toLowerCase();
+                }
+                validMoves = new ArrayList<String>();
+                move(firstLocation,secondLocation,piece);
+            }
         }
-        catch (Exception e){
-            System.out.println("Please enter two valid squares");
-        }
-    }
 
 
 

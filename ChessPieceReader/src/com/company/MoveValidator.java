@@ -25,6 +25,7 @@ public class MoveValidator {
         }
         catch(Exception e){
             notValid();
+            e.printStackTrace();
         }
     }
 
@@ -66,7 +67,7 @@ public class MoveValidator {
             }
         }
         else{
-            CastlePiece();
+//            CastlePiece();
         }
     }
 
@@ -75,26 +76,63 @@ public class MoveValidator {
     }
 
     public void PlacePiece(){
-        board.placePiece(boardPosition, checkIfLightPiece(color, piece));
+        board.placePiece(boardPosition, createPiece(),checkIfLightPiece(color, piece));
+
+
     }
 
     public void MovePiece(){
-        board.placePiece(secondBoardPosition, checkIfLightPiece(color, piece));
+       Piece pieceToMove = board.getPiece(boardPosition);
+        pieceToMove.checkMove(boardPosition,secondBoardPosition);
     }
 
-    public void CastlePiece(){
-        if(color.equals(castleColor)) {
-            board.placePiece(boardPosition, checkIfLightPiece(castleColor, castlePiece));
-            board.placePiece(secondBoardPosition, checkIfLightPiece(color, piece));
+//    public void CastlePiece(){
+//        if(color.equals(castleColor)) {
+//            board.placePiece(boardPosition, checkIfLightPiece(castleColor, castlePiece));
+//            board.placePiece(secondBoardPosition, checkIfLightPiece(color, piece));
+//        }
+//        else{
+//            notValid();
+//        }
+//    }
+
+   private Piece createPiece(){
+        Piece newPiece = new Piece(board,color);
+        if(piece.equals("K")){
+            newPiece = new King(board, color);
         }
-        else{
-            notValid();
+        else if(piece.equals("Q")){
+            newPiece = new Queen(board, color);
         }
+        else if(piece.equals("R")){
+            newPiece = new Rook (board, color);
+        }
+        else if(piece.equals("N")){
+            newPiece = new Knight(board,color);
+        }
+        else if(piece.equals("B")){
+            newPiece = new Rook(board, color);
+        }
+        else if(piece.equals("P")){
+            newPiece = new Pawn(board, color);
+        }
+       else{
+            System.out.println("Something is fucked");
+        }
+        return newPiece;
+    }
+
+    public String getPieceDirective() {
+        return pieceDirective;
+    }
+
+    public void setPieceDirective(String pieceDirective) {
+        this.pieceDirective = pieceDirective;
     }
 
     public String checkIfLightPiece(String color, String piece){
         if(color.equals("L")){
-           piece = piece.toLowerCase();
+            piece = piece.toLowerCase();
         }
         return piece;
     }

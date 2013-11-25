@@ -16,6 +16,19 @@ public class Square {
         this.content = content;
     }
 
+    public Square(String content, Piece piece){
+        this.content = content;
+        this.piece = piece;
+    }
+
+    public Piece getPiece() {
+        return piece;
+    }
+
+    public void setPiece(Piece piece) {
+        this.piece = piece;
+    }
+
     public String getContent() {
         return content;
     }

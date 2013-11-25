@@ -2,22 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4642e6f2-d77a-4446-bdff-d2185d276b28" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/company/Square.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/company/Bishop.java" afterPath="$PROJECT_DIR$/src/com/company/Bishop.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/company/Board.java" afterPath="$PROJECT_DIR$/src/com/company/Board.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/company/King.java" afterPath="$PROJECT_DIR$/src/com/company/King.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/company/Knight.java" afterPath="$PROJECT_DIR$/src/com/company/Knight.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/company/Main.java" afterPath="$PROJECT_DIR$/src/com/company/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/company/Pawn.java" afterPath="$PROJECT_DIR$/src/com/company/Pawn.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/company/MoveValidator.java" afterPath="$PROJECT_DIR$/src/com/company/MoveValidator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/company/Piece.java" afterPath="$PROJECT_DIR$/src/com/company/Piece.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/company/Queen.java" afterPath="$PROJECT_DIR$/src/com/company/Queen.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/company/ReadFile.java" afterPath="$PROJECT_DIR$/src/com/company/ReadFile.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/company/Rook.java" afterPath="$PROJECT_DIR$/src/com/company/Rook.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/company/Square.java" afterPath="$PROJECT_DIR$/src/com/company/Square.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ChessPieceReader.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Main.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1385091642139" ignored="false" />
+    <file path="/Main.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1385337478258" ignored="false" />
     <file path="/InputChecker.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384311528629" ignored="false" />
     <file path="$PROJECT_DIR$/src/com/company/InputChecker.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384311550613" ignored="false" />
     <file path="/DirectiveMatcher.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384791237153" ignored="false" />
@@ -25,16 +25,16 @@
     <file path="/ContactInfo.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384357520716" ignored="false" />
     <file path="$PROJECT_DIR$/../antion_midterm/src/com/company/Main.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384357388834" ignored="false" />
     <file path="$PROJECT_DIR$/../antion_midterm/src/com/company/JFrameEx.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384357336155" ignored="false" />
-    <file path="/ReadFile.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384980175737" ignored="false" />
-    <file path="/fragment.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384837216112" ignored="false" />
+    <file path="/ReadFile.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1385337408571" ignored="false" />
+    <file path="/fragment.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1385338766555" ignored="false" />
     <file path="$PROJECT_DIR$/../antion_mvc/src/com/company/Game.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384398271691" ignored="false" />
     <file path="/Game.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384910775147" ignored="false" />
     <file path="$PROJECT_DIR$/../antion_mvc/src/com/company/Controller.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384398271691" ignored="false" />
     <file path="/Controller.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384397982386" ignored="false" />
-    <file path="/Dummy.txt" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1385053665571" ignored="false" />
-    <file path="/Board.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384983422592" ignored="false" />
+    <file path="/Dummy.txt" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1385333724806" ignored="false" />
+    <file path="/Board.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1385339459946" ignored="false" />
     <file path="$USER_HOME$/Downloads/antion_mvc/src/com/company/Game.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384873252047" ignored="false" />
-    <file path="/Piece.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1385099950199" ignored="false" />
+    <file path="/Piece.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1385339694221" ignored="false" />
     <file path="$USER_HOME$/Downloads/antion_mvc/src/com/company/GuessNumberTab.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384838614587" ignored="false" />
     <file path="/GuessNumberTab.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384877707339" ignored="false" />
     <file path="$USER_HOME$/Downloads/antion_mvc/src/com/company/EnterNumberTab.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384873252047" ignored="false" />
@@ -44,15 +44,17 @@
     <file path="$USER_HOME$/mvcLab/antion_mvc/src/com/company/GuessNumberTab.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384919601903" ignored="false" />
     <file path="/GUI.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384875181223" ignored="false" />
     <file path="$USER_HOME$/mvcLab/antion_mvc/src/com/company/Game.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384876217531" ignored="false" />
-    <file path="/King.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384981037767" ignored="false" />
-    <file path="/Bishop.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384979706183" ignored="false" />
-    <file path="/Knight.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384981097375" ignored="false" />
+    <file path="/King.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1385336703863" ignored="false" />
+    <file path="/Bishop.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1385336752658" ignored="false" />
+    <file path="/Knight.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1385336721874" ignored="false" />
     <file path="/Pawn.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384979728606" ignored="false" />
-    <file path="/Queen.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1385100531765" ignored="false" />
-    <file path="/Rook.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384979752054" ignored="false" />
-    <file path="/MoveValidator.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384911019586" ignored="false" />
-    <file path="/Square.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1384978762831" ignored="false" />
+    <file path="/Queen.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1385336677768" ignored="false" />
+    <file path="/Rook.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1385336776399" ignored="false" />
+    <file path="/MoveValidator.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1385338074417" ignored="false" />
+    <file path="/Square.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1385337779751" ignored="false" />
     <file path="$USER_HOME$/Downloads/LejosProjectOne/src/com/company/DoinStuff.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1385006733478" ignored="false" />
+    <file path="$USER_HOME$/Downloads/antion_threads/src/com/company/Animator.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1385271416452" ignored="false" />
+    <file path="$USER_HOME$/Downloads/antion_threads/src/com/company/Ball.java" changelist="4642e6f2-d77a-4446-bdff-d2185d276b28" time="1385271413907" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +111,23 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
+      <breakpoint url="file://$PROJECT_DIR$/src/com/company/MoveValidator.java" line="78" class="com.company.MoveValidator" package="com.company">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </line_breakpoints>
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -122,7 +140,7 @@
       <file leaf-file-name="Main.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="84" selection-start="281" selection-end="281" vertical-scroll-proportion="0.0">
+            <state line="4" column="22" selection-start="65" selection-end="65" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -131,7 +149,7 @@
       <file leaf-file-name="ReadFile.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/ReadFile.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="23" selection-start="698" selection-end="698" vertical-scroll-proportion="0.0">
+            <state line="32" column="0" selection-start="707" selection-end="707" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -140,16 +158,25 @@
       <file leaf-file-name="MoveValidator.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/MoveValidator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="23" selection-start="781" selection-end="781" vertical-scroll-proportion="0.0">
+            <state line="124" column="39" selection-start="3918" selection-end="3918" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Queen.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/company/Queen.java">
+      <file leaf-file-name="Rook.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/company/Rook.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="55" selection-start="611" selection-end="611" vertical-scroll-proportion="0.6175637">
+            <state line="22" column="0" selection-start="527" selection-end="584" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Knight.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/company/Knight.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="16" column="0" selection-start="339" selection-end="339" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -158,7 +185,16 @@
       <file leaf-file-name="Board.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/Board.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="60" column="0" selection-start="1678" selection-end="1678" vertical-scroll-proportion="0.0">
+            <state line="76" column="63" selection-start="2456" selection-end="2456" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Square.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/company/Square.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="29" column="0" selection-start="568" selection-end="568" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -167,20 +203,25 @@
       <file leaf-file-name="Game.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="18" selection-start="263" selection-end="263" vertical-scroll-proportion="0.0">
+            <state line="17" column="0" selection-start="308" selection-end="308" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Piece.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Piece.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/company/Piece.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="247" column="41" selection-start="7984" selection-end="7984" vertical-scroll-proportion="0.0">
+            <state line="86" column="21" selection-start="3213" selection-end="3213" vertical-scroll-proportion="0.15254237">
               <folding>
-                <element signature="e#1497#1533#0" expanded="false" />
-                <element signature="method#checkDiagonalLowerLeft#0;class#Piece#0" expanded="false" />
-                <element signature="method#getMaxSquare#0;class#Piece#0" expanded="false" />
+                <element signature="method#checkKnight#0;class#Piece#0" expanded="false" />
+                <element signature="method#checkKing#0;class#Piece#0" expanded="false" />
+                <element signature="e#4598#4634#0" expanded="false" />
+                <element signature="e#6411#6459#0" expanded="false" />
+                <element signature="method#checkDiagonals#0;class#Piece#0" expanded="false" />
+                <element signature="n#!!doc;n#checkDiagonalUpperLeft#0;n#Piece#0" expanded="false" />
+                <element signature="n#!!doc;n#getMaxSquareDiagonalLowRight#0;n#Piece#0" expanded="false" />
+                <element signature="e#13712#13764#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -207,19 +248,19 @@
         <option value="$PROJECT_DIR$/src/com/company/InputChecker.java" />
         <option value="$PROJECT_DIR$/src/com/company/DirectiveMatcher.java" />
         <option value="$PROJECT_DIR$/src/com/company/MoveChecker.java" />
-        <option value="$PROJECT_DIR$/src/com/company/MoveValidator.java" />
         <option value="$PROJECT_DIR$/src/com/company/Game.java" />
-        <option value="$PROJECT_DIR$/src/com/company/Square.java" />
-        <option value="$PROJECT_DIR$/src/com/company/Bishop.java" />
         <option value="$PROJECT_DIR$/src/com/company/Pawn.java" />
-        <option value="$PROJECT_DIR$/src/com/company/Rook.java" />
-        <option value="$PROJECT_DIR$/src/com/company/ReadFile.java" />
         <option value="$PROJECT_DIR$/src/com/company/King.java" />
         <option value="$PROJECT_DIR$/src/com/company/Knight.java" />
-        <option value="$PROJECT_DIR$/src/com/company/Board.java" />
-        <option value="$PROJECT_DIR$/src/com/company/Main.java" />
-        <option value="$PROJECT_DIR$/src/com/company/Piece.java" />
+        <option value="$PROJECT_DIR$/src/com/company/Bishop.java" />
+        <option value="$PROJECT_DIR$/src/com/company/Rook.java" />
         <option value="$PROJECT_DIR$/src/com/company/Queen.java" />
+        <option value="$PROJECT_DIR$/src/com/company/ReadFile.java" />
+        <option value="$PROJECT_DIR$/src/com/company/Square.java" />
+        <option value="$PROJECT_DIR$/src/com/company/Main.java" />
+        <option value="$PROJECT_DIR$/src/com/company/Board.java" />
+        <option value="$PROJECT_DIR$/src/com/company/MoveValidator.java" />
+        <option value="$PROJECT_DIR$/src/com/company/Piece.java" />
       </list>
     </option>
   </component>
@@ -254,7 +295,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -294,6 +334,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -402,25 +443,25 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1420" height="729" extended-state="1" />
+    <frame x="0" y="22" width="1420" height="729" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3994253" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39901477" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16885008" sideWeight="0.27750412" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16885008" sideWeight="0.27914613" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32676518" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32512316" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Regex Tester" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16885008" sideWeight="0.3464696" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.37438422" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3727422" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Regex" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -494,113 +535,124 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home/src.zip!/java/io/FileReader.java">
+    <entry file="file://$PROJECT_DIR$/src/com/company/King.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="0" selection-start="1831" selection-end="1831" vertical-scroll-proportion="1.6363636" />
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home/src.zip!/java/util/regex/Matcher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="523" column="0" selection-start="18639" selection-end="18639" vertical-scroll-proportion="0.6818182" />
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home/src.zip!/java/lang/Class.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="189" column="0" selection-start="6287" selection-end="6287" vertical-scroll-proportion="4.193182" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/Square.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="23" selection-start="250" selection-end="250" vertical-scroll-proportion="0.23512748">
+        <state line="40" column="53" selection-start="1037" selection-end="1037" vertical-scroll-proportion="0.5508475">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/Bishop.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="28" selection-start="288" selection-end="288" vertical-scroll-proportion="0.4712042">
+        <state line="16" column="5" selection-start="344" selection-end="344" vertical-scroll-proportion="-0.31355932">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/Pawn.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="28" selection-start="284" selection-end="284" vertical-scroll-proportion="0.4712042">
+        <state line="12" column="28" selection-start="284" selection-end="284" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/King.java">
+    <entry file="file://$PROJECT_DIR$/src/com/company/Queen.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="62" selection-start="1441" selection-end="1441" vertical-scroll-proportion="0.0">
+        <state line="29" column="56" selection-start="768" selection-end="768" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/Knight.java">
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home/src.zip!/java/lang/Object.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="62" selection-start="1740" selection-end="1740" vertical-scroll-proportion="0.7450425">
+        <state line="36" column="0" selection-start="500" selection-end="500" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/Rook.java">
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home/jre/lib/rt.jar!/sun/misc/Launcher.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="26" selection-start="281" selection-end="281" vertical-scroll-proportion="0.0">
+        <state line="46" column="31" selection-start="1780" selection-end="1780" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/MoveValidator.java">
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home/src.zip!/java/lang/ClassLoader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="23" selection-start="781" selection-end="781" vertical-scroll-proportion="0.0">
+        <state line="487" column="0" selection-start="18416" selection-end="18416" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/ReadFile.java">
+    <entry file="file://$PROJECT_DIR$/src/com/company/Square.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="23" selection-start="698" selection-end="698" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="84" selection-start="281" selection-end="281" vertical-scroll-proportion="0.0">
+        <state line="29" column="0" selection-start="568" selection-end="568" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="18" selection-start="263" selection-end="263" vertical-scroll-proportion="0.0">
+        <state line="17" column="0" selection-start="308" selection-end="308" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/ReadFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="0" selection-start="707" selection-end="707" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="22" selection-start="65" selection-end="65" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/Knight.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="0" selection-start="339" selection-end="339" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/Rook.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="0" selection-start="527" selection-end="584" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/Board.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="0" selection-start="1678" selection-end="1678" vertical-scroll-proportion="0.0">
+        <state line="76" column="63" selection-start="2456" selection-end="2456" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/MoveValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="124" column="39" selection-start="3918" selection-end="3918" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/Piece.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="247" column="41" selection-start="7984" selection-end="7984" vertical-scroll-proportion="0.0">
+        <state line="86" column="21" selection-start="3213" selection-end="3213" vertical-scroll-proportion="0.15254237">
           <folding>
-            <element signature="e#1497#1533#0" expanded="false" />
-            <element signature="method#checkDiagonalLowerLeft#0;class#Piece#0" expanded="false" />
-            <element signature="method#getMaxSquare#0;class#Piece#0" expanded="false" />
+            <element signature="method#checkKnight#0;class#Piece#0" expanded="false" />
+            <element signature="method#checkKing#0;class#Piece#0" expanded="false" />
+            <element signature="e#4598#4634#0" expanded="false" />
+            <element signature="e#6411#6459#0" expanded="false" />
+            <element signature="method#checkDiagonals#0;class#Piece#0" expanded="false" />
+            <element signature="n#!!doc;n#checkDiagonalUpperLeft#0;n#Piece#0" expanded="false" />
+            <element signature="n#!!doc;n#getMaxSquareDiagonalLowRight#0;n#Piece#0" expanded="false" />
+            <element signature="e#13712#13764#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/Queen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="55" selection-start="611" selection-end="611" vertical-scroll-proportion="0.6175637">
-          <folding />
         </state>
       </provider>
     </entry>

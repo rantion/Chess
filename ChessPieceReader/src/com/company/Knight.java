@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.ArrayList;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Rachel
@@ -15,34 +17,26 @@ public class Knight extends Piece {
     }
 
     public void checkMove(String firstLocation, String secondLocation){
-        try{
-        boolean validMove = (moveVerticallyUp(moveHorizontallyLeft(firstLocation,2),1).equals(secondLocation)||
-        moveVerticallyDown(moveHorizontallyLeft(firstLocation,2),1).equals(secondLocation)||
-        moveVerticallyUp(moveHorizontallyRight(firstLocation,2),1).equals(secondLocation)||
-        moveVerticallyDown(moveHorizontallyRight(firstLocation,2),1).equals(secondLocation)||
+         boolean validMove = false;
+            checkKnight(firstLocation);
 
-        moveVerticallyUp(moveHorizontallyLeft(firstLocation,1),2).equals(secondLocation)||
-        moveVerticallyDown(moveHorizontallyLeft(firstLocation,1),2).equals(secondLocation)||
-        moveVerticallyUp(moveHorizontallyRight(firstLocation,1),2).equals(secondLocation)||
-        moveVerticallyDown(moveHorizontallyRight(firstLocation,1),2).equals(secondLocation));
-
-        if(!validMove) {
-            notValid();
-        }
-        else {
-            checkIfInBounds(secondLocation);
-            System.out.println("Piece: "+piece);
-            System.out.println("Color: "+color);
-            if(color.equals("L")){
-                System.out.println("In if statement");
-                piece =piece.toLowerCase();
+            System.out.println("ValidMoves: "+validMoves);
+            for(String location:validMoves){
+                if(location.equals(secondLocation)){
+                    validMove = true;
+                }
             }
-            System.out.println("piece: "+piece);
-            move(firstLocation,secondLocation,piece);
-        }
-    }
-        catch (Exception e){
-            System.out.println("Please enter two valid squares");
-        }
+
+            if(!validMove) {
+                notValid();
+            }
+            else {
+                checkIfInBounds(secondLocation);
+                if(color.equals("L")){
+                    piece = piece.toLowerCase();
+                }
+                validMoves = new ArrayList<String>();
+                move(firstLocation,secondLocation,piece);
+            }
     }
 }

@@ -48,19 +48,35 @@ public class Board {
         int index1 = convertLetter(keys[1]-indexNumberReference)-2;
         int index2 = keys[0]-indexLetterReference;
         board[index1][index2].setContent("-");
+        board[index1][index2].piece = null;
+
     }
 
-    public boolean checkIfSquareEmpty(String location){
-        System.out.println("Location: "+location);
-        System.out.println("Inside checkIfSquareEmpty: ");
+    public Piece getPiece(String location){
+        char[] keys =location.toCharArray();
+        int index1 = convertLetter(keys[1]-indexNumberReference)-2;
+        int index2 = keys[0]-indexLetterReference;
+        Piece piece = board[index1][index2].getPiece();
+        return piece;
+    }
+
+    public boolean checkIfSquareEmpty(String location, String color){
         boolean empty = false;
         char[] keys =location.toCharArray();
         int index1 = convertLetter(keys[1]-indexNumberReference)-2;
         int index2 = keys[0]-indexLetterReference;
 
         if(board[index1][index2].getContent() != "-")  {
-            System.out.println("There is already a piece there.");
-            empty = false;
+            if(board[index1][index2].getPiece().getColor().equals(color)){
+//                System.out.println("Inside second loop");
+//                System.out.println("There is already a piece there: " +board[index1][index2].getContent());
+                empty = false;
+            }
+            else{
+//                System.out.println("This should not be called if the first loop is already been called");
+//                System.out.println("There is a piece you can capture here yo" +board[index1][index2].getContent());
+                empty = true;
+            }
         }
         else {
             empty = true;
@@ -69,12 +85,14 @@ public class Board {
 
     }
 
-    public void placePiece (String location, String input){
+    public void placePiece (String location, Piece piece, String input){
+        String content = input;
            char[] keys =location.toCharArray();
            int index1 = convertLetter(keys[1]-indexNumberReference)-2;
                 //-2 because although a8 is a valid square on the chessboard, the array is 0-7
            int index2 = keys[0]-indexLetterReference;
-            board[index1][index2].setContent(input);
+            board[index1][index2].setContent(content);
+            board[index1][index2].setPiece(piece);
 
 
     }

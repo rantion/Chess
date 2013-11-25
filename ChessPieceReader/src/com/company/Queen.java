@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.ArrayList;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Rachel
@@ -16,16 +18,15 @@ public class Queen extends Piece {
     }
 
     public void checkMove(String firstLocation, String secondLocation){
-        System.out.println("Inside CheckMove");
-       boolean validMove = false;
-        checkDiagonalUpperLeft(firstLocation);
-        checkDiagonalUpperRight(firstLocation);
-        checkDiagonalLowerLeft(firstLocation);
-        checkDiagonalLowerRight(firstLocation);
-        System.out.println("ValidMoves: "+validMoves);
+        boolean validMove = false;
+        checkDiagonals(firstLocation);
+        checkHorizontals(firstLocation);
+        checkVerticals(firstLocation);
+//
+//        System.out.println("ValidMoves: "+validMoves);
         for(String location:validMoves){
             if(location.equals(secondLocation)){
-               validMove = true;
+                validMove = true;
             }
         }
 
@@ -37,6 +38,7 @@ public class Queen extends Piece {
             if(color.equals("L")){
                 piece = piece.toLowerCase();
             }
+            validMoves = new ArrayList<String>();
             move(firstLocation,secondLocation,piece);
         }
     }
