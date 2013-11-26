@@ -43,6 +43,32 @@ public class King extends Piece {
             }
         }
 
+    public void checkKing(String firstLocation){
+        if(board.checkIfSquareEmpty(moveDiagonalUpperLeft(firstLocation,1),this.color)){
+            validMoves.add(moveDiagonalUpperLeft(firstLocation,1));
+        }
+        if(board.checkIfSquareEmpty(moveDiagonalLowerLeft(firstLocation,1),this.color)){
+            validMoves.add(moveDiagonalLowerLeft(firstLocation,1));
+        }
+        if(board.checkIfSquareEmpty(moveDiagonalLowerRight(firstLocation,1),this.color)){
+            validMoves.add(moveDiagonalLowerRight(firstLocation,1));
+        }
+        if(board.checkIfSquareEmpty(moveDiagonalUpperRight(firstLocation,1),this.color)){
+            validMoves.add(moveDiagonalUpperRight(firstLocation,1));
+        }
+        if(board.checkIfSquareEmpty(moveHorizontallyLeft(firstLocation,1),this.color)){
+            validMoves.add(moveHorizontallyLeft(firstLocation,1));
+        }
+        if(board.checkIfSquareEmpty(moveHorizontallyRight(firstLocation,1),this.color)){
+            validMoves.add(moveHorizontallyRight(firstLocation,1));
+        }
+        if(board.checkIfSquareEmpty(moveVerticallyUp(firstLocation,1),this.color)){
+            validMoves.add(moveVerticallyUp(firstLocation,1));
+        }
+        if(board.checkIfSquareEmpty(moveVerticallyDown(firstLocation,1),this.color)){
+            validMoves.add(moveVerticallyDown(firstLocation,1));
+        }
 
+    }
 
 }

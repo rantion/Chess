@@ -39,4 +39,33 @@ public class Knight extends Piece {
                 move(firstLocation,secondLocation,piece);
             }
     }
+
+    public void checkKnight(String firstLocation){
+        if(board.checkIfSquareEmpty(moveVerticallyUp(moveHorizontallyLeft(firstLocation,2),1),this.color)){
+            validMoves.add(moveVerticallyUp(moveHorizontallyLeft(firstLocation,2),1));
+        }
+        if(board.checkIfSquareEmpty(moveVerticallyDown(moveHorizontallyLeft(firstLocation,2),1),this.color)){
+            validMoves.add(moveVerticallyDown(moveHorizontallyLeft(firstLocation,2),1));
+        }
+        if(board.checkIfSquareEmpty(moveVerticallyUp(moveHorizontallyRight(firstLocation,2),1),this.color)){
+            validMoves.add(moveVerticallyUp(moveHorizontallyRight(firstLocation,2),1));
+        }
+        if(board.checkIfSquareEmpty(moveVerticallyDown(moveHorizontallyRight(firstLocation,2),1),this.color)){
+            validMoves.add(moveVerticallyDown(moveHorizontallyRight(firstLocation,2),1));
+        }
+        if(board.checkIfSquareEmpty(moveVerticallyUp(moveHorizontallyLeft(firstLocation,1),2),this.color)){
+            validMoves.add(moveVerticallyUp(moveHorizontallyLeft(firstLocation,1),2));
+        }
+        if(board.checkIfSquareEmpty(moveVerticallyDown(moveHorizontallyLeft(firstLocation,1),2),this.color)){
+            validMoves.add(moveVerticallyDown(moveHorizontallyLeft(firstLocation,1),2));
+        }
+        if(board.checkIfSquareEmpty(moveVerticallyUp(moveHorizontallyRight(firstLocation,1),2),this.color)){
+            validMoves.add(moveVerticallyUp(moveHorizontallyRight(firstLocation,1),2));
+        }
+        if(board.checkIfSquareEmpty(moveVerticallyDown(moveHorizontallyRight(firstLocation,1),2),this.color)){
+            validMoves.add(moveVerticallyDown(moveHorizontallyRight(firstLocation,1),2));
+        }
+
+
+    }
 }

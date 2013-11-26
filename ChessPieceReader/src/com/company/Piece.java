@@ -44,6 +44,7 @@ public class Piece {
         if(board.checkIfSquareEmpty(newLocation,this.color)){
             board.removePiece(oldLocation);
             board.placePiece(newLocation, this,piece);
+            System.out.println("\n");
             board.printBoard();
         }
 
@@ -57,62 +58,9 @@ public class Piece {
         System.out.println("The move you tried to execute was not valid");
     }
 
-    public void checkKnight(String firstLocation){
-        if(board.checkIfSquareEmpty(moveVerticallyUp(moveHorizontallyLeft(firstLocation,2),1),this.color)){
-            validMoves.add(moveVerticallyUp(moveHorizontallyLeft(firstLocation,2),1));
-        }
-        if(board.checkIfSquareEmpty(moveVerticallyDown(moveHorizontallyLeft(firstLocation,2),1),this.color)){
-            validMoves.add(moveVerticallyDown(moveHorizontallyLeft(firstLocation,2),1));
-        }
-        if(board.checkIfSquareEmpty(moveVerticallyUp(moveHorizontallyRight(firstLocation,2),1),this.color)){
-            validMoves.add(moveVerticallyUp(moveHorizontallyRight(firstLocation,2),1));
-        }
-        if(board.checkIfSquareEmpty(moveVerticallyDown(moveHorizontallyRight(firstLocation,2),1),this.color)){
-            validMoves.add(moveVerticallyDown(moveHorizontallyRight(firstLocation,2),1));
-        }
-        if(board.checkIfSquareEmpty(moveVerticallyUp(moveHorizontallyLeft(firstLocation,1),2),this.color)){
-            validMoves.add(moveVerticallyUp(moveHorizontallyLeft(firstLocation,1),2));
-        }
-        if(board.checkIfSquareEmpty(moveVerticallyDown(moveHorizontallyLeft(firstLocation,1),2),this.color)){
-            validMoves.add(moveVerticallyDown(moveHorizontallyLeft(firstLocation,1),2));
-        }
-        if(board.checkIfSquareEmpty(moveVerticallyUp(moveHorizontallyRight(firstLocation,1),2),this.color)){
-            validMoves.add(moveVerticallyUp(moveHorizontallyRight(firstLocation,1),2));
-        }
-        if(board.checkIfSquareEmpty(moveVerticallyDown(moveHorizontallyRight(firstLocation,1),2),this.color)){
-            validMoves.add(moveVerticallyDown(moveHorizontallyRight(firstLocation,1),2));
-        }
 
 
-    }
 
-    public void checkKing(String firstLocation){
-        if(board.checkIfSquareEmpty(moveDiagonalUpperLeft(firstLocation,1),this.color)){
-            validMoves.add(moveDiagonalUpperLeft(firstLocation,1));
-        }
-        if(board.checkIfSquareEmpty(moveDiagonalLowerLeft(firstLocation,1),this.color)){
-            validMoves.add(moveDiagonalLowerLeft(firstLocation,1));
-        }
-        if(board.checkIfSquareEmpty(moveDiagonalLowerRight(firstLocation,1),this.color)){
-            validMoves.add(moveDiagonalLowerRight(firstLocation,1));
-        }
-        if(board.checkIfSquareEmpty(moveDiagonalUpperRight(firstLocation,1),this.color)){
-            validMoves.add(moveDiagonalUpperRight(firstLocation,1));
-        }
-        if(board.checkIfSquareEmpty(moveHorizontallyLeft(firstLocation,1),this.color)){
-            validMoves.add(moveHorizontallyLeft(firstLocation,1));
-        }
-        if(board.checkIfSquareEmpty(moveHorizontallyRight(firstLocation,1),this.color)){
-            validMoves.add(moveHorizontallyRight(firstLocation,1));
-        }
-        if(board.checkIfSquareEmpty(moveVerticallyUp(firstLocation,1),this.color)){
-            validMoves.add(moveVerticallyUp(firstLocation,1));
-        }
-        if(board.checkIfSquareEmpty(moveVerticallyDown(firstLocation,1),this.color)){
-            validMoves.add(moveVerticallyDown(firstLocation,1));
-        }
-
-    }
 
     // <editor-fold desc="Move Methods">
 
@@ -130,14 +78,19 @@ public class Piece {
     }
 
     public String moveVerticallyUp(String startingSquare, int numOfTimes){
-        splitStartingSquare(startingSquare);
-        numberIndex = numberIndex + numOfTimes;
-        return newLocation();
+        return moveVertically(startingSquare, numOfTimes, 1);
     }
 
     public String moveVerticallyDown(String startingSquare, int numOfTimes){
+     return moveVertically(startingSquare, numOfTimes, -1);
+
+    }
+
+
+    public String moveVertically(String startingSquare, int numOfTimes,int direction){
         splitStartingSquare(startingSquare);
-        numberIndex = numberIndex - numOfTimes;
+
+        numberIndex = numberIndex + (numOfTimes * direction);
         return newLocation();
     }
 

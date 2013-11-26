@@ -68,8 +68,7 @@ public class Board {
 
         if(board[index1][index2].getContent() != "-")  {
             if(board[index1][index2].getPiece().getColor().equals(color)){
-//                System.out.println("Inside second loop");
-//                System.out.println("There is already a piece there: " +board[index1][index2].getContent());
+//                System.out.println("You cannot capture a piece of your own color, gosh.");
                 empty = false;
             }
             else{

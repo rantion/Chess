@@ -25,7 +25,7 @@ public class MoveValidator {
         }
         catch(Exception e){
             notValid();
-            e.printStackTrace();
+
         }
     }
 
@@ -63,7 +63,11 @@ public class MoveValidator {
 
             }
             else{
+                if(piece != null){
                 MovePiece();
+                }
+                else
+                    notValid();
             }
         }
         else{
@@ -117,18 +121,11 @@ public class MoveValidator {
             newPiece = new Pawn(board, color);
         }
        else{
-            System.out.println("Something is fucked");
+            System.out.println("Something has gone awry, you should probably start over");
         }
         return newPiece;
     }
 
-    public String getPieceDirective() {
-        return pieceDirective;
-    }
-
-    public void setPieceDirective(String pieceDirective) {
-        this.pieceDirective = pieceDirective;
-    }
 
     public String checkIfLightPiece(String color, String piece){
         if(color.equals("L")){

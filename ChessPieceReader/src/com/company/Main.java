@@ -11,7 +11,7 @@ public class Main {
 
         System.out.println("Capital letters will represent dark pieces, and lowercase letters light pieces");
         ReadFile readFile = new ReadFile(args[0]);
-        board.printBoard();
+
 
 
 
