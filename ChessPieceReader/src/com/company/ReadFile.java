@@ -13,13 +13,15 @@ import java.io.IOException;
  * To change this template use File | Settings | File Templates.
  */
 public class ReadFile {
+    private Game game;
 
-    public ReadFile(String filePath){
+    public ReadFile(String filePath, Game game){
+        this.game = game;
         readInFile(filePath);
 
     }
 
-    public void readInFile(String filePath){
+    private void readInFile(String filePath){
 
         BufferedReader reader = null;
 
@@ -30,7 +32,7 @@ public class ReadFile {
             String line;
             while ((line = reader.readLine()) != null) {
                 if(line!=null){
-                MoveValidator moveValidator = new MoveValidator(line);
+                MoveValidator moveValidator = new MoveValidator(line,game);
 
                 }
             }

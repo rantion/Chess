@@ -2,22 +2,19 @@ package com.company;
 
 public class Main {
 
-    private static Board board;
-    private static Game game = new Game();
+//    private Board board;
+//    private Game game;
     public static void main(String[] args) {
-        board = game.getBoard();
-        ReadFile initial = new ReadFile("/Users/Rachel/Documents/initialBoard.txt");
+        Game game = new Game();
+        Board board = game.getBoard();
+        ReadFile initial = new ReadFile("/Users/Rachel/Documents/initialBoard.txt",game);
         board.printBoard();
 
         System.out.println("Capital letters will represent dark pieces, and lowercase letters light pieces");
-        ReadFile readFile = new ReadFile(args[0]);
-
-
-
-
-
+        ReadFile readFile = new ReadFile(args[0],game);
 
     }
+
 
 
 }

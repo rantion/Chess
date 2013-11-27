@@ -20,9 +20,9 @@ public class Piece {
     private final int topBoundry = 56; //ascii value of 8
     private final int widthHeight = 8;
     private int maxUpDown, maxUpDown1, maxLeftRight, maxLeftRight1;
-    public String color, piece;
-    public ArrayList<String> validMoves = new ArrayList();
-    Board board;
+    protected String color, piece;
+    protected ArrayList<String> validMoves = new ArrayList();
+    protected Board board;
 
 
 
@@ -54,7 +54,7 @@ public class Piece {
 
     }
 
-    public void notValid(){
+    protected void notValid(){
         System.out.println("The move you tried to execute was not valid");
     }
 
@@ -65,16 +65,24 @@ public class Piece {
     // <editor-fold desc="Move Methods">
 
     public String moveHorizontallyRight(String startingSquare,int numOfTimes){
+//       return moveHorizontally(startingSquare, numOfTimes,1);
         splitStartingSquare(startingSquare);
         letterIndex = letterIndex +numOfTimes;
-        newLocation();
         return newLocation();
     }
 
     public String moveHorizontallyLeft(String startingSquare, int numOfTimes){
+//       return moveHorizontally(startingSquare, numOfTimes,-1);
         splitStartingSquare(startingSquare);
         letterIndex = letterIndex - numOfTimes;
         return newLocation();
+    }
+
+    public String moveHorizontally(String startingSquare, int numOfTimes, int direction){
+        splitStartingSquare(startingSquare);
+        letterIndex = letterIndex + (numOfTimes*direction);
+        return newLocation();
+
     }
 
     public String moveVerticallyUp(String startingSquare, int numOfTimes){
@@ -354,7 +362,7 @@ public class Piece {
         System.out.println("You are trying to move to a square that does not exist in the scope of a chessboard");
     }
 
-    public void checkIfInBounds(String location){
+   protected void checkIfInBounds(String location){
         splitStartingSquare(location);
         if(letterIndex>=leftBoundry && letterIndex<=rightBoundry && numberIndex<=topBoundry && numberIndex>=bottomBoundry){
             newLocation();

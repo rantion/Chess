@@ -13,10 +13,11 @@ import java.util.regex.Pattern;
 public class MoveValidator {
     private String pieceDirective, piece, color, boardPosition, secondBoardPosition,capture,
             castlePiece, castleColor, castlePosition, secondCastlePosition;
-    private Game game = new Game();
+    private Game game;
     private Board board;
 
-    public MoveValidator(String pieceDirective){
+    public MoveValidator(String pieceDirective, Game game){
+        this.game = game;
         board = game.getBoard();
         this.pieceDirective = pieceDirective.toUpperCase();
         try{
@@ -29,7 +30,7 @@ public class MoveValidator {
         }
     }
 
-    public void getCommandPieces(){
+    private void getCommandPieces(){
 
         String pieceRegex = ("(?<whole>(?<piece>[K|Q|R|P|N|B|P])(?<color>[L|D])(?<boardPosition>[A-H][1-8]{1})(\\ (?<secondBoardPosition>[A-H][1-8]{1}))?(?<capture>[\\*]?)(\\ (?<castlePiece>[K|Q|R|P|N|B|P])(?<castleColor>[L|D])(?<castlePosition>[A-H][1-8]{1})(?<castleSecondPosition>(\\ [A-H][1-8]{1})?))?$)");
         try{
@@ -54,7 +55,7 @@ public class MoveValidator {
         }
     }
 
-    public void determineAction(){
+    private void determineAction(){
         if(castlePiece == null){
             if(secondBoardPosition == null){
 
@@ -75,17 +76,17 @@ public class MoveValidator {
         }
     }
 
-    public void notValid(){
+    private void notValid(){
         System.out.println(pieceDirective+ " is not a valid directive.");
     }
 
-    public void PlacePiece(){
+    private void PlacePiece(){
         board.placePiece(boardPosition, createPiece(),checkIfLightPiece(color, piece));
 
 
     }
 
-    public void MovePiece(){
+    private void MovePiece(){
        Piece pieceToMove = board.getPiece(boardPosition);
         pieceToMove.checkMove(boardPosition,secondBoardPosition);
     }
@@ -127,7 +128,7 @@ public class MoveValidator {
     }
 
 
-    public String checkIfLightPiece(String color, String piece){
+    private String checkIfLightPiece(String color, String piece){
         if(color.equals("L")){
             piece = piece.toLowerCase();
         }

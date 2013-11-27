@@ -48,7 +48,7 @@ public class Board {
         int index1 = convertLetter(keys[1]-indexNumberReference)-2;
         int index2 = keys[0]-indexLetterReference;
         board[index1][index2].setContent("-");
-        board[index1][index2].piece = null;
+        board[index1][index2].setPiece(null);
 
     }
 
