@@ -45,9 +45,10 @@ public class Controller {
 
     public void checkCommand(String pieceDirective){
         this.pieceDirective = pieceDirective.toUpperCase();
-        while(gameCanContinue){
+//        while(gameCanContinue){
         try{
             getCommandPieces();
+
             if(isTeamsTurn()){
             determineAction();
             changePlayer(currentPlayer);
@@ -56,13 +57,13 @@ public class Controller {
             else{
                gameCanContinue = false;
             }
-            }
+              }
         catch(Exception e){
             notValid();
 
         }
         }
-    }
+//    }
 
     private Player changePlayer(Player currentPlayer){
         this.currentPlayer = (currentPlayer.equals(lightLeader)) ? darkLeader : lightLeader;
