@@ -8,4 +8,30 @@ package com.company;
  * To change this template use File | Settings | File Templates.
  */
 public class Players {
+    public Player lightLeader, darkLeader, currentPlayer;
+
+    public Players(){
+        lightLeader = new Player();
+        darkLeader = new Player();
+        currentPlayer = new Player();
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
+    public Player getLightLeader() {
+        return lightLeader;
+    }
+
+    public Player getDarkLeader() {
+        return darkLeader;
+    }
+
+
+
 }

@@ -10,19 +10,22 @@ package com.company;
 public class Game {
 
     private Board board = new Board();
-    public Player lightLeader, darkLeader, currentPlayer;
+    private Players players;
+
 
     public Game(){
-       lightLeader = new Player();
-        darkLeader = new Player();
-        currentPlayer = new Player();
+        players = new Players();
+    }
+
+    public Players getPlayers(){
+        return players;
     }
 
     public Board getBoard() {
         return board;
     }
 
-    public void setBoard(Board board) {
-        this.board = board;
-    }
+//    public void setBoard(Board board) {
+//        this.board = board;
+//    }
 }

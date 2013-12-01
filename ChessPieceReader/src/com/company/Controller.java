@@ -10,24 +10,89 @@ import java.util.regex.Pattern;
  * Time: 8:07 PM
  * To change this template use File | Settings | File Templates.
  */
-public class MoveValidator {
+public class Controller {
     private String pieceDirective, piece, color, boardPosition, secondBoardPosition,capture,
             castlePiece, castleColor, castlePosition, secondCastlePosition;
     private Game game;
+    private Player lightLeader, darkLeader,currentPlayer;
     private Board board;
+    private Players players;
+    private boolean gameCanContinue;
 
-    public MoveValidator(String pieceDirective, Game game){
+    public Controller(Game game){
         this.game = game;
         board = game.getBoard();
+        players = game.getPlayers();
+        this.lightLeader =  players.getLightLeader();
+        this.darkLeader = players.getDarkLeader();
+        this.currentPlayer = lightLeader;
+        gameCanContinue = true;
+        players.setCurrentPlayer(currentPlayer);
+    }
+
+    public void initialPlacement(String pieceDirective){
         this.pieceDirective = pieceDirective.toUpperCase();
         try{
             getCommandPieces();
             determineAction();
         }
+
+        catch(Exception e) {
+            System.out.println("Something is wrong with the input file");
+            e.printStackTrace();
+        }
+    }
+
+    public void checkCommand(String pieceDirective){
+        this.pieceDirective = pieceDirective.toUpperCase();
+        while(gameCanContinue){
+        try{
+            getCommandPieces();
+            if(isTeamsTurn()){
+            determineAction();
+            changePlayer(currentPlayer);
+            gameCanContinue = true;
+            }
+            else{
+               gameCanContinue = false;
+            }
+            }
         catch(Exception e){
             notValid();
 
         }
+        }
+    }
+
+    private Player changePlayer(Player currentPlayer){
+        this.currentPlayer = (currentPlayer.equals(lightLeader)) ? darkLeader : lightLeader;
+        return this.currentPlayer;
+
+    }
+
+    private boolean isTeamsTurn(){
+        boolean isTurn;
+              String cp= "";
+        if(currentPlayer.equals(lightLeader)){
+            cp = "light leader";
+        }
+        if(currentPlayer.equals(darkLeader)){
+            cp= "dark leader";
+        }
+        System.out.println("Current Player: "+cp);
+        System.out.println("Move: "+pieceDirective);
+      if(color.equals("L")&&currentPlayer.equals(lightLeader)){
+            isTurn = true;
+      }
+      else if(color.equals("D")&&currentPlayer.equals(darkLeader)){
+          isTurn = true;
+      }
+     else{
+          System.out.println("Sorry. It is the "+cp+" team's turn.");
+          isTurn = false;
+      }
+      return isTurn;
+
     }
 
     private void getCommandPieces(){
@@ -53,6 +118,10 @@ public class MoveValidator {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void checkIfCurrentPlayer(Player currentPlayer){
+
     }
 
     private void determineAction(){

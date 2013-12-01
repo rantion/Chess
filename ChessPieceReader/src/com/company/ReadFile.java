@@ -14,9 +14,11 @@ import java.io.IOException;
  */
 public class ReadFile {
     private Game game;
+    private Controller controller;
 
     public ReadFile(String filePath, Game game){
         this.game = game;
+        controller = new Controller(game);
         readInFile(filePath);
 
     }
@@ -32,7 +34,12 @@ public class ReadFile {
             String line;
             while ((line = reader.readLine()) != null) {
                 if(line!=null){
-                MoveValidator moveValidator = new MoveValidator(line,game);
+                    if(filePath.equals("/Users/Rachel/Documents/initialBoard.txt")){
+                        controller.initialPlacement(line);
+                    }
+                    else{
+                   controller.checkCommand(line);
+                    }
 
                 }
             }

@@ -7,5 +7,5 @@ package com.company;
  * Time: 1:08 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Player extends Players{
+public class Player{
 }
