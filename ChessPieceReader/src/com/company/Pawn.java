@@ -9,8 +9,8 @@ package com.company;
  */
 public class Pawn extends Piece {
 
-    public Pawn(Board board, String color){
-        super(board, color);
+    public Pawn(Game game, String color){
+        super (game, color);
 
     }
 }

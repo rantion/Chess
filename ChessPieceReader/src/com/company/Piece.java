@@ -23,11 +23,13 @@ public class Piece {
     protected String color, piece;
     protected ArrayList<String> validMoves = new ArrayList();
     protected Board board;
+    protected Game game;
 
 
 
-    public Piece(Board board,String color){
-        this.board = board;
+    public Piece(Game game,String color){
+        this.game = game;
+        this.board = game.getGameBoard();
         this.color = color;
 
     }
@@ -45,7 +47,7 @@ public class Piece {
             board.removePiece(oldLocation);
             board.placePiece(newLocation, this,piece);
             System.out.println("\n");
-            board.printBoard();
+            game.printBoard();
         }
 
     }

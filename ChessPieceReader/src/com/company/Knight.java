@@ -11,8 +11,8 @@ import java.util.ArrayList;
  */
 public class Knight extends Piece {
 
-    public Knight(Board board, String color){
-        super(board, color);
+    public Knight(Game game, String color){
+        super(game, color);
         piece = "N";
     }
 

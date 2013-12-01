@@ -32,14 +32,8 @@ public class Board {
         }
     }
 
-    public void printBoard(){
-        for(int i = 0; i< board.length; i++){
-            String line = "";
-            for(int j = 0; j< board.length; j++){
-                line += (board[i][j].getContent()+" ");
-            }
-            System.out.println(line);
-        }
+    public Square[][] getBoard(){
+        return board;
     }
 
 

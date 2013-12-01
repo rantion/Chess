@@ -11,10 +11,8 @@ import java.util.ArrayList;
  */
 public class King extends Piece {
 
-    private Board board;
-
-    public King(Board board, String color){
-       super(board, color);
+    public King(Game game, String color){
+       super(game, color);
         piece = "K";
     }
 

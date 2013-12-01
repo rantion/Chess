@@ -11,8 +11,8 @@ import java.util.ArrayList;
  */
 public class Bishop extends Piece {
 
-    public Bishop(Board board, String color){
-        super(board, color);
+    public Bishop(Game game, String color){
+        super(game, color);
         piece = "B";
     }
 

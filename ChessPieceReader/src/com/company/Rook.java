@@ -11,8 +11,8 @@ import java.util.ArrayList;
  */
 public class Rook extends Piece{
 
-    public Rook(Board board, String color){
-      super(board, color);
+    public Rook(Game game, String color){
+      super(game, color);
        piece = "R";
     }
 

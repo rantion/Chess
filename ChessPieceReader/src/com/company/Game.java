@@ -9,8 +9,9 @@ package com.company;
  */
 public class Game {
 
-    private Board board = new Board();
+    private Board gameBoard = new Board();
     private Players players;
+    private Square[][]board;
 
 
     public Game(){
@@ -21,11 +22,26 @@ public class Game {
         return players;
     }
 
-    public Board getBoard() {
-        return board;
+    public void printBoard(){
+        setBoard();
+        for(int i = 0; i< board.length; i++){
+            String line = "";
+            for(int j = 0; j< board.length; j++){
+                line += (board[i][j].getContent()+" ");
+            }
+            System.out.println(line);
+        }
     }
 
-//    public void setBoard(Board board) {
-//        this.board = board;
+    public Board getGameBoard() {
+        return gameBoard;
+    }
+
+    public void setBoard(){
+        board = gameBoard.getBoard();
+    }
+//
+//    public void setGameBoard(Board gameBoard) {
+//        this.gameBoard = gameBoard;
 //    }
 }

@@ -21,7 +21,7 @@ public class Controller {
 
     public Controller(Game game){
         this.game = game;
-        board = game.getBoard();
+        board = game.getGameBoard();
         players = game.getPlayers();
         this.lightLeader =  players.getLightLeader();
         this.darkLeader = players.getDarkLeader();
@@ -172,24 +172,24 @@ public class Controller {
 //    }
 
    private Piece createPiece(){
-        Piece newPiece = new Piece(board,color);
+        Piece newPiece = new Piece(game,color);
         if(piece.equals("K")){
-            newPiece = new King(board, color);
+            newPiece = new King(game,color);
         }
         else if(piece.equals("Q")){
-            newPiece = new Queen(board, color);
+            newPiece = new Queen(game,color);
         }
         else if(piece.equals("R")){
-            newPiece = new Rook (board, color);
+            newPiece = new Rook (game, color);
         }
         else if(piece.equals("N")){
-            newPiece = new Knight(board,color);
+            newPiece = new Knight(game,color);
         }
         else if(piece.equals("B")){
-            newPiece = new Rook(board, color);
+            newPiece = new Rook(game, color);
         }
         else if(piece.equals("P")){
-            newPiece = new Pawn(board, color);
+            newPiece = new Pawn(game, color);
         }
        else{
             System.out.println("Something has gone awry, you should probably start over");

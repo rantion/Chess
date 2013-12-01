@@ -9,8 +9,8 @@ package com.company;
  */
 public class Square {
 
-    private String content;
-    private Piece piece;
+    public String content;
+    public Piece piece;
 
     public Square(String content){
         this.content = content;
