@@ -45,9 +45,12 @@ public class Piece {
     public void move(String oldLocation,String newLocation, String piece){
         if(board.checkIfSquareEmpty(newLocation,this.color)){
             board.removePiece(oldLocation);
+            if(board.getPiece(newLocation)!=null){
+                board.removePiece(newLocation);
+            }
             board.placePiece(newLocation, this,piece);
             System.out.println("\n");
-            game.printBoard();
+//            game.printBoard();
         }
 
     }
@@ -61,7 +64,38 @@ public class Piece {
     }
 
 
+    public void checkKnight(String firstLocation){
+        System.out.println("Inside checkKnight");
+        System.out.println("First Location: "+firstLocation);
+        if(board.checkIfSquareEmpty(moveVerticallyUp(moveHorizontallyLeft(firstLocation,2),1),this.color)){
+            System.out.println("H2 v1 "+moveVerticallyUp(moveHorizontallyLeft(firstLocation,2),1));
+            validMoves.add(moveVerticallyUp(moveHorizontallyLeft(firstLocation,2),1));
+        }
+        if(board.checkIfSquareEmpty(moveVerticallyDown(moveHorizontallyLeft(firstLocation,2),1),this.color)){
+            System.out.println(moveVerticallyDown(moveHorizontallyLeft(firstLocation,2),1));
+            validMoves.add(moveVerticallyDown(moveHorizontallyLeft(firstLocation,2),1));
+        }
+        if(board.checkIfSquareEmpty(moveVerticallyUp(moveHorizontallyRight(firstLocation,2),1),this.color)){
+            validMoves.add(moveVerticallyUp(moveHorizontallyRight(firstLocation,2),1));
+        }
+        if(board.checkIfSquareEmpty(moveVerticallyDown(moveHorizontallyRight(firstLocation,2),1),this.color)){
+            validMoves.add(moveVerticallyDown(moveHorizontallyRight(firstLocation,2),1));
+        }
+        if(board.checkIfSquareEmpty(moveVerticallyUp(moveHorizontallyLeft(firstLocation,1),2),this.color)){
+            validMoves.add(moveVerticallyUp(moveHorizontallyLeft(firstLocation,1),2));
+        }
+        if(board.checkIfSquareEmpty(moveVerticallyDown(moveHorizontallyLeft(firstLocation,1),2),this.color)){
+            validMoves.add(moveVerticallyDown(moveHorizontallyLeft(firstLocation,1),2));
+        }
+        if(board.checkIfSquareEmpty(moveVerticallyUp(moveHorizontallyRight(firstLocation,1),2),this.color)){
+            validMoves.add(moveVerticallyUp(moveHorizontallyRight(firstLocation,1),2));
+        }
+        if(board.checkIfSquareEmpty(moveVerticallyDown(moveHorizontallyRight(firstLocation,1),2),this.color)){
+            validMoves.add(moveVerticallyDown(moveHorizontallyRight(firstLocation,1),2));
+        }
 
+
+    }
 
 
     // <editor-fold desc="Move Methods">
@@ -327,11 +361,11 @@ public class Piece {
 
     private int getMaxSquareDiagonalLowLeft(){
         int maxSquare = 0;
-        boolean keepGoing  = (numberIndex >bottomBoundry && letterIndex <rightBoundry);
+        boolean keepGoing  = (numberIndex >bottomBoundry && letterIndex >leftBoundry);
         while(keepGoing){
             numberIndex = numberIndex -1;
             letterIndex = letterIndex -1;
-            if(numberIndex >bottomBoundry && letterIndex <rightBoundry)  {
+            if(numberIndex >bottomBoundry && letterIndex >leftBoundry)  {
                 keepGoing = true;
             }
             else{

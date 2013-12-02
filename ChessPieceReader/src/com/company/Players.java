@@ -12,7 +12,9 @@ public class Players {
 
     public Players(){
         lightLeader = new Player();
+        lightLeader.setColor("light");
         darkLeader = new Player();
+        darkLeader.setColor("dark");
         currentPlayer = new Player();
     }
 

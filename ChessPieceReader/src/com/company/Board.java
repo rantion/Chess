@@ -17,9 +17,11 @@ public class Board {
     private final char int1 ='1';
     private final int indexLetterReference = (int)A;
     private final int indexNumberReference = (int)int1;
+    private Players players;
 
 
-    public Board(){
+    public Board(Players players){
+        this.players=players;
         makeBoard();
     }
 
@@ -41,6 +43,16 @@ public class Board {
         char[] keys =location.toCharArray();
         int index1 = convertLetter(keys[1]-indexNumberReference)-2;
         int index2 = keys[0]-indexLetterReference;
+        Piece pieceToRemove = getPiece(location);
+        if(pieceToRemove.color.equals("L")) {
+            Team lightTeam = players.lightLeader.getTeam();
+            lightTeam.addPiecesToMap(pieceToRemove,"captured");
+           }
+        if(pieceToRemove.color.equals("D")){
+            Team darkTeam = players.darkLeader.getTeam();
+            darkTeam.addPiecesToMap(pieceToRemove,"captured");
+        }
+
         board[index1][index2].setContent("-");
         board[index1][index2].setPiece(null);
 
@@ -84,6 +96,14 @@ public class Board {
            int index1 = convertLetter(keys[1]-indexNumberReference)-2;
                 //-2 because although a8 is a valid square on the chessboard, the array is 0-7
            int index2 = keys[0]-indexLetterReference;
+        if(piece.color.equals("L")) {
+            Team lightTeam = players.lightLeader.getTeam();
+            lightTeam.addPiecesToMap(piece,location);
+        }
+        if(piece.color.equals("D")){
+            Team darkTeam = players.darkLeader.getTeam();
+            darkTeam.addPiecesToMap(piece,location);
+        }
             board[index1][index2].setContent(content);
             board[index1][index2].setPiece(piece);
 

@@ -18,6 +18,7 @@ public class Controller {
     private Board board;
     private Players players;
     private boolean gameCanContinue;
+    private King darkKing, lightKing;
 
     public Controller(Game game){
         this.game = game;
@@ -49,31 +50,33 @@ public class Controller {
         try{
             getCommandPieces();
 
-            if(isTeamsTurn()){
+//            if(isTeamsTurn()){
             determineAction();
             changePlayer(currentPlayer);
             gameCanContinue = true;
-            }
-            else{
-               gameCanContinue = false;
-            }
-              }
+//            }
+//            else{
+//               gameCanContinue = false;
+//            }
+        }
         catch(Exception e){
             notValid();
+            e.printStackTrace();
 
         }
-        }
+    }
 //    }
 
     private Player changePlayer(Player currentPlayer){
         this.currentPlayer = (currentPlayer.equals(lightLeader)) ? darkLeader : lightLeader;
+        players.setCurrentPlayer(this.currentPlayer);
         return this.currentPlayer;
 
     }
 
     private boolean isTeamsTurn(){
         boolean isTurn;
-              String cp= "";
+        String cp= "";
         if(currentPlayer.equals(lightLeader)){
             cp = "light leader";
         }
@@ -82,17 +85,17 @@ public class Controller {
         }
         System.out.println("Current Player: "+cp);
         System.out.println("Move: "+pieceDirective);
-      if(color.equals("L")&&currentPlayer.equals(lightLeader)){
+        if(color.equals("L")&&currentPlayer.equals(lightLeader)){
             isTurn = true;
-      }
-      else if(color.equals("D")&&currentPlayer.equals(darkLeader)){
-          isTurn = true;
-      }
-     else{
-          System.out.println("Sorry. It is the "+cp+" team's turn.");
-          isTurn = false;
-      }
-      return isTurn;
+        }
+        else if(color.equals("D")&&currentPlayer.equals(darkLeader)){
+            isTurn = true;
+        }
+        else{
+            System.out.println("Sorry. It is the "+cp+" team's turn.");
+            isTurn = false;
+        }
+        return isTurn;
 
     }
 
@@ -121,28 +124,23 @@ public class Controller {
         }
     }
 
-    private void checkIfCurrentPlayer(Player currentPlayer){
-
-    }
-
     private void determineAction(){
-        if(castlePiece == null){
-            if(secondBoardPosition == null){
+        try{
+            if(castlePiece == null){
+                if(secondBoardPosition == null){
+                    PlacePiece();
+                }
+                else{
+                    game.printBoard();
+                    MovePiece();
 
-
-                PlacePiece();
-
+                }
             }
             else{
-                if(piece != null){
-                MovePiece();
-                }
-                else
-                    notValid();
-            }
-        }
-        else{
 //            CastlePiece();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -151,13 +149,24 @@ public class Controller {
     }
 
     private void PlacePiece(){
-        board.placePiece(boardPosition, createPiece(),checkIfLightPiece(color, piece));
+        Piece newPiece = createPiece();
+        board.placePiece(boardPosition, newPiece,checkIfLightPiece(color, piece));
+        if(color.equals("L")){
+            Team lightTeam = players.lightLeader.getTeam();
+            lightTeam.addPiecesToMap(newPiece,boardPosition);
+        }
+        if(color.equals("D")){
+            Team darkTeam = players.darkLeader.getTeam();
+            darkTeam.addPiecesToMap(newPiece,boardPosition);
+
+        }
 
 
     }
 
     private void MovePiece(){
-       Piece pieceToMove = board.getPiece(boardPosition);
+        Piece pieceToMove = board.getPiece(boardPosition);
+        checkForCheck();
         pieceToMove.checkMove(boardPosition,secondBoardPosition);
     }
 
@@ -171,10 +180,35 @@ public class Controller {
 //        }
 //    }
 
-   private Piece createPiece(){
+    private void checkForCheck(){
+        if(currentPlayer.equals(lightLeader)){
+            Team light = players.lightLeader.getTeam();
+            String location = light.getOnePiece(lightKing);
+            if(lightKing.determineIfInCheck(location)){
+                System.out.println("The Light King is in Check");
+            }
+            else{
+                System.out.println("The Light King is not in check");
+            }
+        }
+        if(currentPlayer.equals(darkLeader)){
+            Team dark = players.lightLeader.getTeam();
+            String location = dark.getOnePiece(darkKing);
+            if(darkKing.determineIfInCheck(location)) {
+                System.out.println("The Dark King is in Check");
+            }
+            else{
+                System.out.println("The Dark King is not in check");
+            }
+        }
+
+    }
+
+    private Piece createPiece(){
         Piece newPiece = new Piece(game,color);
         if(piece.equals("K")){
             newPiece = new King(game,color);
+            saveKings(newPiece,color);
         }
         else if(piece.equals("Q")){
             newPiece = new Queen(game,color);
@@ -186,15 +220,25 @@ public class Controller {
             newPiece = new Knight(game,color);
         }
         else if(piece.equals("B")){
-            newPiece = new Rook(game, color);
+            newPiece = new Bishop(game, color);
         }
         else if(piece.equals("P")){
             newPiece = new Pawn(game, color);
         }
-       else{
+        else{
             System.out.println("Something has gone awry, you should probably start over");
         }
         return newPiece;
+    }
+
+    private void saveKings(Piece king,String color){
+        if(color.equals("L")){
+            lightKing = (King)king;
+        }
+        if(color.equals("D")){
+            darkKing = (King)king;
+        }
+
     }
 
 

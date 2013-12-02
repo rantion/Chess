@@ -9,13 +9,14 @@ package com.company;
  */
 public class Game {
 
-    private Board gameBoard = new Board();
+    private Board gameBoard;
     private Players players;
     private Square[][]board;
 
 
     public Game(){
         players = new Players();
+        gameBoard = new Board(players);
     }
 
     public Players getPlayers(){
