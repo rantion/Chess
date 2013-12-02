@@ -166,7 +166,7 @@ public class Controller {
 
     private void MovePiece(){
         Piece pieceToMove = board.getPiece(boardPosition);
-        checkForCheck();
+//        checkForCheck();
         pieceToMove.checkMove(boardPosition,secondBoardPosition);
     }
 

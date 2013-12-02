@@ -100,10 +100,18 @@ public class Piece {
 
     // <editor-fold desc="Move Methods">
 
+    private boolean inBounds(){
+        boolean inBounds = (letterIndex>=leftBoundry && letterIndex<=rightBoundry && numberIndex>= bottomBoundry && numberIndex<=topBoundry);
+
+        return inBounds;
+    }
+
+
     public String moveHorizontallyRight(String startingSquare,int numOfTimes){
 //       return moveHorizontally(startingSquare, numOfTimes,1);
         splitStartingSquare(startingSquare);
         letterIndex = letterIndex +numOfTimes;
+        String location = "";
         return newLocation();
     }
 
@@ -111,7 +119,14 @@ public class Piece {
 //       return moveHorizontally(startingSquare, numOfTimes,-1);
         splitStartingSquare(startingSquare);
         letterIndex = letterIndex - numOfTimes;
-        return newLocation();
+        String location = "";
+        if(letterIndex>=leftBoundry){
+            location= newLocation();
+        }
+        else{
+            location = null;
+        }
+        return location;
     }
 
     public String moveHorizontally(String startingSquare, int numOfTimes, int direction){
