@@ -23,7 +23,7 @@ public class ReadFile {
 
     }
 
-    private void readInFile(String filePath){
+    public void readInFile(String filePath){
 
         BufferedReader reader = null;
 

@@ -63,28 +63,21 @@ public class Board {
         int index1 = convertLetter(keys[1]-indexNumberReference)-2;
         int index2 = keys[0]-indexLetterReference;
         Piece piece = board[index1][index2].getPiece();
-        return piece;
+         return piece;
     }
 
-    public boolean checkIfSquareEmpty(String location, String color){
+    public boolean isSquareEmpty(String location){
         boolean empty = false;
         char[] keys =location.toCharArray();
         int index1 = convertLetter(keys[1]-indexNumberReference)-2;
         int index2 = keys[0]-indexLetterReference;
 
-        if(board[index1][index2].getContent() != "-")  {
-            if(board[index1][index2].getPiece().getColor().equals(color)){
-//                System.out.println("You cannot capture a piece of your own color, gosh.");
-                empty = false;
-            }
-            else{
-//                System.out.println("This should not be called if the first loop is already been called");
-//                System.out.println("There is a piece you can capture here yo" +board[index1][index2].getContent());
+        if(board[index1][index2].getContent().equals("-"))  {
                 empty = true;
-            }
+
         }
         else {
-            empty = true;
+            empty = false;
         }
         return empty;
 
@@ -96,7 +89,7 @@ public class Board {
            int index1 = convertLetter(keys[1]-indexNumberReference)-2;
                 //-2 because although a8 is a valid square on the chessboard, the array is 0-7
            int index2 = keys[0]-indexLetterReference;
-        if(piece.color.equals("L")) {
+        if(piece.color.equals("l")) {
             Team lightTeam = players.lightLeader.getTeam();
             lightTeam.addPiecesToMap(piece,location);
         }

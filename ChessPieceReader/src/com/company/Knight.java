@@ -14,13 +14,16 @@ public class Knight extends Piece {
     public Knight(Game game, String color){
         super(game, color);
         piece = "N";
+        if(color.equals("L")){
+            piece = piece.toLowerCase();
+        }
     }
 
-    public void checkMove(String firstLocation, String secondLocation){
+    public boolean isLegalMove(String firstLocation, String secondLocation){
          boolean validMove = false;
             checkKnight(firstLocation);
 
-            System.out.println("ValidMoves: "+validMoves);
+//            System.out.println("ValidMoves: "+validMoves);
             for(String location:validMoves){
                 if(location.equals(secondLocation)){
                     validMove = true;
@@ -32,37 +35,38 @@ public class Knight extends Piece {
             }
             else {
                 checkIfInBounds(secondLocation);
-                if(color.equals("L")){
-                    piece = piece.toLowerCase();
-                }
+//                if(color.equals("L")){
+//                    piece = piece.toLowerCase();
+//                }
                 validMoves = new ArrayList<String>();
-                move(firstLocation,secondLocation,piece);
+//                move(firstLocation,secondLocation,piece);
             }
+        return validMove;
     }
 
 //    public void checkKnight(String firstLocation){
-//        if(board.checkIfSquareEmpty(moveVerticallyUp(moveHorizontallyLeft(firstLocation,2),1),this.color)){
+//        if(board.isSquareEmpty(moveVerticallyUp(moveHorizontallyLeft(firstLocation,2),1),this.color)){
 //            validMoves.add(moveVerticallyUp(moveHorizontallyLeft(firstLocation,2),1));
 //        }
-//        if(board.checkIfSquareEmpty(moveVerticallyDown(moveHorizontallyLeft(firstLocation,2),1),this.color)){
+//        if(board.isSquareEmpty(moveVerticallyDown(moveHorizontallyLeft(firstLocation,2),1),this.color)){
 //            validMoves.add(moveVerticallyDown(moveHorizontallyLeft(firstLocation,2),1));
 //        }
-//        if(board.checkIfSquareEmpty(moveVerticallyUp(moveHorizontallyRight(firstLocation,2),1),this.color)){
+//        if(board.isSquareEmpty(moveVerticallyUp(moveHorizontallyRight(firstLocation,2),1),this.color)){
 //            validMoves.add(moveVerticallyUp(moveHorizontallyRight(firstLocation,2),1));
 //        }
-//        if(board.checkIfSquareEmpty(moveVerticallyDown(moveHorizontallyRight(firstLocation,2),1),this.color)){
+//        if(board.isSquareEmpty(moveVerticallyDown(moveHorizontallyRight(firstLocation,2),1),this.color)){
 //            validMoves.add(moveVerticallyDown(moveHorizontallyRight(firstLocation,2),1));
 //        }
-//        if(board.checkIfSquareEmpty(moveVerticallyUp(moveHorizontallyLeft(firstLocation,1),2),this.color)){
+//        if(board.isSquareEmpty(moveVerticallyUp(moveHorizontallyLeft(firstLocation,1),2),this.color)){
 //            validMoves.add(moveVerticallyUp(moveHorizontallyLeft(firstLocation,1),2));
 //        }
-//        if(board.checkIfSquareEmpty(moveVerticallyDown(moveHorizontallyLeft(firstLocation,1),2),this.color)){
+//        if(board.isSquareEmpty(moveVerticallyDown(moveHorizontallyLeft(firstLocation,1),2),this.color)){
 //            validMoves.add(moveVerticallyDown(moveHorizontallyLeft(firstLocation,1),2));
 //        }
-//        if(board.checkIfSquareEmpty(moveVerticallyUp(moveHorizontallyRight(firstLocation,1),2),this.color)){
+//        if(board.isSquareEmpty(moveVerticallyUp(moveHorizontallyRight(firstLocation,1),2),this.color)){
 //            validMoves.add(moveVerticallyUp(moveHorizontallyRight(firstLocation,1),2));
 //        }
-//        if(board.checkIfSquareEmpty(moveVerticallyDown(moveHorizontallyRight(firstLocation,1),2),this.color)){
+//        if(board.isSquareEmpty(moveVerticallyDown(moveHorizontallyRight(firstLocation,1),2),this.color)){
 //            validMoves.add(moveVerticallyDown(moveHorizontallyRight(firstLocation,1),2));
 //        }
 //

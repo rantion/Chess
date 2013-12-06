@@ -14,14 +14,20 @@ public class Queen extends Piece {
     public Queen(Game game, String color){
         super(game, color);
         piece = "Q";
-
+        if(color.equals("L")){
+            piece = piece.toLowerCase();
+        }
     }
 
-    public void checkMove(String firstLocation, String secondLocation){
-        boolean validMove = false;
+    public void checkQueen(String firstLocation){
         checkDiagonals(firstLocation);
         checkHorizontals(firstLocation);
         checkVerticals(firstLocation);
+    }
+
+    public boolean isLegalMove(String firstLocation, String secondLocation){
+        boolean validMove = false;
+           checkQueen(firstLocation);
 //
 //        System.out.println("ValidMoves: "+validMoves);
         for(String location:validMoves){
@@ -35,12 +41,13 @@ public class Queen extends Piece {
         }
         else {
             checkIfInBounds(secondLocation);
-            if(color.equals("L")){
-                piece = piece.toLowerCase();
-            }
+//            if(color.equals("L")){
+//                piece = piece.toLowerCase();
+//            }
             validMoves = new ArrayList<String>();
-            move(firstLocation,secondLocation,piece);
+//            move(firstLocation,secondLocation,piece);
         }
+        return validMove;
     }
 
 

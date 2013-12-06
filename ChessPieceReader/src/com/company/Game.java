@@ -32,6 +32,7 @@ public class Game {
             }
             System.out.println(line);
         }
+        System.out.println("\n");
     }
 
     public Board getGameBoard() {

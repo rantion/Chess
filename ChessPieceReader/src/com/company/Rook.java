@@ -14,9 +14,12 @@ public class Rook extends Piece{
     public Rook(Game game, String color){
       super(game, color);
        piece = "R";
+        if(color.equals("L")){
+            piece = piece.toLowerCase();
+        }
     }
 
-    public void checkMove(String firstLocation, String secondLocation){
+    public boolean isLegalMove(String firstLocation, String secondLocation){
         boolean validMove = false;
         checkHorizontals(firstLocation);
         checkVerticals(firstLocation);
@@ -33,12 +36,13 @@ public class Rook extends Piece{
         }
         else {
             checkIfInBounds(secondLocation);
-            if(color.equals("L")){
-                piece = piece.toLowerCase();
-            }
+//            if(color.equals("L")){
+//                piece = piece.toLowerCase();
+//            }
             validMoves = new ArrayList<String>();
-            move(firstLocation,secondLocation,piece);
+//            move(firstLocation,secondLocation,piece);
         }
+        return validMove;
     }
 
 }

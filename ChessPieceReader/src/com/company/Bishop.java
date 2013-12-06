@@ -14,14 +14,17 @@ public class Bishop extends Piece {
     public Bishop(Game game, String color){
         super(game, color);
         piece = "B";
+        if(color.equals("L")){
+            piece = piece.toLowerCase();
+        }
     }
 
-    public void checkMove(String firstLocation, String secondLocation){
+    public boolean isLegalMove(String firstLocation, String secondLocation){
         boolean validMove = false;
         checkDiagonals(firstLocation);
 
-
-        System.out.println("ValidMoves: "+validMoves);
+//
+//        System.out.println("ValidMoves: "+validMoves);
         for(String location:validMoves){
             if(location.equals(secondLocation)){
                 validMove = true;
@@ -32,12 +35,13 @@ public class Bishop extends Piece {
             notValid();
         }
         else {
-            checkIfInBounds(secondLocation);
-            if(color.equals("L")){
-                piece = piece.toLowerCase();
-            }
+//            checkIfInBounds(secondLocation);
+//            if(color.equals("L")){
+//                piece = piece.toLowerCase();
+//            }
             validMoves = new ArrayList<String>();
-            move(firstLocation,secondLocation,piece);
+//            move(firstLocation,secondLocation,piece);
         }
+        return validMove;
     }
 }
