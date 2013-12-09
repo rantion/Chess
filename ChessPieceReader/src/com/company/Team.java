@@ -41,4 +41,6 @@ public class Team {
     public void setColor(String color) {
         this.color = color;
     }
+
+
 }

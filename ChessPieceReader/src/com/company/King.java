@@ -25,24 +25,17 @@ public class King extends Piece {
     public boolean isLegalMove(String firstLocation, String secondLocation){
 
         boolean validMove = false;
-        getKingValidMoves(firstLocation);
-//
-//        System.out.println("ValidMoves: "+validMoves);
+        populateValidMoves(firstLocation);
         for(String location:validMoves){
             if(location.equals(secondLocation)){
                 validMove = true;
             }
         }
-
-
-        validMoves = new ArrayList<String>();
-//            move(firstLocation,secondLocation,piece);
-
         return validMove;
     }
 
-    public void getKingValidMoves(String firstLocation){
-
+    public void populateValidMoves(String firstLocation) {
+        validMoves = new ArrayList<String>();
         ArrayList<String> kingLocations = new ArrayList<String>();
 
         kingLocations.add(moveDiagonalUpperLeft(firstLocation,1));
@@ -55,10 +48,8 @@ public class King extends Piece {
         kingLocations.add(moveVerticallyDown(firstLocation,1));
 
         validMoves = addValidLocations(kingLocations);
-
-
-
     }
+
 
     public boolean determineIfInCheck(String location){
         boolean inCheck = false;
@@ -88,10 +79,6 @@ public class King extends Piece {
             }
 
         }
-
-
-
-
 
         return inCheck;
     }
@@ -132,7 +119,7 @@ public class King extends Piece {
     public boolean canMoveOutOfCheck(String location){
         boolean canMove = false;
         String originalLocation = location;
-        getKingValidMoves(originalLocation);
+        populateValidMoves(originalLocation);
         King kingInCheck = (King)board.getPiece(originalLocation);
         for(String loc:validMoves){
             kingInCheck.move(originalLocation,loc,piece);
@@ -154,7 +141,7 @@ public class King extends Piece {
         for(String sqrLocation:HorizontalVerticalMoves){
             allPossibleAttackSquares.add(sqrLocation);
             Piece checkPiece = board.getPiece(sqrLocation);
-            getKingValidMoves(location);
+            populateValidMoves(location);
             if(checkPiece != null){
                 if(checkPiece instanceof King && validMoves.contains(sqrLocation)){
                     piecesPuttingKingInCheck.put(sqrLocation, checkPiece);

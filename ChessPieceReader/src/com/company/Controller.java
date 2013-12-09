@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,7 +14,7 @@ import java.util.regex.Pattern;
  */
 public class Controller {
     private String pieceDirective, piece, color, boardPosition, secondBoardPosition,capture,
-            castlePiece, castleColor, castlePosition, secondCastlePosition, kingLocation, isInCheckMate, isNotInCheckMate;
+            castlePiece, castleColor, castlePosition, secondCastlePosition, kingLocation, isInCheckMate, isNotInCheckMate, teamName;
     private Game game;
     private Player lightLeader, darkLeader,currentPlayer;
     private Board board;
@@ -20,6 +22,7 @@ public class Controller {
     private King darkKing, lightKing,king;
     private Team team;
     private Boolean checkMate;
+    private Boolean gameIsGoing;
 
     public Controller(Game game){
         this.game = game;
@@ -28,7 +31,16 @@ public class Controller {
         this.lightLeader =  players.getLightLeader();
         this.darkLeader = players.getDarkLeader();
         this.currentPlayer = lightLeader;
+        this.gameIsGoing = true;
         players.setCurrentPlayer(currentPlayer);
+      }
+
+    public void startGame(){
+        while(gameIsGoing){
+            takeTurn();
+            changePlayer(currentPlayer);
+        }
+
     }
 
     public void initialPlacement(String pieceDirective){
@@ -62,6 +74,78 @@ public class Controller {
         }
     }
 //    }
+
+
+    public void takeTurn(){
+        ArrayList<Piece>  movablePieces = new ArrayList<Piece>();
+        ArrayList<String> pieceLocations = new ArrayList<String>();
+        Scanner scan = new Scanner(System.in);
+        Piece pieceSelected;
+        getCurrentTeam();
+        System.out.println("It is the "+teamName+" player's turn.\n");
+        game.printBoard();
+        getMovablePieces();
+        movablePieces = getMovablePieces();
+        System.out.println("Enter the number of the piece you would like to move: ");
+        printMovablePieces(movablePieces);
+        String pieceNumString = scan.nextLine();
+        int pieceNum = Integer.parseInt(pieceNumString);
+        pieceSelected = movablePieces.get(pieceNum);
+        boardPosition = team.getTeamPieces().get(pieceSelected);
+        pieceLocations = getValidMoves(pieceSelected);
+        System.out.println("Move from "+boardPosition+ " to: ");
+        printValidMoves(pieceLocations);
+        String newLocationNum = scan.nextLine();
+        int newLocNum = Integer.parseInt(newLocationNum);
+        secondBoardPosition = pieceLocations.get(newLocNum);
+        pieceSelected.move(boardPosition,secondBoardPosition,pieceSelected.getPiece());
+        game.printBoard();
+
+
+
+    }
+
+    private void printValidMoves(ArrayList<String> validPieceMoves){
+
+        for(int i = 0; i<validPieceMoves.size();i++){
+           String location = validPieceMoves.get(i);
+            System.out.println(i+") "+location);
+        }
+
+    }
+
+    private ArrayList<String> getValidMoves(Piece pieceSelected){
+        ArrayList<String>validPieceMoves = new ArrayList<String>();
+        for(String location : pieceSelected.validMoves){
+            validPieceMoves.add(location);
+        }
+        return validPieceMoves;
+    }
+
+    private void printMovablePieces(ArrayList<Piece> movablePieces){
+        for(int i = 0; i<movablePieces.size();i++){
+            Piece tempPiece = movablePieces.get(i);
+           String location = team.getTeamPieces().get(tempPiece);
+            System.out.println(i+") Piece: "+tempPiece+" Location: "+location);
+        }
+
+    }
+
+    private ArrayList<Piece> getMovablePieces(){
+        ArrayList<String> pieceValidMoves = new ArrayList<String>();
+        ArrayList<Piece>  movablePieces = new ArrayList<Piece>();
+        for(Piece teamPiece :team.getTeamPieces().keySet()){
+            teamPiece.populateValidMoves(team.getTeamPieces().get(teamPiece));
+            pieceValidMoves = teamPiece.validMoves;
+//            System.out.println("Piece: "+teamPiece+ "Location: "+team.getTeamPieces().get(teamPiece));
+//            System.out.println("Valid moves: "+teamPiece.validMoves+ "\n\n");
+            if(pieceValidMoves.size() != 0) {
+                movablePieces.add(teamPiece);
+            }
+
+        }
+        return movablePieces;
+    }
 
     private Player changePlayer(Player currentPlayer){
         this.currentPlayer = (currentPlayer.equals(lightLeader)) ? darkLeader : lightLeader;
@@ -181,7 +265,6 @@ public class Controller {
         else{
             if(pieceToMove.isLegalMove(boardPosition, secondBoardPosition)){
                 pieceToMove.move(boardPosition,secondBoardPosition,pieceToMove.getPiece());
-                game.printBoard();
             }
         }
     }
@@ -202,19 +285,22 @@ public class Controller {
         king = null;
         isInCheckMate = null;
         isNotInCheckMate = null;
+        teamName = null;
         if(currentPlayer.equals(lightLeader)){
             team = players.lightLeader.getTeam();
             kingLocation = team.getOnePiece(getLightKing());
             king = getLightKing();
+            teamName = "light";
             isInCheckMate = "The light King is in checkmate :(";
-            isNotInCheckMate = "The light King is not in checkmate";
+//            isNotInCheckMate = "The light King is not in checkmate";
         }
         if(currentPlayer.equals(darkLeader)){
             team = players.darkLeader.getTeam();
             kingLocation = team.getOnePiece(getDarkKing());
             king = getDarkKing();
+            teamName = "dark";
             isInCheckMate = "The dark King is in checkmate :(";
-            isNotInCheckMate = "The dark King is not in checkmate";
+//            isNotInCheckMate = "The dark King is not in checkmate";
         }
     }
 
@@ -228,7 +314,7 @@ public class Controller {
         } else{
             king.populateAllPossibleAttackSquares(kingLocation);
             for(Piece teamPiece: team.getTeamPieces().keySet()){
-                if(!(teamPiece instanceof King)){
+                if(!(teamPiece instanceof King) && !(team.getTeamPieces().get(teamPiece) =="captured")){
                     String teamPieceLoc = team.getTeamPieces().get(teamPiece);
                     for(String loc :king.getAllPossibleAttackSquares()){
                         if(teamPiece.isLegalMove(teamPieceLoc,loc)){
@@ -248,10 +334,11 @@ public class Controller {
         }
         if(checkMate){
             System.out.println(isInCheckMate);
+            gameIsGoing = false;
         }
-        else{
-            System.out.println(isNotInCheckMate);
-        }
+//        else{
+//           System.out.println(isNotInCheckMate);
+//        }
 
         return checkMate;
     }
@@ -261,23 +348,25 @@ public class Controller {
             Team light = players.lightLeader.getTeam();
             String location = light.getOnePiece(getLightKing());
             if(lightKing.determineIfInCheck(location)){
+               if(!(isCurrentPlayerInCheckMate(location, "L"))){
                 System.out.println("The Light King is in Check");
-                isCurrentPlayerInCheckMate(location, "L");
+                }
             }
-            else{
-                System.out.println("The Light King is not in check");
-            }
+//            else{
+//               System.out.println("The Light King is not in check");
+//            }
         }
         if(currentPlayer.equals(darkLeader)){
             Team dark = players.darkLeader.getTeam();
             String location = dark.getOnePiece(getDarkKing());
             if(darkKing.determineIfInCheck(location)) {
-                System.out.println("The Dark King is in Check");
-                isCurrentPlayerInCheckMate(location,"D");
+                if(! (isCurrentPlayerInCheckMate(location,"D"))){
+                    System.out.println("The Dark King is in Check");
+                }
             }
-            else{
-                System.out.println("The Dark King is not in check");
-            }
+//            else{
+//                System.out.println("The Dark King is not in check");
+//            }
         }
 
     }

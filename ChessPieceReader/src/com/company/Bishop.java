@@ -21,21 +21,17 @@ public class Bishop extends Piece {
 
     public boolean isLegalMove(String firstLocation, String secondLocation){
         boolean validMove = false;
-        checkDiagonals(firstLocation);
 
-//
-//        System.out.println("ValidMoves: "+validMoves);
         for(String location:validMoves){
             if(location.equals(secondLocation)){
                 validMove = true;
             }
         }
-
-
-
-            validMoves = new ArrayList<String>();
-//            move(firstLocation,secondLocation,piece);
-
         return validMove;
+    }
+
+    public void populateValidMoves(String firstLocation) {
+        validMoves = new ArrayList<String>();
+        checkDiagonals(firstLocation);
     }
 }

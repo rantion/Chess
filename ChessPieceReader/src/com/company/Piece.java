@@ -31,10 +31,7 @@ public abstract class Piece {
         this.game = game;
         this.board = game.getGameBoard();
         this.color = color;
-
     }
-
-
 
     public void move(String oldLocation,String newLocation, String piece){
         if(board.isSquareEmpty(newLocation) || !isPieceSameColor(newLocation)){
@@ -42,8 +39,7 @@ public abstract class Piece {
             if(board.getPiece(newLocation)!=null){
                 board.removePiece(newLocation);
             }
-            board.placePiece(newLocation, this,piece);
-//            System.out.println("\n");
+            board.placePiece(newLocation, this, piece);
         }
 
     }
@@ -55,9 +51,7 @@ public abstract class Piece {
 
     public abstract boolean isLegalMove (String firstLocation, String secondLocation);
 
-//    protected void notValid(){
-//        System.out.println("The move you tried to execute was not valid");
-//    }
+    public abstract void populateValidMoves(String firstLocation);
 
 
     public void checkKnight(String firstLocation){
@@ -200,7 +194,7 @@ public abstract class Piece {
 
     //</editor-fold>
 
-    private boolean isPieceSameColor(String loc){
+    protected boolean isPieceSameColor(String loc){
         return(board.getPiece(loc).getColor().equals(this.color));
     }
 

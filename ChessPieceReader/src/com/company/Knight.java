@@ -21,18 +21,19 @@ public class Knight extends Piece {
 
     public boolean isLegalMove(String firstLocation, String secondLocation){
          boolean validMove = false;
-            checkKnight(firstLocation);
+            populateValidMoves(firstLocation);
             for(String location:validMoves){
                 if(location.equals(secondLocation)){
                     validMove = true;
                 }
             }
-
-
-                validMoves = new ArrayList<String>();
-//                move(firstLocation,secondLocation,piece);
-
         return validMove;
+    }
+
+    @Override
+    public void populateValidMoves(String firstLocation) {
+        validMoves = new ArrayList<String>();
+        checkKnight(firstLocation);
     }
 
 

@@ -24,28 +24,26 @@ public class Pawn extends Piece {
     public boolean isLegalMove(String firstLocation, String secondLocation){
 
         boolean validMove = false;
-        checkPawn(firstLocation);
-
-//        System.out.println("ValidMoves: "+validMoves);
+        populateValidMoves(firstLocation);
         for(String location:validMoves){
             if(location.equals(secondLocation)){
                 validMove = true;
             }
         }
-
-
-            validMoves = new ArrayList<String>();
-            hasMoved = true;
-//            move(firstLocation,secondLocation,piece);
-
+        hasMoved = true;
         return validMove;
     }
 
+    @Override
+    public void populateValidMoves(String firstLocation) {
+        validMoves = new ArrayList<String>();
+        checkPawn(firstLocation);
+    }
+
     public void pawnCapture(String firstLocation, String secondLocation){
-//        System.out.println("In Pawn Capture");
         if(color.equals("L")){
             if(secondLocation.equals(moveDiagonalUpperLeft(firstLocation,1)) || secondLocation.equals(moveDiagonalUpperRight(firstLocation,1))){
-               captureIfPiece(firstLocation, secondLocation);
+                captureIfPiece(firstLocation, secondLocation);
             }
         }
         if(color.equals("D")){
@@ -54,23 +52,53 @@ public class Pawn extends Piece {
             }
         }
     }
-     //captures if there is a piece in the second location and it is an opposing piece
+    //captures if there is a piece in the second location and it is an opposing piece
     private void captureIfPiece(String firstLocation, String secondLocation){
         if(board.getPiece(secondLocation) != null && (board.getPiece(secondLocation).getColor()!= color)){
             if(color.equals("L")){
                 piece = piece.toLowerCase();
             }
-        move(firstLocation,secondLocation,piece);
+            move(firstLocation,secondLocation,piece);
         }
     }
 
-    public void checkPawn(String firstLocation){
+    private void addPawnCaptureSquares(String location){
+        ArrayList<String>possibleCaptureLocations = new ArrayList<String>();
+        int squaresCanMove = 1;
+
+        if(color.equals("L")){
+            if(inBounds(moveDiagonalUpperLeft(location,squaresCanMove))){
+            possibleCaptureLocations.add(moveDiagonalUpperLeft(location,squaresCanMove));
+            }
+            if(inBounds(moveDiagonalUpperRight(location,squaresCanMove))) {
+            possibleCaptureLocations.add(moveDiagonalUpperRight(location,squaresCanMove));
+            }
+        }
+        if(color.equals("D")){
+            if(inBounds(moveDiagonalLowerLeft(location,squaresCanMove))) {
+            possibleCaptureLocations.add(moveDiagonalLowerLeft(location,squaresCanMove));
+            }
+            if(inBounds(moveDiagonalLowerRight(location,squaresCanMove))){
+            possibleCaptureLocations.add(moveDiagonalLowerRight(location,squaresCanMove));
+            }
+        }
+        for(String loc : possibleCaptureLocations){
+            if(!board.isSquareEmpty((loc))){
+                if (!isPieceSameColor(loc)){
+                    validMoves.add(loc);
+                }
+
+            }
+
+        }
+    }
+
+    private void checkPawn(String firstLocation){
         int numOfSquaresCanMove = 2;
         int numSquares =2;
         if(hasMoved){
-           numSquares = 1;
+            numSquares = 1;
         }
-
 
         for(int i = 0; i<numOfSquaresCanMove; i++){
             if(color.equals("L")){
@@ -83,6 +111,7 @@ public class Pawn extends Piece {
                     validMoves.add(moveVerticallyDown(firstLocation,numSquares));
                 }
             }
+            addPawnCaptureSquares(firstLocation);
             numSquares --;
         }
 

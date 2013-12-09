@@ -19,15 +19,10 @@ public class Queen extends Piece {
         }
     }
 
-    public void checkQueen(String firstLocation){
-        checkDiagonals(firstLocation);
-        checkHorizontals(firstLocation);
-        checkVerticals(firstLocation);
-    }
 
     public boolean isLegalMove(String firstLocation, String secondLocation){
         boolean validMove = false;
-           checkQueen(firstLocation);
+           populateValidMoves(firstLocation);
 //
 //        System.out.println("ValidMoves: "+validMoves);
         for(String location:validMoves){
@@ -42,10 +37,12 @@ public class Queen extends Piece {
         return validMove;
     }
 
-
-
-
-
+    @Override
+    public void populateValidMoves(String firstLocation) {
+        checkDiagonals(firstLocation);
+        checkHorizontals(firstLocation);
+        checkVerticals(firstLocation);
+    }
 
 
 }

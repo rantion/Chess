@@ -21,8 +21,7 @@ public class Rook extends Piece{
 
     public boolean isLegalMove(String firstLocation, String secondLocation){
         boolean validMove = false;
-        checkHorizontals(firstLocation);
-        checkVerticals(firstLocation);
+        populateValidMoves(firstLocation);
 //
 //        System.out.println("ValidMoves: "+validMoves);
         for(String location:validMoves){
@@ -35,6 +34,12 @@ public class Rook extends Piece{
 //            move(firstLocation,secondLocation,piece);
 
         return validMove;
+    }
+
+    @Override
+    public void populateValidMoves(String firstLocation) {
+        checkHorizontals(firstLocation);
+        checkVerticals(firstLocation);
     }
 
 }
