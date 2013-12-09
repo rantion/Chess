@@ -89,7 +89,7 @@ public class Board {
            int index1 = convertLetter(keys[1]-indexNumberReference)-2;
                 //-2 because although a8 is a valid square on the chessboard, the array is 0-7
            int index2 = keys[0]-indexLetterReference;
-        if(piece.color.equals("l")) {
+        if(piece.color.equals("L")) {
             Team lightTeam = players.lightLeader.getTeam();
             lightTeam.addPiecesToMap(piece,location);
         }

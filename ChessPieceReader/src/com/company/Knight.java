@@ -22,54 +22,18 @@ public class Knight extends Piece {
     public boolean isLegalMove(String firstLocation, String secondLocation){
          boolean validMove = false;
             checkKnight(firstLocation);
-
-//            System.out.println("ValidMoves: "+validMoves);
             for(String location:validMoves){
                 if(location.equals(secondLocation)){
                     validMove = true;
                 }
             }
 
-            if(!validMove) {
-                notValid();
-            }
-            else {
-                checkIfInBounds(secondLocation);
-//                if(color.equals("L")){
-//                    piece = piece.toLowerCase();
-//                }
+
                 validMoves = new ArrayList<String>();
 //                move(firstLocation,secondLocation,piece);
-            }
+
         return validMove;
     }
 
-//    public void checkKnight(String firstLocation){
-//        if(board.isSquareEmpty(moveVerticallyUp(moveHorizontallyLeft(firstLocation,2),1),this.color)){
-//            validMoves.add(moveVerticallyUp(moveHorizontallyLeft(firstLocation,2),1));
-//        }
-//        if(board.isSquareEmpty(moveVerticallyDown(moveHorizontallyLeft(firstLocation,2),1),this.color)){
-//            validMoves.add(moveVerticallyDown(moveHorizontallyLeft(firstLocation,2),1));
-//        }
-//        if(board.isSquareEmpty(moveVerticallyUp(moveHorizontallyRight(firstLocation,2),1),this.color)){
-//            validMoves.add(moveVerticallyUp(moveHorizontallyRight(firstLocation,2),1));
-//        }
-//        if(board.isSquareEmpty(moveVerticallyDown(moveHorizontallyRight(firstLocation,2),1),this.color)){
-//            validMoves.add(moveVerticallyDown(moveHorizontallyRight(firstLocation,2),1));
-//        }
-//        if(board.isSquareEmpty(moveVerticallyUp(moveHorizontallyLeft(firstLocation,1),2),this.color)){
-//            validMoves.add(moveVerticallyUp(moveHorizontallyLeft(firstLocation,1),2));
-//        }
-//        if(board.isSquareEmpty(moveVerticallyDown(moveHorizontallyLeft(firstLocation,1),2),this.color)){
-//            validMoves.add(moveVerticallyDown(moveHorizontallyLeft(firstLocation,1),2));
-//        }
-//        if(board.isSquareEmpty(moveVerticallyUp(moveHorizontallyRight(firstLocation,1),2),this.color)){
-//            validMoves.add(moveVerticallyUp(moveHorizontallyRight(firstLocation,1),2));
-//        }
-//        if(board.isSquareEmpty(moveVerticallyDown(moveHorizontallyRight(firstLocation,1),2),this.color)){
-//            validMoves.add(moveVerticallyDown(moveHorizontallyRight(firstLocation,1),2));
-//        }
-//
-//
-//    }
+
 }

@@ -25,30 +25,23 @@ public class King extends Piece {
     public boolean isLegalMove(String firstLocation, String secondLocation){
 
         boolean validMove = false;
-        checkKing(firstLocation);
-
-        System.out.println("ValidMoves: "+validMoves);
+        getKingValidMoves(firstLocation);
+//
+//        System.out.println("ValidMoves: "+validMoves);
         for(String location:validMoves){
             if(location.equals(secondLocation)){
                 validMove = true;
             }
         }
 
-        if(!validMove) {
-            notValid();
-        }
-        else {
-            checkIfInBounds(secondLocation);
-//            if(color.equals("L")){
-//                piece = piece.toLowerCase();
-//            }
-            validMoves = new ArrayList<String>();
+
+        validMoves = new ArrayList<String>();
 //            move(firstLocation,secondLocation,piece);
-        }
+
         return validMove;
     }
 
-    public void checkKing(String firstLocation){
+    public void getKingValidMoves(String firstLocation){
 
         ArrayList<String> kingLocations = new ArrayList<String>();
 
@@ -65,67 +58,48 @@ public class King extends Piece {
 
 
 
-        }
+    }
 
     public boolean determineIfInCheck(String location){
         boolean inCheck = false;
-        piecesPuttingKingInCheck = new HashMap<String, Piece>();
-        ArrayList<String>HorizontalVerticalMoves = checkHorizontalVerticals(location);
-        ArrayList<String>DiagonalMoves = checkDiagonalMoves(location);
-        ArrayList<String>KnightMoves = checkForKnightMoves(location);
+        Players players = game.getPlayers();
+        if(this.color.equals("L")){
+            Team dark = players.getDarkLeader().getTeam();
 
-        for(String sqrLocation:HorizontalVerticalMoves){
-            allPossibleAttackSquares.add(sqrLocation);
-            Piece checkPiece = board.getPiece(sqrLocation);
-            checkKing(location);
-            if(checkPiece != null){
-                if(checkPiece instanceof King && validMoves.contains(sqrLocation)){
-                    piecesPuttingKingInCheck.put(sqrLocation, checkPiece);
-                    inCheck = true;
-                }
-                if(checkPiece instanceof Queen || checkPiece instanceof Rook){
-                    piecesPuttingKingInCheck.put(sqrLocation, checkPiece);
-                    inCheck = true;
+            for(Piece piece: dark.getTeamPieces().keySet()){
+                if(dark.getTeamPieces().get(piece) != "captured"){
+                    if(piece.isLegalMove(dark.getTeamPieces().get(piece),location)){
+                        inCheck = true;
+
+                    }
                 }
             }
-        }
 
-        for(String sqrLocation:DiagonalMoves){
-            allPossibleAttackSquares.add(sqrLocation);
-            Piece checkPiece = board.getPiece(sqrLocation);
-            if(checkPiece != null){
-                if(checkPiece instanceof King && validMoves.contains(sqrLocation)){
-                    piecesPuttingKingInCheck.put(sqrLocation, checkPiece);
-                    inCheck = true;
-                }
-                if(checkPiece instanceof Pawn && getPawnSquares(location).contains(sqrLocation))   {
-                  piecesPuttingKingInCheck.put(sqrLocation, checkPiece);
-                   inCheck = true;
-                }
-                if(checkPiece instanceof Queen || checkPiece instanceof Bishop){
-                    piecesPuttingKingInCheck.put(sqrLocation, checkPiece);
-                    inCheck = true;
+        }
+        if(this.color.equals("D")){
+            Team light = players.getLightLeader().getTeam();
+            for(Piece piece: light.getTeamPieces().keySet()){
+                if(light.getTeamPieces().get(piece) != "captured") {
+                    if(piece.isLegalMove(light.getTeamPieces().get(piece),location)){
+                        inCheck = true;
+
+                    }
                 }
             }
+
         }
 
-        for(String sqrLocation:KnightMoves){
-            allPossibleAttackSquares.add(sqrLocation);
-            Piece checkPiece = board.getPiece(sqrLocation);
-            if(checkPiece != null){
-                if(checkPiece instanceof Knight){
-                    piecesPuttingKingInCheck.put(sqrLocation, checkPiece);
-                    inCheck = true;
-                }
-            }
-        }
+
+
+
+
         return inCheck;
     }
 
     private ArrayList<String> getPawnSquares(String location){
         ArrayList<String> pawnSquares = new ArrayList<String>();
         if(color.equals("L")){
-           pawnSquares.add(moveDiagonalUpperLeft(location,1));
+            pawnSquares.add(moveDiagonalUpperLeft(location,1));
             pawnSquares.add(moveDiagonalUpperRight(location,1));
         }
         else if(color.equals("D")){
@@ -155,20 +129,67 @@ public class King extends Piece {
         return validMoves;
     }
 
+    public boolean canMoveOutOfCheck(String location){
+        boolean canMove = false;
+        String originalLocation = location;
+        getKingValidMoves(originalLocation);
+        King kingInCheck = (King)board.getPiece(originalLocation);
+        for(String loc:validMoves){
+            kingInCheck.move(originalLocation,loc,piece);
+            if(!kingInCheck.determineIfInCheck(loc)){
+                canMove = true;
+            }
+            kingInCheck.unDoMove(loc,originalLocation,piece);
 
-    public boolean determineIfAllValidSquaresInCheck(String location, King king){
-        boolean allValidMovesInCheck = true;
-//        checkKing(location);
-//        for(String loc: validMoves){
-//            System.out.println("Location: "+loc);
-//            System.out.println("in check: " + determineIfInCheck(loc));
-//            if(!determineIfInCheck(loc)){
-//                System.out.println("Inside loop");
-//               allValidMovesInCheck = false;
-//            }
-//        }
-//        System.out.println("All Valid Moves In Check:"+allValidMovesInCheck);
-         return allValidMovesInCheck;
+        }
+        return canMove;
+    }
+
+    public void populateAllPossibleAttackSquares(String location){
+        piecesPuttingKingInCheck = new HashMap<String, Piece>();
+        ArrayList<String>HorizontalVerticalMoves = checkHorizontalVerticals(location);
+        ArrayList<String>DiagonalMoves = checkDiagonalMoves(location);
+        ArrayList<String>KnightMoves = checkForKnightMoves(location);
+
+        for(String sqrLocation:HorizontalVerticalMoves){
+            allPossibleAttackSquares.add(sqrLocation);
+            Piece checkPiece = board.getPiece(sqrLocation);
+            getKingValidMoves(location);
+            if(checkPiece != null){
+                if(checkPiece instanceof King && validMoves.contains(sqrLocation)){
+                    piecesPuttingKingInCheck.put(sqrLocation, checkPiece);
+                }
+                if(checkPiece instanceof Queen || checkPiece instanceof Rook){
+                    piecesPuttingKingInCheck.put(sqrLocation, checkPiece);
+                }
+            }
+        }
+
+        for(String sqrLocation:DiagonalMoves){
+            allPossibleAttackSquares.add(sqrLocation);
+            Piece checkPiece = board.getPiece(sqrLocation);
+            if(checkPiece != null){
+                if(checkPiece instanceof King && validMoves.contains(sqrLocation)){
+                    piecesPuttingKingInCheck.put(sqrLocation, checkPiece);
+                }
+                if(checkPiece instanceof Pawn && getPawnSquares(location).contains(sqrLocation))   {
+                    piecesPuttingKingInCheck.put(sqrLocation, checkPiece);
+                }
+                if(checkPiece instanceof Queen || checkPiece instanceof Bishop){
+                    piecesPuttingKingInCheck.put(sqrLocation, checkPiece);
+                }
+            }
+        }
+
+        for(String sqrLocation:KnightMoves){
+            allPossibleAttackSquares.add(sqrLocation);
+            Piece checkPiece = board.getPiece(sqrLocation);
+            if(checkPiece != null){
+                if(checkPiece instanceof Knight){
+                    piecesPuttingKingInCheck.put(sqrLocation, checkPiece);
+                }
+            }
+        }
     }
 
     public ArrayList<String> getAllPossibleAttackSquares() {

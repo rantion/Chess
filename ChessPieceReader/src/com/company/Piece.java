@@ -43,7 +43,6 @@ public abstract class Piece {
                 board.removePiece(newLocation);
             }
             board.placePiece(newLocation, this,piece);
-            game.printBoard();
 //            System.out.println("\n");
         }
 
@@ -56,21 +55,22 @@ public abstract class Piece {
 
     public abstract boolean isLegalMove (String firstLocation, String secondLocation);
 
-    protected void notValid(){
-        System.out.println("The move you tried to execute was not valid");
-    }
+//    protected void notValid(){
+//        System.out.println("The move you tried to execute was not valid");
+//    }
 
 
     public void checkKnight(String firstLocation){
         ArrayList<String> knightMoveLocations = new ArrayList<String>();
 
         String leftTwoUpOne = moveVerticallyUp(moveHorizontallyLeft(firstLocation,2),1);
-        String leftTwoDownOne = moveVerticallyDown(moveHorizontallyLeft(firstLocation,2),1);
         String rightTwoUpOne = moveVerticallyUp(moveHorizontallyRight(firstLocation,2),1);
-        String rightTwoDownOne = moveVerticallyDown(moveHorizontallyRight(firstLocation,2),1);
         String leftOneUpTwo = moveVerticallyUp(moveHorizontallyLeft(firstLocation,1),2);
-        String leftOneDownTwo = moveVerticallyDown(moveHorizontallyLeft(firstLocation,1),2);
         String rightOneUpTwo = moveVerticallyUp(moveHorizontallyRight(firstLocation,1),2);
+
+        String leftTwoDownOne = moveVerticallyDown(moveHorizontallyLeft(firstLocation,2),1);
+        String rightTwoDownOne = moveVerticallyDown(moveHorizontallyRight(firstLocation,2),1);
+        String leftOneDownTwo = moveVerticallyDown(moveHorizontallyLeft(firstLocation,1),2);
         String rightOneDownTwo =  moveVerticallyDown(moveHorizontallyRight(firstLocation,1),2);
 
         knightMoveLocations.add(leftTwoUpOne);
@@ -98,10 +98,12 @@ public abstract class Piece {
     public ArrayList<String> addValidLocations(ArrayList<String> locationList){
         ArrayList<String> validLocations = new ArrayList<String>();
         for(String location: locationList){
+            splitStartingSquare(location);
             if(inBounds(location)){
                 if(board.isSquareEmpty(location)) {
                     validLocations.add(location);
                 }
+
             }
         }
         return validLocations;
@@ -458,9 +460,11 @@ public abstract class Piece {
     // <editor-fold desc="Methods Used by Move Methods">
 
     private void splitStartingSquare(String startingSquare){
+        if(startingSquare != null){
         char[] locations =startingSquare.toCharArray();
         letterIndex = locations[0];
         numberIndex = locations[1];
+        }
     }
 
     private void notInBounds(){

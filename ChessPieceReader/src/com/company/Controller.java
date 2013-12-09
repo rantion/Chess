@@ -1,6 +1,5 @@
 package com.company;
 
-import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -69,6 +68,7 @@ public class Controller {
         players.setCurrentPlayer(this.currentPlayer);
         return this.currentPlayer;
 
+
     }
 
     private boolean isTeamsTurn(){
@@ -120,7 +120,7 @@ public class Controller {
     }
 
     private void determineAction(){
-        try{
+        try{  if(piece != null){
             if(castlePiece == null){
                 if(secondBoardPosition == null){
                     PlacePiece();
@@ -133,6 +133,7 @@ public class Controller {
             else{
 //            CastlePiece();
             }
+        }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -159,9 +160,12 @@ public class Controller {
     }
 
     private void MovePiece(){
-//        checkForCheck();
-        checkForCheckMate();
+        isCurrentPlayerInCheck();
+
+////        isCurrentPlayerInCheckMate();
         game.printBoard();
+
+
         Piece pieceToMove = board.getPiece(boardPosition);
         if(pieceToMove instanceof Pawn){
             if(capture.equals("*"))       {
@@ -177,6 +181,7 @@ public class Controller {
         else{
             if(pieceToMove.isLegalMove(boardPosition, secondBoardPosition)){
                 pieceToMove.move(boardPosition,secondBoardPosition,pieceToMove.getPiece());
+                game.printBoard();
             }
         }
     }
@@ -213,61 +218,51 @@ public class Controller {
         }
     }
 
-    private void iterateThroughKingMoves(String loc){
-        HashMap<Piece,String> tempTeam = new HashMap<Piece,String>();
-        King tempKing = null;
-        for(Piece key:team.getTeamPieces().keySet()){
-            tempTeam.put(key,team.getTeamPieces().get(key));
-            if(key instanceof King){
-                tempKing = (King) key;
-              }
-
-        }
-
-        for (Piece key :tempTeam.keySet()) {
-            String pieceLocation = team.getOnePiece(key);
-
-            if(key.isLegalMove(pieceLocation,loc)){
-                 key.move(pieceLocation,loc,key.getPiece());
-                 if(!tempKing.determineIfInCheck(kingLocation)){
-                     checkMate = false;
-
-               }
-////                key.unDoMove(loc,pieceLocation,key.getPiece());
-            }
-        }
-
-    }
 
 
-
-    private boolean checkForCheckMate(){
-        getCurrentTeam();
-        checkForCheck();
+    private boolean isCurrentPlayerInCheckMate(String kingLocation, String _color){
         checkMate = true;
-//        System.out.println("All Possible: "+king.getAllPossibleAttackSquares());
+        getCurrentTeam();
+        if(king.canMoveOutOfCheck(kingLocation)){
+            checkMate = false;
+        } else{
+            king.populateAllPossibleAttackSquares(kingLocation);
+            for(Piece teamPiece: team.getTeamPieces().keySet()){
+                if(!(teamPiece instanceof King)){
+                    String teamPieceLoc = team.getTeamPieces().get(teamPiece);
+                    for(String loc :king.getAllPossibleAttackSquares()){
+                        if(teamPiece.isLegalMove(teamPieceLoc,loc)){
+                            teamPiece.move(teamPieceLoc, loc, teamPiece.piece);
+                            if(!king.canMoveOutOfCheck(kingLocation)){
+                                checkMate = false;
+                            }
+                            System.out.println("Piece has been moved back");
+                            teamPiece.unDoMove(loc, teamPieceLoc, teamPiece.piece);
+                        }
 
-            if(king.determineIfAllValidSquaresInCheck(kingLocation, king)){
-                for(String loc: king.getAllPossibleAttackSquares()){
-                   iterateThroughKingMoves(loc);
+
+
+                    }
                 }
             }
-            else{
-                checkMate = false;
-                System.out.println(isNotInCheckMate);
-            }
+        }
         if(checkMate){
             System.out.println(isInCheckMate);
         }
-         return checkMate;
+        else{
+            System.out.println(isNotInCheckMate);
+        }
+
+        return checkMate;
     }
 
-    private void checkForCheck(){
+    private void isCurrentPlayerInCheck(){
         if(currentPlayer.equals(lightLeader)){
             Team light = players.lightLeader.getTeam();
             String location = light.getOnePiece(getLightKing());
             if(lightKing.determineIfInCheck(location)){
                 System.out.println("The Light King is in Check");
+                isCurrentPlayerInCheckMate(location, "L");
             }
             else{
                 System.out.println("The Light King is not in check");
@@ -278,6 +273,7 @@ public class Controller {
             String location = dark.getOnePiece(getDarkKing());
             if(darkKing.determineIfInCheck(location)) {
                 System.out.println("The Dark King is in Check");
+                isCurrentPlayerInCheckMate(location,"D");
             }
             else{
                 System.out.println("The Dark King is not in check");

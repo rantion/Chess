@@ -33,18 +33,11 @@ public class Pawn extends Piece {
             }
         }
 
-        if(!validMove) {
-            notValid();
-        }
-        else {
-            checkIfInBounds(secondLocation);
-//            if(color.equals("L")){
-//                piece = piece.toLowerCase();
-//            }
+
             validMoves = new ArrayList<String>();
             hasMoved = true;
 //            move(firstLocation,secondLocation,piece);
-        }
+
         return validMove;
     }
 
