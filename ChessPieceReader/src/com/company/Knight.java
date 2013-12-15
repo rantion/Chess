@@ -1,5 +1,6 @@
 package com.company;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 /**
@@ -11,19 +12,23 @@ import java.util.ArrayList;
  */
 public class Knight extends Piece {
 
+    private ImageIcon lightKnight, darkKnight;
+
     public Knight(Game game, String color){
         super(game, color);
         piece = "N";
+        lightKnight = new ImageIcon("/Users/Rachel/Chess/ChessPieceReader/White Pieces/WhiteKnight.png");
+        darkKnight = new ImageIcon("/Users/Rachel/Chess/ChessPieceReader/Dark Pieces/DarkKnight.png");
         if(color.equals("L")){
             piece = piece.toLowerCase();
         }
     }
 
-    public boolean isLegalMove(String firstLocation, String secondLocation){
+    public boolean isLegalMove(Location firstLocation, Location secondLocation){
          boolean validMove = false;
             populateValidMoves(firstLocation);
-            for(String location:validMoves){
-                if(location.equals(secondLocation)){
+            for(Location location:validMoves){
+                if(location.getLocation().equals(secondLocation.getLocation())){
                     validMove = true;
                 }
             }
@@ -31,9 +36,19 @@ public class Knight extends Piece {
     }
 
     @Override
-    public void populateValidMoves(String firstLocation) {
-        validMoves = new ArrayList<String>();
+    public void populateValidMoves(Location firstLocation) {
+        validMoves = new ArrayList<Location>();
         checkKnight(firstLocation);
+    }
+
+    @Override
+    public ImageIcon getLightImage() {
+        return lightKnight;
+    }
+
+    @Override
+    public ImageIcon getDarkImage() {
+        return darkKnight;
     }
 
 

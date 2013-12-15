@@ -1,5 +1,8 @@
 package com.company;
 
+import javax.swing.*;
+import java.awt.*;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Rachel
@@ -7,16 +10,28 @@ package com.company;
  * Time: 2:09 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Game {
+public class Game extends JFrame {
 
-    private Board gameBoard;
     private Players players;
     private Square[][]board;
+    private JPanel teamInfoPanel;
+    private Board _board;
 
 
     public Game(){
+        super("CHESS!!");
+        setLayout(new BorderLayout());
+        this.setSize(900, 1000);
         players = new Players();
-        gameBoard = new Board(players);
+        _board = new Board(players);
+        teamInfoPanel = new TeamInfoPanel();
+
+        this.getContentPane().add(_board, BorderLayout.CENTER);
+        this.getContentPane().add(teamInfoPanel, BorderLayout.SOUTH);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setVisible(true);
+
+
     }
 
     public Players getPlayers(){
@@ -36,11 +51,11 @@ public class Game {
     }
 
     public Board getGameBoard() {
-        return gameBoard;
+        return _board;
     }
 
     public void setBoard(){
-        board = gameBoard.getBoard();
+        board = _board.getBoard();
     }
 //
 //    public void setGameBoard(Board gameBoard) {

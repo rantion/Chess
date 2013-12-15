@@ -1,5 +1,6 @@
 package com.company;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 /**
@@ -21,11 +22,19 @@ public abstract class Piece {
     private final int widthHeight = 8;
     private int maxUpDown, maxUpDown1, maxLeftRight, maxLeftRight1;
     protected String color, piece;
-    protected ArrayList<String> validMoves = new ArrayList();
+    protected ArrayList<Location> validMoves = new ArrayList();
     protected Board board;
     protected Game game;
+    protected boolean hasMoved;
 
 
+    public boolean getHasMoved() {
+        return hasMoved;
+    }
+
+    public void setHasMoved(boolean hasMoved) {
+        this.hasMoved = hasMoved;
+    }
 
     public Piece(Game game,String color){
         this.game = game;
@@ -33,7 +42,7 @@ public abstract class Piece {
         this.color = color;
     }
 
-    public void move(String oldLocation,String newLocation, String piece){
+    public void move(Location oldLocation,Location newLocation, String piece){
         if(board.isSquareEmpty(newLocation) || !isPieceSameColor(newLocation)){
             board.removePiece(oldLocation);
             if(board.getPiece(newLocation)!=null){
@@ -44,34 +53,39 @@ public abstract class Piece {
 
     }
 
-    public void unDoMove(String newLocation, String oldLocation, String piece){
+    public void unDoMove(Location newLocation, Location oldLocation, String piece){
         board.removePiece(newLocation);
         board.placePiece(oldLocation, this, piece);
     }
 
-    public abstract boolean isLegalMove (String firstLocation, String secondLocation);
+    public abstract boolean isLegalMove (Location firstLocation, Location secondLocation);
 
-    public abstract void populateValidMoves(String firstLocation);
+    public abstract void populateValidMoves(Location firstLocation);
+
+    public abstract ImageIcon getLightImage();
+    public abstract ImageIcon getDarkImage();
 
 
-    public void checkKnight(String firstLocation){
-        ArrayList<String> knightMoveLocations = new ArrayList<String>();
+    public void checkKnight(Location firstLocation){
+        ArrayList<Location> knightMoveLocations = new ArrayList<Location>();
 
-        String leftTwoUpOne = moveVerticallyUp(moveHorizontallyLeft(firstLocation,2),1);
-        String rightTwoUpOne = moveVerticallyUp(moveHorizontallyRight(firstLocation,2),1);
-        String leftOneUpTwo = moveVerticallyUp(moveHorizontallyLeft(firstLocation,1),2);
-        String rightOneUpTwo = moveVerticallyUp(moveHorizontallyRight(firstLocation,1),2);
+        Location leftTwoUpOne = moveVerticallyUp(moveHorizontallyLeft(firstLocation,2),1);
+        Location rightTwoUpOne = moveVerticallyUp(moveHorizontallyRight(firstLocation,2),1);
 
-        String leftTwoDownOne = moveVerticallyDown(moveHorizontallyLeft(firstLocation,2),1);
-        String rightTwoDownOne = moveVerticallyDown(moveHorizontallyRight(firstLocation,2),1);
-        String leftOneDownTwo = moveVerticallyDown(moveHorizontallyLeft(firstLocation,1),2);
-        String rightOneDownTwo =  moveVerticallyDown(moveHorizontallyRight(firstLocation,1),2);
+        Location leftOneUpTwo = moveVerticallyUp(moveHorizontallyLeft(firstLocation,1),2);
+        Location rightOneUpTwo = moveVerticallyUp(moveHorizontallyRight(firstLocation,1),2);
+
+        Location leftTwoDownOne = moveVerticallyDown(moveHorizontallyLeft(firstLocation,2),1);
+        Location rightTwoDownOne = moveVerticallyDown(moveHorizontallyRight(firstLocation,2),1);
+
+        Location leftOneDownTwo = moveVerticallyDown(moveHorizontallyLeft(firstLocation,1),2);
+        Location rightOneDownTwo =  moveVerticallyDown(moveHorizontallyRight(firstLocation,1),2);
 
         knightMoveLocations.add(leftTwoUpOne);
         knightMoveLocations.add(leftTwoDownOne);
         knightMoveLocations.add(rightTwoUpOne);
-
         knightMoveLocations.add(rightTwoDownOne);
+
         knightMoveLocations.add(leftOneUpTwo);
         knightMoveLocations.add(leftOneDownTwo);
         knightMoveLocations.add(rightOneUpTwo);
@@ -83,18 +97,23 @@ public abstract class Piece {
 
     // <editor-fold desc="Move Methods">
 
-    public boolean inBounds(String location){
+    public boolean inBounds(Location location){
         splitStartingSquare(location);
         boolean inBounds = (letterIndex>=leftBoundry && letterIndex<=rightBoundry && numberIndex>= bottomBoundry && numberIndex<=topBoundry);
         return inBounds;
     }
 
-    public ArrayList<String> addValidLocations(ArrayList<String> locationList){
-        ArrayList<String> validLocations = new ArrayList<String>();
-        for(String location: locationList){
+    public ArrayList<Location> addValidLocations(ArrayList<Location> locationList){
+        ArrayList<Location> validLocations = new ArrayList<Location>();
+        for(Location location: locationList){
             splitStartingSquare(location);
             if(inBounds(location)){
-                if(board.isSquareEmpty(location)) {
+                if(!board.isSquareEmpty(location)) {
+                    if (!isPieceSameColor(location)){
+                    validLocations.add(location);
+                    }
+                }
+                else{
                     validLocations.add(location);
                 }
 
@@ -104,7 +123,7 @@ public abstract class Piece {
     }
 
 
-    public String moveHorizontallyRight(String startingSquare,int numOfTimes){
+    public Location moveHorizontallyRight(Location startingSquare,int numOfTimes){
 //       return moveHorizontally(startingSquare, numOfTimes,1);
         splitStartingSquare(startingSquare);
         letterIndex = letterIndex +numOfTimes;
@@ -112,11 +131,11 @@ public abstract class Piece {
         return newLocation();
     }
 
-    public String moveHorizontallyLeft(String startingSquare, int numOfTimes){
+    public Location moveHorizontallyLeft(Location startingSquare, int numOfTimes){
 //       return moveHorizontally(startingSquare, numOfTimes,-1);
         splitStartingSquare(startingSquare);
         letterIndex = letterIndex - numOfTimes;
-        String location = "";
+        Location location = null;
         if(letterIndex>=leftBoundry){
             location= newLocation();
         }
@@ -126,48 +145,48 @@ public abstract class Piece {
         return location;
     }
 
-    public String moveHorizontally(String startingSquare, int numOfTimes, int direction){
+    public Location moveHorizontally(Location startingSquare, int numOfTimes, int direction){
         splitStartingSquare(startingSquare);
         letterIndex = letterIndex + (numOfTimes*direction);
         return newLocation();
 
     }
 
-    public String moveVerticallyUp(String startingSquare, int numOfTimes){
+    public Location moveVerticallyUp(Location startingSquare, int numOfTimes){
         return moveVertically(startingSquare, numOfTimes, 1);
     }
 
-    public String moveVerticallyDown(String startingSquare, int numOfTimes){
+    public Location moveVerticallyDown(Location startingSquare, int numOfTimes){
         return moveVertically(startingSquare, numOfTimes, -1);
 
     }
 
 
-    public String moveVertically(String startingSquare, int numOfTimes,int direction){
+    public Location moveVertically(Location startingSquare, int numOfTimes,int direction){
         splitStartingSquare(startingSquare);
 
         numberIndex = numberIndex + (numOfTimes * direction);
         return newLocation();
     }
 
-    public String moveDiagonalUpperLeft(String startingSquare, int numOfTimes){
-        String tempSquare = moveHorizontallyLeft(startingSquare,numOfTimes);
+    public Location moveDiagonalUpperLeft(Location startingSquare, int numOfTimes){
+        Location tempSquare = moveHorizontallyLeft(startingSquare,numOfTimes);
         return moveVerticallyUp(tempSquare, numOfTimes);
 
     }
 
-    public String moveDiagonalUpperRight(String startingSquare, int numOfTimes){
-        String tempSquare = moveHorizontallyRight(startingSquare, numOfTimes);
+    public Location moveDiagonalUpperRight(Location startingSquare, int numOfTimes){
+        Location tempSquare = moveHorizontallyRight(startingSquare, numOfTimes);
         return moveVerticallyUp(tempSquare, numOfTimes);
     }
 
-    public String moveDiagonalLowerLeft(String startingSquare, int numOfTimes){
-        String tempSquare = moveHorizontallyLeft(startingSquare, numOfTimes);
+    public Location moveDiagonalLowerLeft(Location startingSquare, int numOfTimes){
+        Location tempSquare = moveHorizontallyLeft(startingSquare, numOfTimes);
         return moveVerticallyDown(tempSquare, numOfTimes);
     }
 
-    public String moveDiagonalLowerRight(String startingSquare, int numOfTimes){
-        String tempSquare = moveHorizontallyRight(startingSquare, numOfTimes);
+    public Location moveDiagonalLowerRight(Location startingSquare, int numOfTimes){
+        Location tempSquare = moveHorizontallyRight(startingSquare, numOfTimes);
         return moveVerticallyDown(tempSquare, numOfTimes);
     }
 
@@ -175,38 +194,38 @@ public abstract class Piece {
 
     // <editor-fold desc="check directions methods">
 
-    public void checkDiagonals(String startingSquare){
+    public void checkDiagonals(Location startingSquare){
         checkDiagonalUpperLeft(startingSquare);
         checkDiagonalUpperRight(startingSquare);
         checkDiagonalLowerLeft(startingSquare);
         checkDiagonalLowerRight(startingSquare);
     }
 
-    public void checkHorizontals(String startingSquare){
+    public void checkHorizontals(Location startingSquare){
         checkHorizontalRight(startingSquare);
         checkHorizontalLeft(startingSquare);
     }
 
-    public void checkVerticals(String startingSquare){
+    public void checkVerticals(Location startingSquare){
         checkVerticalUp(startingSquare);
         checkVerticalDown(startingSquare);
     }
 
     //</editor-fold>
 
-    protected boolean isPieceSameColor(String loc){
+    protected boolean isPieceSameColor(Location loc){
         return(board.getPiece(loc).getColor().equals(this.color));
     }
 
     // <editor-fold desc="Individual check directions methods">
-    private void checkDiagonalUpperLeft(String startingSquare){
+    private void checkDiagonalUpperLeft(Location startingSquare){
         splitStartingSquare(startingSquare);
         int maxSquares = getMaxSquareDiagonalUpLeft();
 
         boolean keepChecking = true;
 
         for(int i = 1; i<=maxSquares && keepChecking; i++){
-            String loc = moveDiagonalUpperLeft(startingSquare,i);
+            Location loc = moveDiagonalUpperLeft(startingSquare,i);
             if(!board.isSquareEmpty((loc))){
                 keepChecking = false;
                 if (!isPieceSameColor(loc)){
@@ -221,13 +240,13 @@ public abstract class Piece {
         }
     }
 
-    private void checkDiagonalUpperRight(String startingSquare){
+    private void checkDiagonalUpperRight(Location startingSquare){
         splitStartingSquare(startingSquare);
 
         boolean keepChecking = true;
         int maxSquare = getMaxSquareDiagonalUpRight();
         for(int i = 1; i<=maxSquare && keepChecking;i++){
-            String loc = moveDiagonalUpperRight(startingSquare,i);
+            Location loc = moveDiagonalUpperRight(startingSquare,i);
             if(!board.isSquareEmpty((loc))){
                 keepChecking = false;
                 if (!isPieceSameColor(loc)){
@@ -242,13 +261,13 @@ public abstract class Piece {
         }
     }
 
-    private void checkDiagonalLowerLeft(String startingSquare){
+    private void checkDiagonalLowerLeft(Location startingSquare){
         splitStartingSquare(startingSquare);
         boolean keepChecking = true;
         int maxSquares = getMaxSquareDiagonalLowLeft();
 
         for(int i = 1; i<=maxSquares && keepChecking;i++){
-            String loc = moveDiagonalLowerLeft(startingSquare,i);
+           Location loc = moveDiagonalLowerLeft(startingSquare,i);
             if(!board.isSquareEmpty((loc))){
                 keepChecking = false;
                 if (!isPieceSameColor(loc)){
@@ -263,13 +282,13 @@ public abstract class Piece {
         }
     }
 
-    private void checkDiagonalLowerRight(String startingSquare){
+    private void checkDiagonalLowerRight(Location startingSquare){
         splitStartingSquare(startingSquare);
 
         boolean keepChecking = true;
         int maxSquares = getMaxSquareDiagonalLowRight();
         for(int i = 1; i<=maxSquares && keepChecking;i++){
-            String loc = moveDiagonalLowerRight(startingSquare,i);
+            Location loc = moveDiagonalLowerRight(startingSquare,i);
             if(!board.isSquareEmpty((loc))){
                 keepChecking = false;
                 if (!isPieceSameColor(loc)){
@@ -284,13 +303,13 @@ public abstract class Piece {
         }
     }
 
-    private void checkHorizontalRight(String startingSquare){
+    private void checkHorizontalRight(Location startingSquare){
         splitStartingSquare(startingSquare);
         setMaxes();
 
         boolean keepChecking = true;
         for(int i = 1; i<=maxLeftRight && keepChecking;i++){
-            String loc = moveHorizontallyRight(startingSquare,i);
+            Location loc = moveHorizontallyRight(startingSquare,i);
             if(!board.isSquareEmpty((loc))){
                 keepChecking = false;
                 if (!isPieceSameColor(loc)){
@@ -305,13 +324,13 @@ public abstract class Piece {
         }
     }
 
-    private void checkHorizontalLeft(String startingSquare){
+    private void checkHorizontalLeft(Location startingSquare){
         splitStartingSquare(startingSquare);
         setMaxes();
 
         boolean keepChecking = true;
         for(int i = 1; i<maxLeftRight1 && keepChecking;i++){
-            String loc = moveHorizontallyLeft(startingSquare,i);
+            Location loc = moveHorizontallyLeft(startingSquare,i);
             if(!board.isSquareEmpty((loc))){
                 keepChecking = false;
                 if (!isPieceSameColor(loc)){
@@ -326,13 +345,13 @@ public abstract class Piece {
         }
     }
 
-    private void checkVerticalUp(String startingSquare){
+    private void checkVerticalUp(Location startingSquare){
         splitStartingSquare(startingSquare);
         setMaxes();
 
         boolean keepChecking = true;
         for(int i = 1; i<=maxUpDown && keepChecking;i++){
-            String loc = moveVerticallyUp(startingSquare,i);
+            Location loc = moveVerticallyUp(startingSquare,i);
             if(!board.isSquareEmpty((loc))){
                 keepChecking = false;
                 if (!isPieceSameColor(loc)){
@@ -347,13 +366,13 @@ public abstract class Piece {
         }
     }
 
-    private void checkVerticalDown(String startingSquare){
+    private void checkVerticalDown(Location startingSquare){
         splitStartingSquare(startingSquare);
         setMaxes();
 
         boolean keepChecking = true;
         for(int i = 1; i<maxUpDown1 && keepChecking;i++){
-            String loc = moveVerticallyDown(startingSquare,i);
+            Location loc = moveVerticallyDown(startingSquare,i);
             if(!board.isSquareEmpty((loc))){
                 keepChecking = false;
                 if (!isPieceSameColor(loc)){
@@ -453,9 +472,9 @@ public abstract class Piece {
 
     // <editor-fold desc="Methods Used by Move Methods">
 
-    private void splitStartingSquare(String startingSquare){
+    private void splitStartingSquare(Location startingSquare){
         if(startingSquare != null){
-        char[] locations =startingSquare.toCharArray();
+        char[] locations =startingSquare.getLocation().toCharArray();
         letterIndex = locations[0];
         numberIndex = locations[1];
         }
@@ -465,19 +484,19 @@ public abstract class Piece {
         System.out.println("You are trying to move to a square that does not exist in the scope of a chessboard");
     }
 
-    protected void checkIfInBounds(String location){
+    protected void checkIfInBounds(Location location){
         splitStartingSquare(location);
         if(letterIndex>=leftBoundry && letterIndex<=rightBoundry && numberIndex<=topBoundry && numberIndex>=bottomBoundry){
             newLocation();
         }
     }
 
-    private String newLocation(){
+    private Location newLocation(){
         newLetterChar =  (char)letterIndex;
         String newLetter = Character.toString(newLetterChar);
         newNumChar = (char)numberIndex;
         String newNumber = Character.toString(newNumChar);
-        String newLocation = newLetter+newNumber;
+       Location newLocation = new Location(newLetter+newNumber);
         return  newLocation;
 
     }
@@ -502,5 +521,12 @@ public abstract class Piece {
         this.color = color;
     }
 
-    //</editor-fold>
+    public ArrayList<Location> getValidMoves() {
+        return validMoves;
+    }
+
+    public void setValidMoves(ArrayList<Location> validMoves) {
+        this.validMoves = validMoves;
+    }
+//</editor-fold>
 }

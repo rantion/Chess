@@ -20,6 +20,7 @@ public class ReadFile {
         this.game = game;
         controller = new Controller(game);
         readInFile(filePath);
+        controller.startGame();
 
     }
 

@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  */
 public class Controller {
     private String pieceDirective, piece, color, boardPosition, secondBoardPosition,capture,
-            castlePiece, castleColor, castlePosition, secondCastlePosition, kingLocation, isInCheckMate, isNotInCheckMate, teamName;
+            castlePiece, castleColor, castlePosition, secondCastlePosition, isInCheckMate, isNotInCheckMate, teamName;
     private Game game;
     private Player lightLeader, darkLeader,currentPlayer;
     private Board board;
@@ -23,6 +23,8 @@ public class Controller {
     private Team team;
     private Boolean checkMate;
     private Boolean gameIsGoing;
+    private Scanner scan = new Scanner(System.in);
+    private Location firstLocation, secondLocation, kingLocation;
 
     public Controller(Game game){
         this.game = game;
@@ -33,7 +35,7 @@ public class Controller {
         this.currentPlayer = lightLeader;
         this.gameIsGoing = true;
         players.setCurrentPlayer(currentPlayer);
-      }
+    }
 
     public void startGame(){
         while(gameIsGoing){
@@ -77,75 +79,99 @@ public class Controller {
 
 
     public void takeTurn(){
-        ArrayList<Piece>  movablePieces = new ArrayList<Piece>();
-        ArrayList<String> pieceLocations = new ArrayList<String>();
-        Scanner scan = new Scanner(System.in);
+//        ArrayList<Location> pieceLocations = new ArrayList<Location>();
         Piece pieceSelected;
-        getCurrentTeam();
-        System.out.println("It is the "+teamName+" player's turn.\n");
-        game.printBoard();
-        getMovablePieces();
-        movablePieces = getMovablePieces();
-        System.out.println("Enter the number of the piece you would like to move: ");
-        printMovablePieces(movablePieces);
-        String pieceNumString = scan.nextLine();
-        int pieceNum = Integer.parseInt(pieceNumString);
-        pieceSelected = movablePieces.get(pieceNum);
-        boardPosition = team.getTeamPieces().get(pieceSelected);
-        pieceLocations = getValidMoves(pieceSelected);
-        System.out.println("Move from "+boardPosition+ " to: ");
-        printValidMoves(pieceLocations);
-        String newLocationNum = scan.nextLine();
-        int newLocNum = Integer.parseInt(newLocationNum);
-        secondBoardPosition = pieceLocations.get(newLocNum);
-        pieceSelected.move(boardPosition,secondBoardPosition,pieceSelected.getPiece());
-        game.printBoard();
-
-
-
-    }
-
-    private void printValidMoves(ArrayList<String> validPieceMoves){
-
-        for(int i = 0; i<validPieceMoves.size();i++){
-           String location = validPieceMoves.get(i);
-            System.out.println(i+") "+location);
+        startTurn();
+        try{
+            if(gameIsGoing){
+                pieceSelected = getPieceFromUser();
+                firstLocation =  team.getTeamPieces().get(pieceSelected);
+                getMoveFromUser(pieceSelected);
+                movePiece(firstLocation,secondLocation,pieceSelected);
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+//            System.out.println("Woah, why don't we enter some valid inputs hmm?");
+//            takeTurn();
         }
 
     }
 
-    private ArrayList<String> getValidMoves(Piece pieceSelected){
-        ArrayList<String>validPieceMoves = new ArrayList<String>();
-        for(String location : pieceSelected.validMoves){
+    private void startTurn(){
+
+        getCurrentTeam();
+        System.out.println("It is the "+teamName+" player's turn.\n");
+        game.printBoard();
+        isCurrentPlayerInCheck();
+
+
+    }
+
+    private Piece getPieceFromUser(){
+        ArrayList<Piece> movablePieces = team.getMovablePieces();
+        System.out.println("Enter the number of the piece you would like to move: ");
+        team.printMovablePieces();
+        String pieceNumString = scan.nextLine();
+        int pieceNum = Integer.parseInt(pieceNumString);
+        return movablePieces.get(pieceNum);
+
+    }
+
+    private void getMoveFromUser(Piece pieceSelected){
+        ArrayList<Location> pieceLocations = new ArrayList<Location>();
+        pieceLocations = getValidMoves(pieceSelected);
+        System.out.println("Move from "+boardPosition+ " to: ");
+        printValidMoves(pieceLocations);
+
+        String newLocationNum = scan.nextLine();
+        int newLocNum = Integer.parseInt(newLocationNum);
+
+        secondLocation = pieceLocations.get(newLocNum);
+
+    }
+
+    private void printValidMoves(ArrayList<Location> validPieceMoves){
+
+        for(int i = 0; i<validPieceMoves.size();i++){
+            Location location = validPieceMoves.get(i);
+            System.out.println(i+") "+location.toString());
+        }
+
+    }
+
+    private ArrayList<Location> getValidMoves(Piece pieceSelected){
+        ArrayList<Location>validPieceMoves = new ArrayList<Location>();
+        for(Location location : pieceSelected.validMoves){
             validPieceMoves.add(location);
         }
         return validPieceMoves;
     }
 
-    private void printMovablePieces(ArrayList<Piece> movablePieces){
-        for(int i = 0; i<movablePieces.size();i++){
-            Piece tempPiece = movablePieces.get(i);
-           String location = team.getTeamPieces().get(tempPiece);
-            System.out.println(i+") Piece: "+tempPiece+" Location: "+location);
-        }
+//    private void printMovablePieces(ArrayList<Piece> movablePieces){
+//        for(int i = 0; i<movablePieces.size();i++){
+//            Piece tempPiece = movablePieces.get(i);
+//           String location = team.getTeamPieces().get(tempPiece);
+//            System.out.println(i+") Piece: "+tempPiece+" Location: "+location+ " Has Moved: "+tempPiece.getHasMoved());
+//        }
+//
+//    }
 
-    }
-
-    private ArrayList<Piece> getMovablePieces(){
-        ArrayList<String> pieceValidMoves = new ArrayList<String>();
-        ArrayList<Piece>  movablePieces = new ArrayList<Piece>();
-        for(Piece teamPiece :team.getTeamPieces().keySet()){
-            teamPiece.populateValidMoves(team.getTeamPieces().get(teamPiece));
-            pieceValidMoves = teamPiece.validMoves;
-//            System.out.println("Piece: "+teamPiece+ "Location: "+team.getTeamPieces().get(teamPiece));
-//            System.out.println("Valid moves: "+teamPiece.validMoves+ "\n\n");
-            if(pieceValidMoves.size() != 0) {
-                movablePieces.add(teamPiece);
-            }
-
-        }
-        return movablePieces;
-    }
+//    private ArrayList<Piece> getMovablePieces(){
+//        ArrayList<String> pieceValidMoves = new ArrayList<String>();
+//        ArrayList<Piece>  movablePieces = new ArrayList<Piece>();
+//        for(Piece teamPiece :team.getTeamPieces().keySet()){
+//            teamPiece.populateValidMoves(team.getTeamPieces().get(teamPiece));
+//            pieceValidMoves = teamPiece.validMoves;
+////            System.out.println("Piece: "+teamPiece+ "Location: "+team.getTeamPieces().get(teamPiece));
+////            System.out.println("Valid moves: "+teamPiece.validMoves+ "\n\n");
+//            if(pieceValidMoves.size() != 0) {
+//                movablePieces.add(teamPiece);
+//            }
+//
+//        }
+//        return movablePieces;
+//    }
 
     private Player changePlayer(Player currentPlayer){
         this.currentPlayer = (currentPlayer.equals(lightLeader)) ? darkLeader : lightLeader;
@@ -229,42 +255,49 @@ public class Controller {
 
     private void PlacePiece(){
         Piece newPiece = createPiece();
-        board.placePiece(boardPosition, newPiece,checkIfLightPiece(color, piece));
+        firstLocation = new Location (boardPosition);
+        board.placePiece(firstLocation, newPiece,checkIfLightPiece(color, piece));
         if(color.equals("L")){
             Team lightTeam = players.lightLeader.getTeam();
-            lightTeam.addPiecesToMap(newPiece,boardPosition);
+            lightTeam.addPiecesToMap(newPiece,firstLocation);
         }
         if(color.equals("D")){
             Team darkTeam = players.darkLeader.getTeam();
-            darkTeam.addPiecesToMap(newPiece,boardPosition);
+            darkTeam.addPiecesToMap(newPiece,firstLocation);
 
         }
 
 
     }
 
+    private void movePiece(Location firstLocation, Location secondLocation, Piece pieceToMove){
+        pieceToMove.setHasMoved(true);
+        pieceToMove.move(firstLocation,secondLocation,pieceToMove.getPiece());
+
+    }
+
     private void MovePiece(){
         isCurrentPlayerInCheck();
-
-////        isCurrentPlayerInCheckMate();
         game.printBoard();
 
 
-        Piece pieceToMove = board.getPiece(boardPosition);
+        Piece pieceToMove = board.getPiece(firstLocation);
+        pieceToMove.setHasMoved(true);
+        System.out.println("Piece to move: "+ pieceToMove );
         if(pieceToMove instanceof Pawn){
             if(capture.equals("*"))       {
-                ((Pawn) pieceToMove).pawnCapture(boardPosition,secondBoardPosition);
+                ((Pawn) pieceToMove).pawnCapture(firstLocation,secondLocation);
             }
-            else if(board.getPiece(secondBoardPosition) == null) {
-                ((Pawn)pieceToMove).isLegalMove(boardPosition, secondBoardPosition);
+            else if(board.getPiece(secondLocation) == null) {
+                ((Pawn)pieceToMove).isLegalMove(firstLocation, secondLocation);
             }
             else{
                 System.out.println("The Pawn cannot move there without a capture command");
             }
         }
         else{
-            if(pieceToMove.isLegalMove(boardPosition, secondBoardPosition)){
-                pieceToMove.move(boardPosition,secondBoardPosition,pieceToMove.getPiece());
+            if(pieceToMove.isLegalMove(firstLocation, secondLocation)){
+                pieceToMove.move(firstLocation,secondLocation,pieceToMove.getPiece());
             }
         }
     }
@@ -292,7 +325,7 @@ public class Controller {
             king = getLightKing();
             teamName = "light";
             isInCheckMate = "The light King is in checkmate :(";
-//            isNotInCheckMate = "The light King is not in checkmate";
+            isNotInCheckMate = "The light King is not in checkmate";
         }
         if(currentPlayer.equals(darkLeader)){
             team = players.darkLeader.getTeam();
@@ -300,29 +333,29 @@ public class Controller {
             king = getDarkKing();
             teamName = "dark";
             isInCheckMate = "The dark King is in checkmate :(";
-//            isNotInCheckMate = "The dark King is not in checkmate";
+            isNotInCheckMate = "The dark King is not in checkmate";
         }
     }
 
 
 
-    private boolean isCurrentPlayerInCheckMate(String kingLocation, String _color){
+    private boolean isCurrentPlayerInCheckMate(Location kingLocation){
         checkMate = true;
         getCurrentTeam();
         if(king.canMoveOutOfCheck(kingLocation)){
             checkMate = false;
-        } else{
-            king.populateAllPossibleAttackSquares(kingLocation);
+//        } else{
+//
+//            king.populateAllPossibleAttackSquares(kingLocation);
             for(Piece teamPiece: team.getTeamPieces().keySet()){
-                if(!(teamPiece instanceof King) && !(team.getTeamPieces().get(teamPiece) =="captured")){
-                    String teamPieceLoc = team.getTeamPieces().get(teamPiece);
-                    for(String loc :king.getAllPossibleAttackSquares()){
+                if(!(teamPiece instanceof King) && !(team.getTeamPieces().get(teamPiece).equals("captured"))){
+                   Location teamPieceLoc = team.getTeamPieces().get(teamPiece);
+                    for(Location loc :king.getAllPossibleAttackSquares(kingLocation)){
                         if(teamPiece.isLegalMove(teamPieceLoc,loc)){
                             teamPiece.move(teamPieceLoc, loc, teamPiece.piece);
-                            if(!king.canMoveOutOfCheck(kingLocation)){
+                            if(!king.determineIfInCheck(kingLocation)){
                                 checkMate = false;
                             }
-                            System.out.println("Piece has been moved back");
                             teamPiece.unDoMove(loc, teamPieceLoc, teamPiece.piece);
                         }
 
@@ -346,10 +379,11 @@ public class Controller {
     private void isCurrentPlayerInCheck(){
         if(currentPlayer.equals(lightLeader)){
             Team light = players.lightLeader.getTeam();
-            String location = light.getOnePiece(getLightKing());
+            Location location = light.getOnePiece(getLightKing());
+            System.out.println("Location: "+location.toString());
             if(lightKing.determineIfInCheck(location)){
-               if(!(isCurrentPlayerInCheckMate(location, "L"))){
-                System.out.println("The Light King is in Check");
+                if(!(isCurrentPlayerInCheckMate(location))){
+                    System.out.println("The Light King is in Check");
                 }
             }
 //            else{
@@ -358,9 +392,9 @@ public class Controller {
         }
         if(currentPlayer.equals(darkLeader)){
             Team dark = players.darkLeader.getTeam();
-            String location = dark.getOnePiece(getDarkKing());
+           Location location = dark.getOnePiece(getDarkKing());
             if(darkKing.determineIfInCheck(location)) {
-                if(! (isCurrentPlayerInCheckMate(location,"D"))){
+                if(! (isCurrentPlayerInCheckMate(location))){
                     System.out.println("The Dark King is in Check");
                 }
             }

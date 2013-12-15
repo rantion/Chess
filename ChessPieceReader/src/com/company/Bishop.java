@@ -1,5 +1,6 @@
 package com.company;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 /**
@@ -11,27 +12,43 @@ import java.util.ArrayList;
  */
 public class Bishop extends Piece {
 
+    private ImageIcon lightBishop, darkBishop;
+
     public Bishop(Game game, String color){
         super(game, color);
         piece = "B";
+        lightBishop = new ImageIcon("/Users/Rachel/Chess/ChessPieceReader/White PiecesWhiteBishop.png");
+        darkBishop = new ImageIcon("/Users/Rachel/Chess/ChessPieceReader/Dark Pieces/DarkBishop.png");
+
         if(color.equals("L")){
             piece = piece.toLowerCase();
         }
     }
 
-    public boolean isLegalMove(String firstLocation, String secondLocation){
+    public boolean isLegalMove(Location firstLocation, Location secondLocation){
         boolean validMove = false;
-
-        for(String location:validMoves){
-            if(location.equals(secondLocation)){
+        populateValidMoves(firstLocation);
+        for(Location location:validMoves){
+            if(location.getLocation().equals(secondLocation.getLocation())){
                 validMove = true;
             }
         }
         return validMove;
     }
 
-    public void populateValidMoves(String firstLocation) {
-        validMoves = new ArrayList<String>();
+    public void populateValidMoves(Location firstLocation) {
+        validMoves = new ArrayList<Location>();
         checkDiagonals(firstLocation);
+//        System.out.println("Bishop Valid Moves: "+validMoves+" Bishop: "+this.toString() + "Color: "+color);
+    }
+
+    @Override
+    public ImageIcon getLightImage() {
+        return lightBishop;
+    }
+
+    @Override
+    public ImageIcon getDarkImage() {
+        return darkBishop;
     }
 }

@@ -1,5 +1,6 @@
 package com.company;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 /**
@@ -10,37 +11,49 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class Pawn extends Piece {
-    private boolean hasMoved;
+
+    private ImageIcon lightPawn, darkPawn;
 
     public Pawn(Game game, String color){
         super (game, color);
         piece = "P";
+        lightPawn = new ImageIcon("/Users/Rachel/Chess/ChessPieceReader/White Pieces/whitePawn.png");
+        darkPawn = new ImageIcon("/Users/Rachel/Chess/ChessPieceReader/Dark Pieces/DarkPawn.png");
+        hasMoved = false;
         if(color.equals("L")){
             piece = piece.toLowerCase();
         }
-        hasMoved = false;
     }
 
-    public boolean isLegalMove(String firstLocation, String secondLocation){
+    public boolean isLegalMove(Location firstLocation, Location secondLocation){
 
         boolean validMove = false;
         populateValidMoves(firstLocation);
-        for(String location:validMoves){
-            if(location.equals(secondLocation)){
+        for(Location location:validMoves){
+            if(location.getLocation().equals(secondLocation.getLocation())){
                 validMove = true;
             }
         }
-        hasMoved = true;
         return validMove;
     }
 
     @Override
-    public void populateValidMoves(String firstLocation) {
-        validMoves = new ArrayList<String>();
+    public void populateValidMoves(Location firstLocation) {
+        validMoves = new ArrayList<Location>();
         checkPawn(firstLocation);
     }
 
-    public void pawnCapture(String firstLocation, String secondLocation){
+    @Override
+    public ImageIcon getLightImage() {
+        return lightPawn;
+    }
+
+    @Override
+    public ImageIcon getDarkImage() {
+        return darkPawn;
+    }
+
+    public void pawnCapture(Location firstLocation,Location secondLocation){
         if(color.equals("L")){
             if(secondLocation.equals(moveDiagonalUpperLeft(firstLocation,1)) || secondLocation.equals(moveDiagonalUpperRight(firstLocation,1))){
                 captureIfPiece(firstLocation, secondLocation);
@@ -53,7 +66,7 @@ public class Pawn extends Piece {
         }
     }
     //captures if there is a piece in the second location and it is an opposing piece
-    private void captureIfPiece(String firstLocation, String secondLocation){
+    private void captureIfPiece(Location firstLocation, Location secondLocation){
         if(board.getPiece(secondLocation) != null && (board.getPiece(secondLocation).getColor()!= color)){
             if(color.equals("L")){
                 piece = piece.toLowerCase();
@@ -62,27 +75,27 @@ public class Pawn extends Piece {
         }
     }
 
-    private void addPawnCaptureSquares(String location){
-        ArrayList<String>possibleCaptureLocations = new ArrayList<String>();
+    private void addPawnCaptureSquares(Location location){
+        ArrayList<Location>possibleCaptureLocations = new ArrayList<Location>();
         int squaresCanMove = 1;
 
         if(color.equals("L")){
             if(inBounds(moveDiagonalUpperLeft(location,squaresCanMove))){
-            possibleCaptureLocations.add(moveDiagonalUpperLeft(location,squaresCanMove));
+                possibleCaptureLocations.add(moveDiagonalUpperLeft(location,squaresCanMove));
             }
             if(inBounds(moveDiagonalUpperRight(location,squaresCanMove))) {
-            possibleCaptureLocations.add(moveDiagonalUpperRight(location,squaresCanMove));
+                possibleCaptureLocations.add(moveDiagonalUpperRight(location,squaresCanMove));
             }
         }
         if(color.equals("D")){
             if(inBounds(moveDiagonalLowerLeft(location,squaresCanMove))) {
-            possibleCaptureLocations.add(moveDiagonalLowerLeft(location,squaresCanMove));
+                possibleCaptureLocations.add(moveDiagonalLowerLeft(location,squaresCanMove));
             }
             if(inBounds(moveDiagonalLowerRight(location,squaresCanMove))){
-            possibleCaptureLocations.add(moveDiagonalLowerRight(location,squaresCanMove));
+                possibleCaptureLocations.add(moveDiagonalLowerRight(location,squaresCanMove));
             }
         }
-        for(String loc : possibleCaptureLocations){
+        for(Location loc : possibleCaptureLocations){
             if(!board.isSquareEmpty((loc))){
                 if (!isPieceSameColor(loc)){
                     validMoves.add(loc);
@@ -93,27 +106,28 @@ public class Pawn extends Piece {
         }
     }
 
-    private void checkPawn(String firstLocation){
-        int numOfSquaresCanMove = 2;
+    private void checkPawn(Location firstLocation){
+        ArrayList<Location> pawnLocationsToCheck = new ArrayList<Location>();
+
         int numSquares =2;
         if(hasMoved){
             numSquares = 1;
         }
+        int numOfSquaresCanMove = numSquares;
 
         for(int i = 0; i<numOfSquaresCanMove; i++){
             if(color.equals("L")){
-                if(board.isSquareEmpty(moveVerticallyUp(firstLocation, numSquares))){
-                    validMoves.add(moveVerticallyUp(firstLocation,numSquares));
-                }
+                pawnLocationsToCheck.add(moveVerticallyUp(firstLocation,numSquares));
             }
+
             if(color.equals("D")){
-                if(board.isSquareEmpty(moveVerticallyDown(firstLocation, numSquares))){
-                    validMoves.add(moveVerticallyDown(firstLocation,numSquares));
-                }
+                pawnLocationsToCheck.add(moveVerticallyDown(firstLocation, numSquares));
+
             }
-            addPawnCaptureSquares(firstLocation);
             numSquares --;
         }
-
+        validMoves = addValidLocations(pawnLocationsToCheck);
+        addPawnCaptureSquares(firstLocation);
     }
 }
+

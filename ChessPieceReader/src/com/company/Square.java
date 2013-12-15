@@ -1,5 +1,8 @@
 package com.company;
 
+import javax.swing.*;
+import java.awt.*;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Rachel
@@ -7,13 +10,19 @@ package com.company;
  * Time: 9:23 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Square {
+public class Square extends JPanel {
 
     public String content;
     public Piece piece;
+    private JLabel picture;
+    private ImageIcon piecePicture;
 
     public Square(String content){
+        picture = new JLabel();
+        piecePicture = new ImageIcon();
         this.content = content;
+        this.setLayout(new BorderLayout());
+//        this.add(picture, BorderLayout.CENTER);
     }
 
     public Square(String content, Piece piece){
@@ -35,6 +44,12 @@ public class Square {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public void setPicture(ImageIcon piecePicture){
+        this.piecePicture =  piecePicture;
+        picture.setIcon(this.piecePicture);
+        picture.repaint();
     }
 
 }

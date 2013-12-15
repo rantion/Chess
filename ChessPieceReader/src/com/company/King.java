@@ -1,5 +1,6 @@
 package com.company;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -11,32 +12,35 @@ import java.util.HashMap;
  * To change this template use File | Settings | File Templates.
  */
 public class King extends Piece {
-    private HashMap<String,Piece> piecesPuttingKingInCheck;
-    private ArrayList<String> allPossibleAttackSquares = new ArrayList<String>();
+    private HashMap<Location,Piece> piecesPuttingKingInCheck;
+    private ArrayList<Location> allPossibleAttackSquares = new ArrayList<Location>();
+    private ImageIcon lightKing, darkKing;
 
     public King(Game game, String color){
         super(game, color);
         piece = "K";
+        lightKing = new ImageIcon("/Users/Rachel/Chess/ChessPieceReader/White Pieces/whiteKing.png");
+        darkKing = new ImageIcon("/Users/Rachel/Chess/ChessPieceReader/Dark Pieces/DarkKing.png");
         if(color.equals("L")){
             piece = piece.toLowerCase();
         }
     }
 
-    public boolean isLegalMove(String firstLocation, String secondLocation){
+    public boolean isLegalMove(Location firstLocation, Location secondLocation){
 
         boolean validMove = false;
         populateValidMoves(firstLocation);
-        for(String location:validMoves){
-            if(location.equals(secondLocation)){
+        for(Location location:validMoves){
+            if(location.getLocation().equals(secondLocation.getLocation())){
                 validMove = true;
             }
         }
         return validMove;
     }
 
-    public void populateValidMoves(String firstLocation) {
-        validMoves = new ArrayList<String>();
-        ArrayList<String> kingLocations = new ArrayList<String>();
+    public void populateValidMoves(Location firstLocation) {
+        validMoves = new ArrayList<Location>();
+        ArrayList<Location> kingLocations = new ArrayList<Location>();
 
         kingLocations.add(moveDiagonalUpperLeft(firstLocation,1));
         kingLocations.add(moveDiagonalLowerLeft(firstLocation,1));
@@ -50,16 +54,27 @@ public class King extends Piece {
         validMoves = addValidLocations(kingLocations);
     }
 
+    @Override
+    public ImageIcon getLightImage() {
+        return lightKing;
+    }
 
-    public boolean determineIfInCheck(String location){
+    @Override
+    public ImageIcon getDarkImage() {
+        return darkKing;
+    }
+
+
+    public boolean determineIfInCheck(Location location){
         boolean inCheck = false;
         Players players = game.getPlayers();
         if(this.color.equals("L")){
             Team dark = players.getDarkLeader().getTeam();
-
+//            System.out.println("Dark Team: "+dark.getTeamPieces().toString());
             for(Piece piece: dark.getTeamPieces().keySet()){
-                if(dark.getTeamPieces().get(piece) != "captured"){
-                    if(piece.isLegalMove(dark.getTeamPieces().get(piece),location)){
+                   Location pieceLocation = dark.getTeamPieces().get(piece);
+                if(!dark.getTeamPieces().get(piece).getLocation().equals("captured")){
+                    if(piece.isLegalMove(pieceLocation,location)){
                         inCheck = true;
 
                     }
@@ -70,7 +85,7 @@ public class King extends Piece {
         if(this.color.equals("D")){
             Team light = players.getLightLeader().getTeam();
             for(Piece piece: light.getTeamPieces().keySet()){
-                if(light.getTeamPieces().get(piece) != "captured") {
+                if(!light.getTeamPieces().get(piece).getLocation().equals("captured")){
                     if(piece.isLegalMove(light.getTeamPieces().get(piece),location)){
                         inCheck = true;
 
@@ -83,8 +98,8 @@ public class King extends Piece {
         return inCheck;
     }
 
-    private ArrayList<String> getPawnSquares(String location){
-        ArrayList<String> pawnSquares = new ArrayList<String>();
+    private ArrayList<Location> getPawnSquares(Location location){
+        ArrayList<Location> pawnSquares = new ArrayList<Location>();
         if(color.equals("L")){
             pawnSquares.add(moveDiagonalUpperLeft(location,1));
             pawnSquares.add(moveDiagonalUpperRight(location,1));
@@ -97,31 +112,31 @@ public class King extends Piece {
         return pawnSquares;
     }
 
-    public ArrayList<String> checkHorizontalVerticals(String location){
-        validMoves = new ArrayList<String>();
+    public ArrayList<Location> checkHorizontalVerticals(Location location){
+        validMoves = new ArrayList<Location>();
         checkHorizontals(location);
         checkVerticals(location);
         return validMoves;
     }
 
-    public ArrayList<String>checkDiagonalMoves(String location){
-        validMoves = new ArrayList<String>();
+    public ArrayList<Location>checkDiagonalMoves(Location location){
+        validMoves = new ArrayList<Location>();
         checkDiagonals(location);
         return validMoves;
     }
 
-    public ArrayList<String>checkForKnightMoves(String location){
-        validMoves = new ArrayList<String>();
+    public ArrayList<Location>checkForKnightMoves(Location location){
+        validMoves = new ArrayList<Location>();
         checkKnight(location);
         return validMoves;
     }
 
-    public boolean canMoveOutOfCheck(String location){
+    public boolean canMoveOutOfCheck(Location location){
         boolean canMove = false;
-        String originalLocation = location;
+        Location originalLocation = location;
         populateValidMoves(originalLocation);
         King kingInCheck = (King)board.getPiece(originalLocation);
-        for(String loc:validMoves){
+        for(Location loc:validMoves){
             kingInCheck.move(originalLocation,loc,piece);
             if(!kingInCheck.determineIfInCheck(loc)){
                 canMove = true;
@@ -132,58 +147,59 @@ public class King extends Piece {
         return canMove;
     }
 
-    public void populateAllPossibleAttackSquares(String location){
-        piecesPuttingKingInCheck = new HashMap<String, Piece>();
-        ArrayList<String>HorizontalVerticalMoves = checkHorizontalVerticals(location);
-        ArrayList<String>DiagonalMoves = checkDiagonalMoves(location);
-        ArrayList<String>KnightMoves = checkForKnightMoves(location);
+    public void populateAllPossibleAttackSquares(Location location){
+        ArrayList<Location>HorizontalVerticalMoves = checkHorizontalVerticals(location);
+        ArrayList<Location>DiagonalMoves = checkDiagonalMoves(location);
+        ArrayList<Location>KnightMoves = checkForKnightMoves(location);
 
-        for(String sqrLocation:HorizontalVerticalMoves){
+        for(Location sqrLocation:HorizontalVerticalMoves){
             allPossibleAttackSquares.add(sqrLocation);
-            Piece checkPiece = board.getPiece(sqrLocation);
-            populateValidMoves(location);
-            if(checkPiece != null){
-                if(checkPiece instanceof King && validMoves.contains(sqrLocation)){
-                    piecesPuttingKingInCheck.put(sqrLocation, checkPiece);
-                }
-                if(checkPiece instanceof Queen || checkPiece instanceof Rook){
-                    piecesPuttingKingInCheck.put(sqrLocation, checkPiece);
-                }
-            }
+        }
+//            Piece checkPiece = board.getPiece(sqrLocation);
+//            populateValidMoves(location);
+//            if(checkPiece != null){
+//                if(checkPiece instanceof King && validMoves.contains(sqrLocation)){
+//                    piecesPuttingKingInCheck.put(sqrLocation, checkPiece);
+//                }
+//                if(checkPiece instanceof Queen || checkPiece instanceof Rook){
+//                    piecesPuttingKingInCheck.put(sqrLocation, checkPiece);
+//                }
+//            }
+//        }
+
+        for(Location sqrLocation:DiagonalMoves){
+            allPossibleAttackSquares.add(sqrLocation);
+//            Piece checkPiece = board.getPiece(sqrLocation);
+//            if(checkPiece != null){
+//                if(checkPiece instanceof King && validMoves.contains(sqrLocation)){
+//                    piecesPuttingKingInCheck.put(sqrLocation, checkPiece);
+//                }
+//                if(checkPiece instanceof Pawn && getPawnSquares(location).contains(sqrLocation))   {
+//                    piecesPuttingKingInCheck.put(sqrLocation, checkPiece);
+//                }
+//                if(checkPiece instanceof Queen || checkPiece instanceof Bishop){
+//                    piecesPuttingKingInCheck.put(sqrLocation, checkPiece);
+//                }
+//            }
         }
 
-        for(String sqrLocation:DiagonalMoves){
+        for(Location sqrLocation:KnightMoves){
             allPossibleAttackSquares.add(sqrLocation);
-            Piece checkPiece = board.getPiece(sqrLocation);
-            if(checkPiece != null){
-                if(checkPiece instanceof King && validMoves.contains(sqrLocation)){
-                    piecesPuttingKingInCheck.put(sqrLocation, checkPiece);
-                }
-                if(checkPiece instanceof Pawn && getPawnSquares(location).contains(sqrLocation))   {
-                    piecesPuttingKingInCheck.put(sqrLocation, checkPiece);
-                }
-                if(checkPiece instanceof Queen || checkPiece instanceof Bishop){
-                    piecesPuttingKingInCheck.put(sqrLocation, checkPiece);
-                }
-            }
-        }
-
-        for(String sqrLocation:KnightMoves){
-            allPossibleAttackSquares.add(sqrLocation);
-            Piece checkPiece = board.getPiece(sqrLocation);
-            if(checkPiece != null){
-                if(checkPiece instanceof Knight){
-                    piecesPuttingKingInCheck.put(sqrLocation, checkPiece);
-                }
-            }
+//            Piece checkPiece = board.getPiece(sqrLocation);
+//            if(checkPiece != null){
+//                if(checkPiece instanceof Knight){
+//                    piecesPuttingKingInCheck.put(sqrLocation, checkPiece);
+//                }
+//            }
         }
     }
 
-    public ArrayList<String> getAllPossibleAttackSquares() {
+    public ArrayList<Location> getAllPossibleAttackSquares(Location kingLocation) {
+        populateAllPossibleAttackSquares(kingLocation);
         return allPossibleAttackSquares;
     }
 
-    public void setAllPossibleAttackSquares(ArrayList<String> allPossibleAttackSquares) {
+    public void setAllPossibleAttackSquares(ArrayList<Location> allPossibleAttackSquares) {
         this.allPossibleAttackSquares = allPossibleAttackSquares;
     }
 }

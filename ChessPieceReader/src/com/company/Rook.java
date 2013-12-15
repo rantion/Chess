@@ -1,5 +1,6 @@
 package com.company;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 /**
@@ -11,35 +12,44 @@ import java.util.ArrayList;
  */
 public class Rook extends Piece{
 
+    private ImageIcon lightRook, darkRook;
+
     public Rook(Game game, String color){
-      super(game, color);
-       piece = "R";
+        super(game, color);
+        piece = "R";
         if(color.equals("L")){
             piece = piece.toLowerCase();
+            lightRook = new ImageIcon("/Users/Rachel/Chess/ChessPieceReader/White Pieces/WhiteRook.png");
+            darkRook = new ImageIcon("/Users/Rachel/Chess/ChessPieceReader/Dark Pieces/DarkRook.png");
         }
     }
 
-    public boolean isLegalMove(String firstLocation, String secondLocation){
+    public boolean isLegalMove(Location firstLocation,Location secondLocation){
         boolean validMove = false;
         populateValidMoves(firstLocation);
-//
-//        System.out.println("ValidMoves: "+validMoves);
-        for(String location:validMoves){
-            if(location.equals(secondLocation)){
+        for(Location location:validMoves){
+            if(location.getLocation().equals(secondLocation.getLocation())){
                 validMove = true;
             }
         }
-
-            validMoves = new ArrayList<String>();
-//            move(firstLocation,secondLocation,piece);
-
         return validMove;
     }
 
     @Override
-    public void populateValidMoves(String firstLocation) {
+    public void populateValidMoves(Location firstLocation) {
+        validMoves = new ArrayList<Location>();
         checkHorizontals(firstLocation);
         checkVerticals(firstLocation);
+    }
+
+    @Override
+    public ImageIcon getLightImage() {
+        return lightRook;
+    }
+
+    @Override
+    public ImageIcon getDarkImage() {
+        return darkRook;
     }
 
 }
