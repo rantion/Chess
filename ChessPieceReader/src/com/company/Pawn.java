@@ -106,6 +106,23 @@ public class Pawn extends Piece {
         }
     }
 
+    public boolean doesPawnNeedToBePromoted(Location location){
+        boolean needsToBePromoted = false;
+        splitStartingSquare(location);
+        if(color.equals("L")){
+            if(numberIndex==topBoundry){
+                 needsToBePromoted = true;
+            }
+        }
+        if(color.equals("D")){
+            if(numberIndex == bottomBoundry){
+                needsToBePromoted = true;
+            }
+
+        }
+        return needsToBePromoted;
+    }
+
     private void checkPawn(Location firstLocation){
         ArrayList<Location> pawnLocationsToCheck = new ArrayList<Location>();
 

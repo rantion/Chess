@@ -31,7 +31,7 @@ public class King extends Piece {
         boolean validMove = false;
         populateValidMoves(firstLocation);
         for(Location location:validMoves){
-            if(location.getLocation().equals(secondLocation.getLocation())){
+            if(location.getLocation().equals(secondLocation.getLocation())&&!determineIfInCheck(location)){
                 validMove = true;
             }
         }

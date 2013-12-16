@@ -16,7 +16,7 @@ public class Queen extends Piece {
     public Queen(Game game, String color){
         super(game, color);
         piece = "Q";
-        lightQueen = new ImageIcon("/Users/Rachel/Chess/ChessPieceReader/White Pieces/whitequeen.png");
+        lightQueen = new ImageIcon("/Users/Rachel/Chess/ChessPieceReader/White Pieces/WhiteQueen.png");
         darkQueen = new ImageIcon("/Users/Rachel/Chess/ChessPieceReader/Dark Pieces/DarkQueen.png");
         if(color.equals("L")){
             piece = piece.toLowerCase();

@@ -14,7 +14,7 @@ public class Game extends JFrame {
 
     private Players players;
     private Square[][]board;
-    private JPanel teamInfoPanel;
+    private TeamInfoPanel teamInfoPanel;
     private Board _board;
 
 
@@ -56,6 +56,14 @@ public class Game extends JFrame {
 
     public void setBoard(){
         board = _board.getBoard();
+    }
+
+    public void changePlayer(String color){
+          teamInfoPanel.changeCurrentPlayer(color);
+    }
+
+    public void updateTeamLabels(String color, String message){
+        teamInfoPanel.updateLabelForCheck(color, message);
     }
 //
 //    public void setGameBoard(Board gameBoard) {

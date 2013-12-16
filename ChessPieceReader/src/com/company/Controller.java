@@ -14,7 +14,10 @@ import java.util.regex.Pattern;
  */
 public class Controller {
     private String pieceDirective, piece, color, boardPosition, secondBoardPosition,capture,
-            castlePiece, castleColor, castlePosition, secondCastlePosition, isInCheckMate, isNotInCheckMate, teamName;
+            castlePiece, castleColor, castlePosition, secondCastlePosition,teamName;
+    private final String notInCheck = "";
+    private final String isInCheckMate = "the king is in checkmate";
+    private final String isInCheck = "the king is in check";
     private Game game;
     private Player lightLeader, darkLeader,currentPlayer;
     private Board board;
@@ -22,26 +25,26 @@ public class Controller {
     private King darkKing, lightKing,king;
     private Team team;
     private Boolean checkMate;
-    private Boolean gameIsGoing;
+    private Boolean gameIsGoing, isFirstSquareSelected;
     private Scanner scan = new Scanner(System.in);
     private Location firstLocation, secondLocation, kingLocation;
 
     public Controller(Game game){
         this.game = game;
         board = game.getGameBoard();
+        board.setController(this);
         players = game.getPlayers();
         this.lightLeader =  players.getLightLeader();
         this.darkLeader = players.getDarkLeader();
-        this.currentPlayer = lightLeader;
-        this.gameIsGoing = true;
-        players.setCurrentPlayer(currentPlayer);
     }
 
     public void startGame(){
-        while(gameIsGoing){
-            takeTurn();
-            changePlayer(currentPlayer);
-        }
+        game.repaint();
+        this.currentPlayer = lightLeader;
+        this.gameIsGoing = true;
+        players.setCurrentPlayer(currentPlayer);
+        game.changePlayer(currentPlayer.getColor());
+        isCurrentPlayerInCheck();
 
     }
 
@@ -78,16 +81,16 @@ public class Controller {
 //    }
 
 
-    public void takeTurn(){
-//        ArrayList<Location> pieceLocations = new ArrayList<Location>();
+    public void takeTurn(Square first, Square second){
+        isFirstSquareSelected = true;
         Piece pieceSelected;
         startTurn();
         try{
             if(gameIsGoing){
-                pieceSelected = getPieceFromUser();
-                firstLocation =  team.getTeamPieces().get(pieceSelected);
-                getMoveFromUser(pieceSelected);
-                movePiece(firstLocation,secondLocation,pieceSelected);
+                board.movePiece(first, second);
+                board.setFirstSquareSelected(true);
+                changePlayer(currentPlayer);
+                isCurrentPlayerInCheck();
             }
         }
         catch (Exception e){
@@ -119,7 +122,7 @@ public class Controller {
     }
 
     private void getMoveFromUser(Piece pieceSelected){
-        ArrayList<Location> pieceLocations = new ArrayList<Location>();
+        try{ArrayList<Location> pieceLocations = new ArrayList<Location>();
         pieceLocations = getValidMoves(pieceSelected);
         System.out.println("Move from "+boardPosition+ " to: ");
         printValidMoves(pieceLocations);
@@ -128,6 +131,10 @@ public class Controller {
         int newLocNum = Integer.parseInt(newLocationNum);
 
         secondLocation = pieceLocations.get(newLocNum);
+        }
+        catch(Exception e){
+            System.out.println("Please enter a valid input");
+        }
 
     }
 
@@ -176,6 +183,7 @@ public class Controller {
     private Player changePlayer(Player currentPlayer){
         this.currentPlayer = (currentPlayer.equals(lightLeader)) ? darkLeader : lightLeader;
         players.setCurrentPlayer(this.currentPlayer);
+        game.changePlayer(this.currentPlayer.getColor());
         return this.currentPlayer;
 
 
@@ -316,24 +324,18 @@ public class Controller {
         team = null;
         kingLocation = null;
         king = null;
-        isInCheckMate = null;
-        isNotInCheckMate = null;
         teamName = null;
         if(currentPlayer.equals(lightLeader)){
             team = players.lightLeader.getTeam();
             kingLocation = team.getOnePiece(getLightKing());
             king = getLightKing();
             teamName = "light";
-            isInCheckMate = "The light King is in checkmate :(";
-            isNotInCheckMate = "The light King is not in checkmate";
         }
         if(currentPlayer.equals(darkLeader)){
             team = players.darkLeader.getTeam();
             kingLocation = team.getOnePiece(getDarkKing());
             king = getDarkKing();
             teamName = "dark";
-            isInCheckMate = "The dark King is in checkmate :(";
-            isNotInCheckMate = "The dark King is not in checkmate";
         }
     }
 
@@ -367,6 +369,7 @@ public class Controller {
         }
         if(checkMate){
             System.out.println(isInCheckMate);
+            game.updateTeamLabels(currentPlayer.getColor(), isInCheckMate);
             gameIsGoing = false;
         }
 //        else{
@@ -384,23 +387,28 @@ public class Controller {
             if(lightKing.determineIfInCheck(location)){
                 if(!(isCurrentPlayerInCheckMate(location))){
                     System.out.println("The Light King is in Check");
+                    game.updateTeamLabels(currentPlayer.getColor(),isInCheck);
                 }
             }
 //            else{
 //               System.out.println("The Light King is not in check");
 //            }
         }
-        if(currentPlayer.equals(darkLeader)){
+        else if(currentPlayer.equals(darkLeader)){
             Team dark = players.darkLeader.getTeam();
            Location location = dark.getOnePiece(getDarkKing());
             if(darkKing.determineIfInCheck(location)) {
                 if(! (isCurrentPlayerInCheckMate(location))){
                     System.out.println("The Dark King is in Check");
+                    game.updateTeamLabels(currentPlayer.getColor(),isInCheck);
                 }
             }
 //            else{
 //                System.out.println("The Dark King is not in check");
 //            }
+        }
+        else{
+            game.updateTeamLabels(currentPlayer.getColor(),notInCheck);
         }
 
     }

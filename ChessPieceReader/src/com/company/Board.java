@@ -3,6 +3,7 @@ package com.company;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,17 +22,22 @@ public class Board extends JPanel {
     private final int indexLetterReference = (int)A;
     private final int indexNumberReference = (int)int1;
     private Players players;
+    private Controller controller;
     private String [] letters = {"A", "B","C","D","E","F","G","H"};
     private String [] numbers = {"8","7","6","5","4","3","2","1"};
     private JLabel location;
-    private boolean isWhiteSquare;
+    private boolean isWhiteSquare, isFirstSquareSelected;
+    private Square firstSquare, secondSquare;
 
 
     public Board(Players players){
+        this.controller = null;
+        this.firstSquare = null;
+        this.secondSquare =null;
         isWhiteSquare = true;
+        isFirstSquareSelected = true;
         GridLayout gridLayout = new GridLayout(8,8);
         this.setLayout(gridLayout);
-        this.setBounds(0,0,1000,1000);
         this.players=players;
         makeBoard();
     }
@@ -40,17 +46,16 @@ public class Board extends JPanel {
         board = new Square[WIDTH][HEIGHT];
         for(int i = 0; i< board.length; i++){
             for(int j = 0; j< board[i].length; j++){
-                Square panel = new Square("-");
+                String locationAddress = letters[j]+numbers[i];
+                Square panel = new Square("-", this, new Location(locationAddress));
                 board[i][j]= panel;
                 panel.setLayout(new BorderLayout());
-                String locationAddress = letters[j]+numbers[i];
                 location = new JLabel(locationAddress);
                 location.setVisible(true);
                 if(isWhiteSquare){
-                    panel.setBackground(Color.CYAN);
-                    JLabel test = new JLabel();
-                    test.setIcon(new ImageIcon("/Users/Rachel/Chess/ChessPieceReader/Dark Pieces/DarkKnight.png"));
-                    this.add(test, BorderLayout.CENTER);
+                    panel.setBackground(Color.CYAN);  JLabel test = new JLabel();
+//                    test.setIcon(new ImageIcon("/Users/Rachel/Chess/ChessPieceReader/White Pieces/whitequeen.png"));
+//                    panel.add(test, BorderLayout.CENTER);
                 }
                 if(!isWhiteSquare){
                     panel.setBackground(Color.DARK_GRAY);
@@ -85,6 +90,8 @@ public class Board extends JPanel {
 
         board[index1][index2].setContent("-");
         board[index1][index2].setPiece(null);
+        board[index1][index2].removePicture();
+        this.repaint();
 
     }
 
@@ -125,17 +132,172 @@ public class Board extends JPanel {
             darkTeam.addPiecesToMap(piece,location);
             pieceImage = piece.getDarkImage();
         }
+        if(piece instanceof Pawn){
+            Pawn tempPawn = (Pawn)piece;
+            if(tempPawn.doesPawnNeedToBePromoted(location)){
+              removePiece(location);
+                System.out.println("What type of piece would you like?");
+            }
+        }
+            JLabel picture = new JLabel(pieceImage);
             board[index1][index2].setContent(content);
             board[index1][index2].setPiece(piece);
-            board[index1][index2].setPicture(pieceImage);
+            board[index1][index2].setPicture(picture);
+            this.repaint();
 
 
     }
 
-    private int convertLetter(int key2){
+    private void returnSquaresToOriginal(){
+        isWhiteSquare = true;
+        for(int i = 0; i< board.length; i++){
+            for(int j = 0; j< board[i].length; j++){
+                if(isWhiteSquare){
+                    board[i][j].setBackground(Color.CYAN);  JLabel test = new JLabel();
+//                    test.setIcon(new ImageIcon("/Users/Rachel/Chess/ChessPieceReader/White Pieces/whitequeen.png"));
+//                    panel.add(test, BorderLayout.CENTER);
+                }
+                if(!isWhiteSquare){
+                    board[i][j].setBackground(Color.DARK_GRAY);
 
+                }
+                this.isWhiteSquare = (isWhiteSquare) ? false : true;
+            }
+            this.isWhiteSquare=(isWhiteSquare)? false: true;
+        }
+    }
+
+    public void highlightValidSquares(Square square){
+        returnSquaresToOriginal();
+        Piece piece = square.getPiece();
+        for(Square sqr: createListValidSquares(piece)){
+            sqr.setBackground(Color.GREEN);
+        }
+        this.repaint();
+    }
+
+    private ArrayList<Square> createListValidSquares(Piece piece){
+        ArrayList<Square> validSquares = new ArrayList<Square>();
+        piece.getValidMoves();
+        for(Location loc: piece.validMoves){
+            Square tempSquare = board[loc.getIndexOne()][loc.getIndexTwo()];
+            validSquares.add(tempSquare);
+        }
+        return validSquares;
+    }
+
+    private boolean isValidFirstSquare(Square square){
+        Location loc =players.currentPlayer.getTeam().getTeamPieces().get(square.getPiece());
+        square.getPiece().populateValidMoves(loc);
+        boolean isValidFirstSquare = false;
+        System.out.println("Piece: "+square.getPiece());
+        System.out.println("Color: "+square.getPiece().getColor());
+        System.out.println("Valid Moves: " + square.getPiece().validMoves);
+        if(square.getPiece() != null && square.getPiece().getColor().equals(players.currentPlayer.getColor())&&(square.getPiece().validMoves.size()!=0)){
+                isValidFirstSquare = true;
+        }
+        return isValidFirstSquare;
+    }
+
+    public void movePiece(Square firstSquare, Square secondSquare){
+        Piece pieceToMove = firstSquare.getPiece();
+        remove_Piece(firstSquare);
+        addPieceToNewSquare(secondSquare, pieceToMove);
+
+    }
+
+    private void addPieceToNewSquare(Square secondSquare, Piece piece){
+        ImageIcon pieceImage = null;
+        if(secondSquare.getPiece() != null){
+            remove_Piece(secondSquare);
+        }
+        if(piece.color.equals("L")) {
+            Team lightTeam = players.lightLeader.getTeam();
+            lightTeam.addPiecesToMap(piece,secondSquare.getSquareLocation());
+            pieceImage = piece.getLightImage();
+        }
+        if(piece.color.equals("D")){
+            Team darkTeam = players.darkLeader.getTeam();
+            darkTeam.addPiecesToMap(piece,secondSquare.getSquareLocation());
+            pieceImage = piece.getDarkImage();
+        }
+        if(piece instanceof Pawn){
+            Pawn tempPawn = (Pawn)piece;
+            if(tempPawn.doesPawnNeedToBePromoted(secondSquare.getSquareLocation())){
+                removePiece(secondSquare.getSquareLocation());
+                System.out.println("What type of piece would you like?");
+            }
+        }
+        JLabel picture = new JLabel(pieceImage);
+        secondSquare.setPiece(piece);
+        secondSquare.setPicture(picture);
+        this.repaint();
+
+    }
+
+    private void remove_Piece(Square firstSquare){
+        Piece pieceToRemove = firstSquare.getPiece();
+        if(pieceToRemove != null){
+            if(pieceToRemove.color.equals("L")) {
+                Team lightTeam = players.lightLeader.getTeam();
+                lightTeam.addPiecesToMap(pieceToRemove,new Location("captured"));
+            }
+            if(pieceToRemove.color.equals("D")){
+                Team darkTeam = players.darkLeader.getTeam();
+                darkTeam.addPiecesToMap(pieceToRemove,new Location("captured"));
+            }
+        }
+
+        firstSquare.setContent("-");
+        firstSquare.setPiece(null);
+        firstSquare.removePicture();
+        this.repaint();
+    }
+
+    private boolean isValidSecondSquare(Square square){
+       boolean isValidSecondSquare = false;
+        for(Square sqr: createListValidSquares(firstSquare.getPiece())){
+            if(sqr.equals(square)){
+                isValidSecondSquare = true;
+            }
+        }
+        System.out.println("IsValidSecondSquare:"+isValidSecondSquare);
+        return isValidSecondSquare;
+    }
+
+    public boolean isFirstSquareSelected(){
+        System.out.println("isFirstSquareSelected: "+isFirstSquareSelected);
+        return isFirstSquareSelected;
+    }
+
+    public void saveFirstSquare(Square square){
+
+        if(isValidFirstSquare(square)){
+         firstSquare = square;
+        isFirstSquareSelected = false;
+            highlightValidSquares(square);
+        }
+        else{
+        }
+    }
+
+    public void saveSecondSquare(Square square){
+        if(isValidSecondSquare(square)){
+           secondSquare = square;
+           controller.takeTurn(firstSquare, secondSquare);
+        }
+    }
+
+    public void setController(Controller controller) {
+        this.controller = controller;
+    }
+
+    private int convertLetter(int key2){
            return (WIDTH+1)-key2;
 
     }
 
+    public void setFirstSquareSelected(boolean firstSquareSelected) {
+        isFirstSquareSelected = firstSquareSelected;
+    }
 }

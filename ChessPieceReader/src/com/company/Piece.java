@@ -12,13 +12,13 @@ import java.util.ArrayList;
  */
 public abstract class Piece {
 
-    private int letterIndex, numberIndex;
+    protected int letterIndex, numberIndex;
     private char newNumChar, newLetterChar;
     private final int leftBoundry = 65; //ascii value of A
     private final int rightBoundry = 72; //ascii value of H
 
-    private final int bottomBoundry = 49; //ascii value of 1
-    private final int topBoundry = 56; //ascii value of 8
+    protected final int bottomBoundry = 49; //ascii value of 1
+    protected final int topBoundry = 56; //ascii value of 8
     private final int widthHeight = 8;
     private int maxUpDown, maxUpDown1, maxLeftRight, maxLeftRight1;
     protected String color, piece;
@@ -50,6 +50,7 @@ public abstract class Piece {
             }
             board.placePiece(newLocation, this, piece);
         }
+        game.repaint();
 
     }
 
@@ -472,7 +473,7 @@ public abstract class Piece {
 
     // <editor-fold desc="Methods Used by Move Methods">
 
-    private void splitStartingSquare(Location startingSquare){
+    public void splitStartingSquare(Location startingSquare){
         if(startingSquare != null){
         char[] locations =startingSquare.getLocation().toCharArray();
         letterIndex = locations[0];

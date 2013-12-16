@@ -22,11 +22,37 @@ public class TeamInfoPanel extends JPanel {
         whitePlayer = new JPanel();
         whiteTeam = new JLabel("Light Team");
         whitePlayer.add(whiteTeam);
+
+        whitePlayer.setBorder(BorderFactory.createLineBorder(Color.lightGray));
         darkPlayer = new JPanel();
         darkTeam = new JLabel("Dark Team");
         darkPlayer.add(darkTeam);
+        darkPlayer.setBorder(BorderFactory.createLineBorder(Color.lightGray));
         emptyPanel = new JPanel();
         this.add(whitePlayer);
         this.add(darkPlayer);
+    }
+
+    public void changeCurrentPlayer(String teamColor){
+        if(teamColor.equals("L")){
+            whitePlayer.setBorder(BorderFactory.createLineBorder(Color.MAGENTA));
+            darkPlayer.setBorder(BorderFactory.createLineBorder(Color.lightGray));
+        }
+        if(teamColor.equals("D")){
+            darkPlayer.setBorder(BorderFactory.createLineBorder(Color.MAGENTA));
+            whitePlayer.setBorder(BorderFactory.createLineBorder(Color.lightGray));
+        }
+        this.repaint();
+    }
+
+    public void updateLabelForCheck(String teamColor, String checkMessage){
+        if(teamColor.equals("light")){
+             whiteTeam.setText("Light Team "+checkMessage);
+        }
+        if(teamColor.equals("dark")){
+            darkTeam.setText("Dark Team " + checkMessage);
+
+        }
+
     }
 }

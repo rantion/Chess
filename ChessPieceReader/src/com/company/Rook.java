@@ -19,9 +19,9 @@ public class Rook extends Piece{
         piece = "R";
         if(color.equals("L")){
             piece = piece.toLowerCase();
-            lightRook = new ImageIcon("/Users/Rachel/Chess/ChessPieceReader/White Pieces/WhiteRook.png");
-            darkRook = new ImageIcon("/Users/Rachel/Chess/ChessPieceReader/Dark Pieces/DarkRook.png");
         }
+        lightRook = new ImageIcon("/Users/Rachel/Chess/ChessPieceReader/White Pieces/WhiteRook.png");
+        darkRook = new ImageIcon("/Users/Rachel/Chess/ChessPieceReader/Dark Pieces/DarkRook.png");
     }
 
     public boolean isLegalMove(Location firstLocation,Location secondLocation){

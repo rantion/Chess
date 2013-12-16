@@ -17,9 +17,8 @@ public class Bishop extends Piece {
     public Bishop(Game game, String color){
         super(game, color);
         piece = "B";
-        lightBishop = new ImageIcon("/Users/Rachel/Chess/ChessPieceReader/White PiecesWhiteBishop.png");
+        lightBishop = new ImageIcon("/Users/Rachel/Chess/ChessPieceReader/White Pieces/WhiteBishop.png");
         darkBishop = new ImageIcon("/Users/Rachel/Chess/ChessPieceReader/Dark Pieces/DarkBishop.png");
-
         if(color.equals("L")){
             piece = piece.toLowerCase();
         }
