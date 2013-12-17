@@ -26,7 +26,7 @@ public class Square extends JPanel{
         this.board = board;
         this.setLayout(new BorderLayout());
         this.addMouseListener(new MouseListener(board, this));
-
+        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
 
     public Square(String content, Piece piece){
@@ -76,6 +76,16 @@ public class Square extends JPanel{
         this.location = location;
     }
 
+    public void highlightBorder(){
+        this.setBorder(BorderFactory.createLineBorder(Color.RED));
+        this.repaint();
+    }
+
+    public void unHighlightBorder(){
+        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        this.repaint();
+    }
+
     public class MouseListener implements java.awt.event.MouseListener {
         private Board board;
         private Square square;
@@ -87,13 +97,15 @@ public class Square extends JPanel{
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            if(board.isFirstSquareSelected()){
+            if(board.isSameAsFirstClicked(square)){
+                board.unSelectSquare();
+            }
+            else if(board.isFirstSquareSelected()){
                 board.saveFirstSquare(square);
             }
             else if(!board.isFirstSquareSelected()){
                 board.saveSecondSquare(square);
             }
-            System.out.println("Yo this is being clicked");
         }
 
         @Override

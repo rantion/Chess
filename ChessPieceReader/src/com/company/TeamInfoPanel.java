@@ -46,10 +46,10 @@ public class TeamInfoPanel extends JPanel {
     }
 
     public void updateLabelForCheck(String teamColor, String checkMessage){
-        if(teamColor.equals("light")){
+        if(teamColor.equals("L")){
              whiteTeam.setText("Light Team "+checkMessage);
         }
-        if(teamColor.equals("dark")){
+        if(teamColor.equals("D")){
             darkTeam.setText("Dark Team " + checkMessage);
 
         }

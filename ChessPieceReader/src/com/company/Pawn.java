@@ -100,9 +100,7 @@ public class Pawn extends Piece {
                 if (!isPieceSameColor(loc)){
                     validMoves.add(loc);
                 }
-
             }
-
         }
     }
 
@@ -111,7 +109,7 @@ public class Pawn extends Piece {
         splitStartingSquare(location);
         if(color.equals("L")){
             if(numberIndex==topBoundry){
-                 needsToBePromoted = true;
+                needsToBePromoted = true;
             }
         }
         if(color.equals("D")){
@@ -124,7 +122,7 @@ public class Pawn extends Piece {
     }
 
     private void checkPawn(Location firstLocation){
-        ArrayList<Location> pawnLocationsToCheck = new ArrayList<Location>();
+        boolean keepChecking = true;
 
         int numSquares =2;
         if(hasMoved){
@@ -132,19 +130,35 @@ public class Pawn extends Piece {
         }
         int numOfSquaresCanMove = numSquares;
 
-        for(int i = 0; i<numOfSquaresCanMove; i++){
+        for(int i = 0; i<numOfSquaresCanMove && keepChecking; i++){
             if(color.equals("L")){
-                pawnLocationsToCheck.add(moveVerticallyUp(firstLocation,numSquares));
+                Location tempLoc = moveVerticallyUp(firstLocation, i+1) ;
+                if(inBounds(tempLoc)){
+                    if(board.isSquareEmpty(tempLoc)) {
+                        validMoves.add(tempLoc);
+
+                    }
+                    else{
+                        keepChecking = false;
+                    }
+                }
             }
 
             if(color.equals("D")){
-                pawnLocationsToCheck.add(moveVerticallyDown(firstLocation, numSquares));
+                Location tempLoc = moveVerticallyDown(firstLocation,i+1);
+                if(inBounds(tempLoc)){
+                    if(board.isSquareEmpty(tempLoc)) {
+                        validMoves.add(tempLoc);
 
+                    }
+                    else{
+                        keepChecking = false;
+                    }
+                }
             }
-            numSquares --;
         }
-        validMoves = addValidLocations(pawnLocationsToCheck);
         addPawnCaptureSquares(firstLocation);
     }
+
 }
 

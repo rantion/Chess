@@ -38,7 +38,6 @@ public class Bishop extends Piece {
     public void populateValidMoves(Location firstLocation) {
         validMoves = new ArrayList<Location>();
         checkDiagonals(firstLocation);
-//        System.out.println("Bishop Valid Moves: "+validMoves+" Bishop: "+this.toString() + "Color: "+color);
     }
 
     @Override
