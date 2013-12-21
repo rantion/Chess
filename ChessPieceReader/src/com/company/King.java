@@ -70,12 +70,12 @@ public class King extends Piece {
         Players players = game.getPlayers();
         if(this.color.equals("L")){
             Team dark = players.getDarkLeader().getTeam();
+
             for(Piece piece: dark.getTeamPieces().keySet()){
                 Location pieceLocation = dark.getTeamPieces().get(piece);
                 if(!dark.getTeamPieces().get(piece).getLocation().equals("captured")){
                     if(piece.isLegalMove(pieceLocation,location)){
                         inCheck = true;
-
                     }
                 }
             }
@@ -128,15 +128,18 @@ public class King extends Piece {
     public boolean canMoveOutOfCheck(Location location){
         boolean canMove = false;
         Location originalLocation = location;
-        populateValidMoves(originalLocation);
         King kingInCheck = (King)board.getPiece(originalLocation);
+        kingInCheck.populateValidMoves(originalLocation);
         for(Location loc:validMoves){
             kingInCheck.move(originalLocation,loc,piece);
             if(!kingInCheck.determineIfInCheck(loc)){
                 canMove = true;
             }
+
             kingInCheck.unDoMove(loc,originalLocation,piece);
+            board.addPieceToSquare(board.getController().getSquare(), board.getController().getCurrentPiece());
         }
+
         return canMove;
     }
 

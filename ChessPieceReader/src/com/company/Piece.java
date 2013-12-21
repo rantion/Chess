@@ -111,7 +111,7 @@ public abstract class Piece {
             if(inBounds(location)){
                 if(!board.isSquareEmpty(location)) {
                     if (!isPieceSameColor(location)){
-                    validLocations.add(location);
+                        validLocations.add(location);
                     }
                 }
                 else{
@@ -227,16 +227,18 @@ public abstract class Piece {
 
         for(int i = 1; i<=maxSquares && keepChecking; i++){
             Location loc = moveDiagonalUpperLeft(startingSquare,i);
-            if(!board.isSquareEmpty((loc))){
-                keepChecking = false;
-                if (!isPieceSameColor(loc)){
-                    validMoves.add(loc);
-                }
+            if(inBounds(loc)){
+                if(!board.isSquareEmpty((loc))){
+                    keepChecking = false;
+                    if (!isPieceSameColor(loc)){
+                        validMoves.add(loc);
+                    }
 
-            }
-            else{
-                validMoves.add(loc);
-                keepChecking = true;
+                }
+                else{
+                    validMoves.add(loc);
+                    keepChecking = true;
+                }
             }
         }
     }
@@ -248,6 +250,7 @@ public abstract class Piece {
         int maxSquare = getMaxSquareDiagonalUpRight();
         for(int i = 1; i<=maxSquare && keepChecking;i++){
             Location loc = moveDiagonalUpperRight(startingSquare,i);
+            if(inBounds(loc)){
             if(!board.isSquareEmpty((loc))){
                 keepChecking = false;
                 if (!isPieceSameColor(loc)){
@@ -260,6 +263,7 @@ public abstract class Piece {
                 keepChecking = true;
             }
         }
+        }
     }
 
     private void checkDiagonalLowerLeft(Location startingSquare){
@@ -268,7 +272,8 @@ public abstract class Piece {
         int maxSquares = getMaxSquareDiagonalLowLeft();
 
         for(int i = 1; i<=maxSquares && keepChecking;i++){
-           Location loc = moveDiagonalLowerLeft(startingSquare,i);
+            Location loc = moveDiagonalLowerLeft(startingSquare,i);
+            if(inBounds(loc)){
             if(!board.isSquareEmpty((loc))){
                 keepChecking = false;
                 if (!isPieceSameColor(loc)){
@@ -280,6 +285,7 @@ public abstract class Piece {
                 validMoves.add(loc);
                 keepChecking = true;
             }
+        }
         }
     }
 
@@ -290,6 +296,7 @@ public abstract class Piece {
         int maxSquares = getMaxSquareDiagonalLowRight();
         for(int i = 1; i<=maxSquares && keepChecking;i++){
             Location loc = moveDiagonalLowerRight(startingSquare,i);
+           if (inBounds(loc)){
             if(!board.isSquareEmpty((loc))){
                 keepChecking = false;
                 if (!isPieceSameColor(loc)){
@@ -301,6 +308,7 @@ public abstract class Piece {
                 validMoves.add(loc);
                 keepChecking = true;
             }
+        }
         }
     }
 
@@ -311,6 +319,7 @@ public abstract class Piece {
         boolean keepChecking = true;
         for(int i = 1; i<=maxLeftRight && keepChecking;i++){
             Location loc = moveHorizontallyRight(startingSquare,i);
+            if(inBounds(loc)){
             if(!board.isSquareEmpty((loc))){
                 keepChecking = false;
                 if (!isPieceSameColor(loc)){
@@ -322,6 +331,7 @@ public abstract class Piece {
                 validMoves.add(loc);
                 keepChecking = true;
             }
+        }
         }
     }
 
@@ -332,6 +342,7 @@ public abstract class Piece {
         boolean keepChecking = true;
         for(int i = 1; i<maxLeftRight1 && keepChecking;i++){
             Location loc = moveHorizontallyLeft(startingSquare,i);
+           if(inBounds(loc)){
             if(!board.isSquareEmpty((loc))){
                 keepChecking = false;
                 if (!isPieceSameColor(loc)){
@@ -342,7 +353,9 @@ public abstract class Piece {
             else{
                 validMoves.add(loc);
                 keepChecking = true;
+
             }
+           }
         }
     }
 
@@ -353,6 +366,7 @@ public abstract class Piece {
         boolean keepChecking = true;
         for(int i = 1; i<=maxUpDown && keepChecking;i++){
             Location loc = moveVerticallyUp(startingSquare,i);
+            if(inBounds(loc)){
             if(!board.isSquareEmpty((loc))){
                 keepChecking = false;
                 if (!isPieceSameColor(loc)){
@@ -365,6 +379,7 @@ public abstract class Piece {
                 keepChecking = true;
             }
         }
+        }
     }
 
     private void checkVerticalDown(Location startingSquare){
@@ -374,6 +389,7 @@ public abstract class Piece {
         boolean keepChecking = true;
         for(int i = 1; i<maxUpDown1 && keepChecking;i++){
             Location loc = moveVerticallyDown(startingSquare,i);
+            if(inBounds(loc)){
             if(!board.isSquareEmpty((loc))){
                 keepChecking = false;
                 if (!isPieceSameColor(loc)){
@@ -385,6 +401,7 @@ public abstract class Piece {
                 validMoves.add(loc);
                 keepChecking = true;
             }
+        }
         }
     }
 
@@ -475,9 +492,9 @@ public abstract class Piece {
 
     public void splitStartingSquare(Location startingSquare){
         if(startingSquare != null){
-        char[] locations =startingSquare.getLocation().toCharArray();
-        letterIndex = locations[0];
-        numberIndex = locations[1];
+            char[] locations =startingSquare.getLocation().toCharArray();
+            letterIndex = locations[0];
+            numberIndex = locations[1];
         }
     }
 
@@ -497,7 +514,7 @@ public abstract class Piece {
         String newLetter = Character.toString(newLetterChar);
         newNumChar = (char)numberIndex;
         String newNumber = Character.toString(newNumChar);
-       Location newLocation = new Location(newLetter+newNumber);
+        Location newLocation = new Location(newLetter+newNumber);
         return  newLocation;
 
     }

@@ -28,6 +28,8 @@ public class Controller {
     private Boolean gameIsGoing, isFirstSquareSelected;
     private Scanner scan = new Scanner(System.in);
     private Location firstLocation, secondLocation, kingLocation;
+    private Square square;
+    private Piece currentPiece;
 
     public Controller(Game game){
         this.game = game;
@@ -80,6 +82,8 @@ public class Controller {
 
     public void takeTurn(Square first, Square second){
         isFirstSquareSelected = true;
+        square = second;
+        currentPiece = first.getPiece();
         Piece pieceSelected;
 //        startTurn();
         try{
@@ -369,7 +373,8 @@ public class Controller {
                             if(!king.determineIfInCheck(kingLocation)){
                                 checkMate = false;
                             }
-                            teamPiece.unDoMove(loc, teamPieceLoc, teamPiece.piece);
+                            board.addPieceToSquare(square,currentPiece);
+                            teamPiece.unDoMove(loc, teamPieceLoc, teamPiece.getPiece());
                         }
 
 
@@ -381,7 +386,7 @@ public class Controller {
 
         if(checkMate){
             game.updateTeamLabels(currentPlayer.getColor(), isInCheckMate);
-            String winningTeamColor =(currentPlayer.getColor().equals("L"))  ? "light": "dark";
+            String winningTeamColor =(currentPlayer.getColor().equals("L"))  ? "dark": "light";
             JOptionPane.showMessageDialog(null, "The Game is Over. The "+winningTeamColor+ " team has won.");
             gameIsGoing = false;
         }
@@ -397,6 +402,7 @@ public class Controller {
             if(lightKing.determineIfInCheck(location)){
                 if(!(isCurrentPlayerInCheckMate(location))){
                     game.updateTeamLabels(currentPlayer.getColor(),isInCheck);
+                    board.addPieceToSquare(square,currentPiece);
                     game.repaint();
                 }
             }
@@ -407,7 +413,8 @@ public class Controller {
             if(darkKing.determineIfInCheck(location)) {
                 if(! (isCurrentPlayerInCheckMate(location))){
                     game.updateTeamLabels(currentPlayer.getColor(),isInCheck);
-                    JOptionPane.showMessageDialog(null, "Please Enter A Valid Number");
+                    board.addPieceToSquare(square,currentPiece);
+                    game.repaint();
                 }
             }
         }
@@ -472,6 +479,22 @@ public class Controller {
 
     public King getLightKing() {
         return lightKing;
+    }
+
+    public Square getSquare() {
+        return square;
+    }
+
+    public void setSquare(Square square) {
+        this.square = square;
+    }
+
+    public Piece getCurrentPiece() {
+        return currentPiece;
+    }
+
+    public void setCurrentPiece(Piece currentPiece) {
+        this.currentPiece = currentPiece;
     }
 
     public void setLightKing(King lightKing) {

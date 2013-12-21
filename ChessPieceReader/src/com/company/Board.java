@@ -105,11 +105,13 @@ public class Board extends JPanel {
         boolean empty = false;
         int index1 = location.getIndexOne();
         int index2 = location.getIndexTwo();
+        if(0<=index1 && 7>=index1 && 0<=index2 && 7>=index2){
         if(board[index1][index2].getContent().equals("-"))  {
             empty = true;
         }
         else {
             empty = false;
+        }
         }
         return empty;
 
@@ -247,6 +249,7 @@ public class Board extends JPanel {
         JLabel picture = new JLabel(pieceImage);
         secondSquare.setContent(piece.getPiece());
         secondSquare.setPiece(piece);
+
         secondSquare.setPicture(picture);
         this.repaint();
 
@@ -298,6 +301,7 @@ public class Board extends JPanel {
         firstSquare = null;
         returnSquaresToOriginal();
         isFirstSquareSelected = true;
+        highlightMovablePieces(players.currentPlayer.getTeam().getMovablePieces());
         this.revalidate();
         this.repaint();
     }
